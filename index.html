@@ -33,7 +33,7 @@ $html = @"
         body {
             background-color: var(--gray-bg);
             color: var(--text-main);
-            line-height: 1.7;
+            line-height: 1.6;
             font-size: 1.1rem;
         }
 
@@ -44,7 +44,7 @@ $html = @"
             background: #ffffff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
             z-index: 1000;
-            padding: 1rem 8%;
+            padding: 0.8rem 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -83,12 +83,12 @@ $html = @"
         }
 
         .hero {
-            min-height: 90vh;
-            padding: 130px 8% 60px 8%;
+            min-height: 75vh;
+            padding: 90px 8% 25px 8%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 3rem;
+            gap: 2.5rem;
             background: #ffffff;
         }
 
@@ -99,27 +99,27 @@ $html = @"
         .greeting {
             color: var(--primary-light);
             font-weight: 600;
-            font-size: 1.25rem;
-            margin-bottom: 0.4rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
         }
 
         .hero-content h1 {
-            font-size: 3.2rem;
+            font-size: 3rem;
             color: var(--dark);
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.2rem;
         }
 
         .location {
             color: #64748b;
-            margin-bottom: 1.2rem;
-            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
         }
 
         .roles {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 600;
             color: var(--primary);
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.2rem;
         }
 
         .highlight-yellow {
@@ -135,8 +135,8 @@ $html = @"
         }
 
         .profile-img-box {
-            width: 320px;
-            height: 320px;
+            width: 300px;
+            height: 300px;
             background: #e2e8f0;
             border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
             animation: morphBlob 8s ease-in-out infinite;
@@ -166,11 +166,11 @@ $html = @"
         }
 
         .btn {
-            padding: 0.85rem 1.75rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 1rem;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
@@ -197,33 +197,38 @@ $html = @"
             color: white;
         }
 
+        /* MINIMAL GAP BETWEEN SECTIONS */
         section {
-            padding: 80px 8%;
+            padding: 20px 8%;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.3rem;
+            font-size: 1.9rem;
             color: var(--dark);
-            margin-bottom: 2.5rem;
+            margin-bottom: 1rem;
         }
 
         .about-box {
             max-width: 900px;
             margin: 0 auto;
             background: #ffffff;
-            padding: 2.5rem;
+            padding: 1.5rem 2rem;
             border-radius: 12px;
             border: 1px solid var(--card-border);
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
         }
 
         .about-box p {
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.6rem;
             color: #334155;
-            font-size: 1.25rem;
-            line-height: 1.8;
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+
+        .about-box p:last-child {
+            margin-bottom: 0;
         }
 
         .achievement-section {
@@ -238,15 +243,15 @@ $html = @"
             background: #f8fafc;
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 2.2rem;
+            padding: 1.2rem 1.8rem;
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .muni-logo-box {
-            width: 190px;
-            height: 190px;
+            width: 150px;
+            height: 150px;
             background: #ffffff;
             border-radius: 10px;
             padding: 5px;
@@ -265,31 +270,31 @@ $html = @"
         }
 
         .achievement-info h3 {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             color: var(--dark);
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.2rem;
         }
 
         .badge-tag {
             display: inline-block;
             background: #fef3c7;
             color: #92400e;
-            padding: 0.3rem 0.8rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 4px;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.3rem;
         }
 
         .prize {
             color: #d97706;
             font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
         }
 
         .achievement-info p {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
         }
 
         .article-section {
@@ -300,21 +305,25 @@ $html = @"
 
         .article-container {
             max-width: 900px;
-            margin: 0 auto 1.5rem auto;
+            margin: 0 auto 0.8rem auto;
             background: #f8fafc;
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.2rem 1.8rem;
+        }
+
+        .article-container:last-child {
+            margin-bottom: 0;
         }
 
         .article-header {
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.8rem;
-            margin-bottom: 0.8rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.4rem;
+            margin-bottom: 0.4rem;
         }
 
         .article-header h3 {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             color: #1e3a8a;
             display: flex;
             align-items: center;
@@ -326,15 +335,15 @@ $html = @"
         }
 
         .article-summary {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: #475569;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.4rem;
         }
 
         .article-content {
             display: none;
-            margin-top: 1rem;
-            padding-top: 1rem;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
             border-top: 1px dashed #cbd5e1;
         }
 
@@ -348,11 +357,11 @@ $html = @"
 
         .article-list li {
             position: relative;
-            padding-left: 2rem;
-            margin-bottom: 1.3rem;
+            padding-left: 1.8rem;
+            margin-bottom: 0.8rem;
             color: #475569;
-            font-size: 1.1rem;
-            line-height: 1.7;
+            font-size: 1.05rem;
+            line-height: 1.5;
         }
 
         .article-list.danger li::before {
@@ -360,7 +369,7 @@ $html = @"
             position: absolute;
             left: 0;
             top: 0;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
         }
 
         .article-list.guide li::before {
@@ -368,14 +377,14 @@ $html = @"
             position: absolute;
             left: 0;
             top: 0;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
         }
 
         .article-list strong {
             color: #1e3a8a;
             display: block;
-            margin-bottom: 0.3rem;
-            font-size: 1.15rem;
+            margin-bottom: 0.1rem;
+            font-size: 1.05rem;
         }
 
         .btn-see-more {
@@ -383,12 +392,12 @@ $html = @"
             border: none;
             color: #1d4ed8;
             font-weight: 700;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             cursor: pointer;
             padding: 0;
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.3rem;
         }
 
         .btn-see-more:hover {
@@ -397,15 +406,15 @@ $html = @"
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-            gap: 1.8rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem;
             max-width: 1100px;
             margin: 0 auto;
         }
 
         .service-card {
             background: #ffffff;
-            padding: 2rem;
+            padding: 1.2rem 1.5rem;
             border-radius: 10px;
             border: 1px solid var(--card-border);
             transition: transform 0.2s, border-color 0.2s;
@@ -413,26 +422,36 @@ $html = @"
 
         .service-card:hover {
             border-color: var(--primary);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .service-icon {
-            font-size: 2.4rem;
+            font-size: 1.8rem;
             color: var(--icon-yellow);
-            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .service-card h3 {
-            font-size: 1.35rem;
+            font-size: 1.2rem;
             color: var(--dark);
-            margin-bottom: 0.8rem;
+            line-height: 1.2;
+            margin: 0;
         }
 
         .service-card p {
-            font-size: 1.1rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-main);
         }
 
         .highlight-dark-blue {
@@ -444,26 +463,26 @@ $html = @"
             background: var(--dark);
             color: #94a3b8;
             text-align: center;
-            padding: 2.5rem 1rem;
-            font-size: 1.1rem;
+            padding: 1.8rem 1rem;
+            font-size: 1rem;
         }
 
         footer h3 {
             color: #ffffff;
-            margin-bottom: 0.5rem;
-            font-size: 1.4rem;
+            margin-bottom: 0.4rem;
+            font-size: 1.25rem;
         }
 
         @media (max-width: 768px) {
             .hero {
                 flex-direction: column-reverse;
                 text-align: center;
-                padding-top: 100px;
+                padding-top: 80px;
             }
 
             .profile-img-box {
-                width: 260px;
-                height: 260px;
+                width: 230px;
+                height: 230px;
             }
 
             .achievement-card {
@@ -479,8 +498,12 @@ $html = @"
                 display: none;
             }
             
+            section {
+                padding: 15px 5%;
+            }
+
             .about-box p, .article-list li, .service-card p {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
         }
     </style>
@@ -619,7 +642,7 @@ $html = @"
             </button>
 
             <div id="art2" class="article-content">
-                <p class="article-intro" style="margin-bottom: 1rem;">यसबाट तपाईँलाई निम्न समस्याहरू पर्न सक्छन्:</p>
+                <p class="article-intro" style="margin-bottom: 0.8rem;">यसबाट तपाईँलाई निम्न समस्याहरू पर्न सक्छन्:</p>
                 <ul class="article-list danger">
                     <li>
                         <strong>ठगिमा पर्ने सम्भावना बढी हुन्छ:</strong>
@@ -657,52 +680,66 @@ $html = @"
     <section id="services">
         <h2 class="section-title">What I Offer</h2>
         <div class="services-grid">
+            
             <div class="service-card">
-                <div class="service-icon"><i class="fas fa-palette"></i></div>
-                <h3>Creative Graphic Design</h3>
+                <div class="service-header">
+                    <div class="service-icon"><i class="fas fa-palette"></i></div>
+                    <h3>Creative Graphic Design</h3>
+                </div>
                 <p><span class="highlight-dark-blue">5 years of experience</span> in <span class="highlight-dark-blue">Illustrator, Photoshop & InDesign</span>. Specializing in <span class="highlight-dark-blue">Official Logos, Vector Graphics</span>, and Brand Design.</p>
             </div>
 
             <div class="service-card">
-                <div class="service-icon"><i class="fas fa-code"></i></div>
-                <h3>Web & App Development</h3>
+                <div class="service-header">
+                    <div class="service-icon"><i class="fas fa-code"></i></div>
+                    <h3>Web & App Development</h3>
+                </div>
                 <p><span class="highlight-dark-blue">5 years of experience</span> creating modern, fast and responsive <span class="highlight-dark-blue">Websites and Web Apps</span> using <span class="highlight-dark-blue">HTML, CSS, and JavaScript</span>.</p>
             </div>
 
             <div class="service-card">
-                <div class="service-icon"><i class="fas fa-chart-line"></i></div>
-                <h3>Financial Expertise</h3>
+                <div class="service-header">
+                    <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Financial Expertise</h3>
+                </div>
                 <p><span class="highlight-dark-blue">10 years of experience</span> in the <span class="highlight-dark-blue">Microfinance Industry</span>, combined with Share Market <span class="highlight-dark-blue">Technical & Fundamental Analysis</span>.</p>
             </div>
 
             <div class="service-card">
-                <div class="service-icon"><i class="fas fa-network-wired"></i></div>
-                <h3>Technical / ISP Experience</h3>
+                <div class="service-header">
+                    <div class="service-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Technical / ISP Experience</h3>
+                </div>
                 <p><span class="highlight-dark-blue">3 years of experience</span> as an <span class="highlight-dark-blue">ISP Technician</span> for practical network setup, routing and hardware troubleshooting.</p>
             </div>
 
             <div class="service-card">
-                <div class="service-icon"><i class="fas fa-film"></i></div>
-                <h3>Video Editing</h3>
+                <div class="service-header">
+                    <div class="service-icon"><i class="fas fa-film"></i></div>
+                    <h3>Video Editing</h3>
+                </div>
                 <p>Crafting engaging <span class="highlight-dark-blue">Story-driven Video Content</span> and promotional edits for personal and business branding.</p>
             </div>
 
             <div class="service-card">
-                <div class="service-icon">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
+                <div class="service-header">
+                    <div class="service-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3>Client Satisfaction</h3>
                 </div>
-                <h3>Client Satisfaction</h3>
                 <p>Consistent <span class="highlight-dark-blue">5-Star Positive Rating</span> for delivering top quality graphic design, web and editing projects.</p>
             </div>
+
         </div>
     </section>
 
     <footer id="contact">
         <h3>Let's Connect & Work Together</h3>
         <p>WhatsApp / Mobile: <strong>+977 9857069058</strong></p>
-        <p style="margin-top: 15px; font-size: 0.85rem;">&copy; 2026 Arun Adhikari. All Rights Reserved.</p>
+        <p style="margin-top: 10px; font-size: 0.85rem;">&copy; 2026 Arun Adhikari. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -725,4 +762,4 @@ $html = @"
 "@
 
 Set-Content -Path "$folder\index.html" -Value $html -Encoding UTF8
-Write-Host "Success! Updated Mobile Number & Added See More Collapsible Articles." -ForegroundColor Green
+Write-Host "Success! Minimal compact spacing applied between sections." -ForegroundColor Green

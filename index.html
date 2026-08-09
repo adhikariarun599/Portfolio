@@ -1,6 +1,3 @@
-$folder = "$HOME\Desktop\Portfolio Website"
-
-$html = @"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,11 +112,21 @@ $html = @"
             font-size: 1.05rem;
         }
 
+        /* ALL ROLES FULL TYPING ANIMATION CONTAINER */
         .roles {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--primary);
             margin-bottom: 1.2rem;
+            min-height: 2.2rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .highlight-dark-blue {
+            color: #1e3a8a;
+            font-weight: 700;
         }
 
         .highlight-yellow {
@@ -197,7 +204,6 @@ $html = @"
             color: white;
         }
 
-        /* MINIMAL GAP BETWEEN SECTIONS */
         section {
             padding: 20px 8%;
         }
@@ -218,6 +224,13 @@ $html = @"
             border: 1px solid var(--card-border);
             text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .about-box:hover {
+            background-color: #f0fdf4;
+            border-color: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
         }
 
         .about-box p {
@@ -247,6 +260,13 @@ $html = @"
             display: flex;
             align-items: center;
             gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            background-color: #f0fdf4;
+            border-color: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
         }
 
         .muni-logo-box {
@@ -310,6 +330,13 @@ $html = @"
             border: 1px solid var(--card-border);
             border-radius: 12px;
             padding: 1.2rem 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .article-container:hover {
+            background-color: #f0fdf4;
+            border-color: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
         }
 
         .article-container:last-child {
@@ -417,12 +444,14 @@ $html = @"
             padding: 1.2rem 1.5rem;
             border-radius: 10px;
             border: 1px solid var(--card-border);
-            transition: transform 0.2s, border-color 0.2s;
+            transition: all 0.3s ease;
         }
 
         .service-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
+            background-color: #f0fdf4;
+            border-color: #10b981;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.15);
         }
 
         .service-header {
@@ -452,11 +481,6 @@ $html = @"
             font-size: 1rem;
             line-height: 1.5;
             color: var(--text-main);
-        }
-
-        .highlight-dark-blue {
-            color: #1e3a8a;
-            font-weight: 700;
         }
 
         footer {
@@ -500,6 +524,10 @@ $html = @"
             
             section {
                 padding: 15px 5%;
+            }
+
+            .roles {
+                justify-content: center;
             }
 
             .about-box p, .article-list li, .service-card p {
@@ -549,13 +577,12 @@ $html = @"
             <div class="greeting">Hello, Namaste! I am</div>
             <h1>Arun Adhikari</h1>
             <div class="location"><i class="fas fa-map-marker-alt"></i> Shitaganga-03, Arghakhanchi, Nepal</div>
+            
+            <!-- ALL ROLES TYPING ANIMATION (NO BOTTOM CURSOR LINE & INFINITE LOOP) -->
             <div class="roles">
-                <span class="highlight-dark-blue">Investor</span> | 
-                <span class="highlight-yellow">Trader</span> | 
-                <span class="highlight-dark-blue">Graphic Designer</span> | 
-                <span class="highlight-yellow">Video Editor</span> | 
-                <span class="highlight-dark-blue">Web Developer</span>
+                <span id="fullTypingRoles"></span>
             </div>
+
             <div class="cta-buttons">
                 <a href="https://wa.me/9779857069058" class="btn btn-whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i> Contact on WhatsApp
@@ -743,6 +770,7 @@ $html = @"
     </footer>
 
     <script>
+        /* ARTICLE TOGGLE SCRIPT */
         function toggleArticle(id, btn) {
             const content = document.getElementById(id);
             const isShowing = content.classList.contains('show');
@@ -755,11 +783,64 @@ $html = @"
                 btn.innerHTML = '<span>See Less</span> <i class="fas fa-chevron-up"></i>';
             }
         }
+
+        /* LOOPING TYPING ANIMATION SCRIPT */
+        const roleItems = [
+            { text: "Investor", class: "highlight-dark-blue" },
+            { text: " | ", class: "separator" },
+            { text: "Trader", class: "highlight-yellow" },
+            { text: " | ", class: "separator" },
+            { text: "Graphic Designer", class: "highlight-dark-blue" },
+            { text: " | ", class: "separator" },
+            { text: "Video Editor", class: "highlight-yellow" },
+            { text: " | ", class: "separator" },
+            { text: "Web Developer", class: "highlight-dark-blue" }
+        ];
+
+        let itemIndex = 0;
+        let charIndex = 0;
+        const container = document.getElementById("fullTypingRoles");
+        let currentSpan = null;
+
+        function typeAllRoles() {
+            if (itemIndex >= roleItems.length) {
+                // Whole line finished typing -> Wait 3 seconds, clear, and restart loop!
+                setTimeout(() => {
+                    container.innerHTML = "";
+                    itemIndex = 0;
+                    charIndex = 0;
+                    currentSpan = null;
+                    typeAllRoles();
+                }, 3000);
+                return;
+            }
+
+            const currentItem = roleItems[itemIndex];
+
+            if (charIndex === 0) {
+                currentSpan = document.createElement("span");
+                if (currentItem.class !== "separator") {
+                    currentSpan.className = currentItem.class;
+                }
+                container.appendChild(currentSpan);
+            }
+
+            currentSpan.textContent += currentItem.text.charAt(charIndex);
+            charIndex++;
+
+            if (charIndex < currentItem.text.length) {
+                setTimeout(typeAllRoles, 45);
+            } else {
+                charIndex = 0;
+                itemIndex++;
+                setTimeout(typeAllRoles, 70);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(typeAllRoles, 400);
+        });
     </script>
 
 </body>
 </html>
-"@
-
-Set-Content -Path "$folder\index.html" -Value $html -Encoding UTF8
-Write-Host "Success! Minimal compact spacing applied between sections." -ForegroundColor Green

@@ -1,3 +1,6 @@
+$folder = "$HOME\Desktop\Portfolio Website"
+
+$html = @"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +34,7 @@
             background-color: var(--gray-bg);
             color: var(--text-main);
             line-height: 1.7;
-            font-size: 1.1rem; /* Overall font size increased */
+            font-size: 1.1rem;
         }
 
         nav {
@@ -119,6 +122,11 @@
             margin-bottom: 1.8rem;
         }
 
+        .highlight-yellow {
+            color: #d97706;
+            font-weight: 700;
+        }
+
         .hero-image-container {
             flex: 0.8;
             display: flex;
@@ -199,7 +207,6 @@
             margin-bottom: 2.5rem;
         }
 
-        /* About Box - Font Size Increased */
         .about-box {
             max-width: 900px;
             margin: 0 auto;
@@ -214,7 +221,7 @@
         .about-box p {
             margin-bottom: 1.2rem;
             color: #334155;
-            font-size: 1.25rem; /* Larger font size */
+            font-size: 1.25rem;
             line-height: 1.8;
         }
 
@@ -284,7 +291,6 @@
             font-size: 1.15rem;
         }
 
-        /* Article Section Styling */
         .article-section {
             background-color: #ffffff;
             border-top: 1px solid var(--card-border);
@@ -492,7 +498,13 @@
             <div class="greeting">Hello, Namaste! I am</div>
             <h1>Arun Adhikari</h1>
             <div class="location"><i class="fas fa-map-marker-alt"></i> Shitaganga-03, Arghakhanchi, Nepal</div>
-            <div class="roles"><span class="highlight-dark-blue">Investor</span> | <span class="highlight-dark-blue">Trader</span> | <span class="highlight-dark-blue">Graphic Designer</span> | <span class="highlight-dark-blue">Video Editor</span> | <span class="highlight-dark-blue">Web Developer</span></div>
+            <div class="roles">
+                <span class="highlight-dark-blue">Investor</span> | 
+                <span class="highlight-yellow">Trader</span> | 
+                <span class="highlight-dark-blue">Graphic Designer</span> | 
+                <span class="highlight-yellow">Video Editor</span> | 
+                <span class="highlight-dark-blue">Web Developer</span>
+            </div>
             <div class="cta-buttons">
                 <a href="https://wa.me/977985069058" class="btn btn-whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i> Contact on WhatsApp
@@ -531,11 +543,9 @@
         </div>
     </section>
 
-    <!-- Articles Section -->
     <section id="articles" class="article-section">
         <h2 class="section-title">Useful Articles & Guidance</h2>
         
-        <!-- Article 1: Interview Guidance -->
         <div class="article-container">
             <div class="article-header">
                 <h3><i class="fas fa-user-tie"></i> Interview दिन जाँदै हुनुहुन्छ? जानिराखौँ यी कुराहरू</h3>
@@ -561,7 +571,6 @@
             </ul>
         </div>
 
-        <!-- Article 2: Financial Literacy -->
         <div class="article-container">
             <div class="article-header warning">
                 <h3><i class="fas fa-exclamation-triangle"></i> यसकारण लिनु हुँदैन असुरक्षित माध्यमबाट ऋण?</h3>
@@ -654,3 +663,7 @@
 
 </body>
 </html>
+"@
+
+Set-Content -Path "$folder\index.html" -Value $html -Encoding UTF8
+Write-Host "Success! Updated Trader and Video Editor to Dark Yellow." -ForegroundColor Green

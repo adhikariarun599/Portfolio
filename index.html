@@ -37,7 +37,7 @@
             background-color: var(--gray-bg);
             color: var(--text-main);
             line-height: 1.6;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
 
         nav {
@@ -79,7 +79,7 @@
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 1rem;
             transition: color 0.2s;
             display: inline-flex;
             align-items: center;
@@ -168,7 +168,7 @@
             background: var(--primary-light);
         }
 
-        /* HERO */
+        /* HERO SECTION */
         .hero {
             min-height: 78vh;
             padding: 105px 8% 40px 8%;
@@ -211,9 +211,10 @@
 
         section { padding: 50px 8%; }
         .section-title { text-align: center; font-size: 2rem; color: var(--dark); margin-bottom: 0.5rem; }
+        .section-sub { text-align: center; color: #64748b; margin-bottom: 2rem; }
 
         .about-box {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             background: #ffffff;
             padding: 2rem;
@@ -225,7 +226,7 @@
 
         /* ACHIEVEMENTS */
         .achievement-card {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             background: #ffffff;
             border: 1px solid var(--card-border);
@@ -250,12 +251,12 @@
         }
         .muni-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* SERVICES */
+        /* ALL SERVICES GRID (RESTORED ALL 6 CARDS) */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 1.5rem;
-            max-width: 1100px;
+            max-width: 1150px;
             margin: 0 auto;
         }
 
@@ -264,12 +265,45 @@
             padding: 1.5rem;
             border-radius: 10px;
             border: 1px solid var(--card-border);
-            transition: transform 0.2s;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .service-card:hover {
             transform: translateY(-3px);
             border-color: var(--primary);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ARTICLES GRID */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        .article-card {
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            transition: all 0.2s;
+        }
+
+        .article-card:hover {
+            border-color: #089981;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.06);
         }
 
         /* MODALS */
@@ -315,7 +349,6 @@
             color: #64748b;
         }
 
-        /* CATALOG */
         .catalog-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -346,7 +379,6 @@
             gap: 6px;
         }
 
-        /* CHECKOUT */
         .coupon-box { display: flex; gap: 0.5rem; margin-bottom: 0.8rem; }
         .coupon-input { flex: 1; padding: 0.6rem 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; text-transform: uppercase; }
         .btn-apply-coupon { background: var(--primary); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
@@ -354,7 +386,6 @@
         .pay-card { border: 1px solid #cbd5e1; padding: 0.8rem; border-radius: 8px; text-align: center; background: #f8fafc; }
         .btn-whatsapp-buy { width: 100%; background: #25d366; color: white; border: none; padding: 0.8rem; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
 
-        /* MY COURSES */
         .my-course-card {
             border: 1px solid #e2e8f0;
             border-radius: 8px;
@@ -366,7 +397,7 @@
             align-items: center;
         }
 
-        /* COURSE PLAYER & LESSON PLAYLIST */
+        /* COURSE PLAYER & PLAYLIST */
         .player-layout {
             display: grid;
             grid-template-columns: 1.8fr 1.2fr;
@@ -466,9 +497,9 @@
         .btn-reset { background: #ef4444; color: white; padding: 0.4rem 0.8rem; border-radius: 5px; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; }
 
         /* FOOTER */
-        footer { background: var(--dark); color: #94a3b8; text-align: center; padding: 2rem 1rem; }
-        .social-links { display: flex; justify-content: center; gap: 1rem; list-style: none; margin-top: 0.8rem; }
-        .social-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; color: #ffffff; text-decoration: none; }
+        footer { background: var(--dark); color: #94a3b8; text-align: center; padding: 2.5rem 1rem; }
+        .social-links { display: flex; justify-content: center; gap: 1.2rem; list-style: none; margin-top: 1rem; }
+        .social-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; color: #ffffff; text-decoration: none; font-size: 1.1rem; }
         .social-btn.facebook { background: #1877f2; }
         .social-btn.youtube { background: #ff0000; }
         .social-btn.whatsapp { background: #25d366; }
@@ -496,6 +527,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#achievements">Achievements</a></li>
             <li><a href="#services">Services</a></li>
+            <li><a href="#articles">Articles</a></li>
             
             <li class="dropdown">
                 <a href="javascript:void(0)" onclick="openCoursesCatalog()"><i class="fas fa-graduation-cap" style="color:#089981;"></i> Courses <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i></a>
@@ -577,7 +609,7 @@
         <h2 class="section-title">About Me</h2>
         <div class="about-box">
             <p>Hello! I am a passionate and multi-skilled professional operating across <span class="highlight-dark-blue">Creative Design</span>, <span class="highlight-dark-blue">Web Technologies</span>, and the <span class="highlight-dark-blue">Financial Sector</span>.</p>
-            <p style="margin-top: 0.8rem;">With <span class="highlight-dark-blue">10 years of experience</span> in the <span class="highlight-dark-blue">Microfinance Industry</span> and expertise in the stock market (<span class="highlight-dark-blue">Technical & Fundamental Analysis</span>), I am committed to sharing practical skills and helping others grow.</p>
+            <p style="margin-top: 0.8rem;">With <span class="highlight-dark-blue">10 years of experience</span> in the <span class="highlight-dark-blue">Microfinance Industry</span> and stock market analysis (<span class="highlight-dark-blue">Technical & Fundamental Analysis</span>), I am committed to sharing practical skills and helping others grow.</p>
         </div>
     </section>
 
@@ -597,21 +629,69 @@
         </div>
     </section>
 
-    <!-- SERVICES -->
+    <!-- SERVICES & EXPERTISE (ALL 6 CARDS RESTORED) -->
     <section id="services">
         <h2 class="section-title">Services & Expertise</h2>
+        <p class="section-sub">Areas of professional expertise and client support</p>
+        
         <div class="services-grid">
+            <!-- 1 -->
             <div class="service-card">
                 <h3><i class="fas fa-palette" style="color:var(--icon-yellow);"></i> Graphic Design</h3>
                 <p style="margin-top: 6px;"><span class="highlight-dark-blue">5 years of experience</span> in Illustrator, Photoshop & InDesign branding.</p>
             </div>
+
+            <!-- 2 -->
             <div class="service-card">
                 <h3><i class="fas fa-code" style="color:var(--icon-yellow);"></i> Web & App Development</h3>
                 <p style="margin-top: 6px;"><span class="highlight-dark-blue">5 years of experience</span> in designing responsive websites and mobile interfaces.</p>
             </div>
+
+            <!-- 3 -->
             <div class="service-card">
                 <h3><i class="fas fa-chart-line" style="color:var(--icon-yellow);"></i> Financial Guidance</h3>
                 <p style="margin-top: 6px;"><span class="highlight-dark-blue">10 years of experience</span> in Banking/Microfinance & Stock Market Analysis.</p>
+            </div>
+
+            <!-- 4 -->
+            <div class="service-card">
+                <h3><i class="fas fa-video" style="color:var(--icon-yellow);"></i> Video Production</h3>
+                <p style="margin-top: 6px;"><span class="highlight-dark-blue">Professional Editing</span> using Premiere Pro, After Effects, and CapCut.</p>
+            </div>
+
+            <!-- 5 -->
+            <div class="service-card">
+                <h3><i class="fas fa-bullhorn" style="color:var(--icon-yellow);"></i> Digital Marketing & Branding</h3>
+                <p style="margin-top: 6px;"><span class="highlight-dark-blue">Brand building strategies</span>, social media growth, and visual assets design.</p>
+            </div>
+
+            <!-- 6 -->
+            <div class="service-card">
+                <h3><i class="fas fa-chalkboard-teacher" style="color:var(--icon-yellow);"></i> Practical Mentorship</h3>
+                <p style="margin-top: 6px;"><span class="highlight-dark-blue">One-on-One training</span> for students in NEPSE technical analysis and modern tech skills.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- USEFUL ARTICLES & GUIDES -->
+    <section id="articles" style="background:#ffffff; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
+        <h2 class="section-title">Useful Articles & Insights</h2>
+        <p class="section-sub">Free educational guides on Finance, Web, and Design</p>
+        
+        <div class="articles-grid">
+            <div class="article-card">
+                <h3 style="color:var(--dark); margin-bottom:8px;"><i class="fas fa-chart-pie" style="color:#089981;"></i> शेयर बजारमा प्राविधिक विश्लेषण (Technical Analysis)</h3>
+                <p style="color:#64748b; font-size:0.95rem;">क्यानडेलस्टिक ढाँचा (Candlesticks), सपोर्ट र रेसिस्टेन्सको आधारमा सही समयमा खरिद-बिक्री गर्ने व्यावहारिक रणनीतिहरू।</p>
+            </div>
+
+            <div class="article-card">
+                <h3 style="color:var(--dark); margin-bottom:8px;"><i class="fas fa-laptop-code" style="color:#1d4ed8;"></i> आधुनिक वेब विकासका आधारभूत कुराहरू</h3>
+                <p style="color:#64748b; font-size:0.95rem;">HTML5, CSS3, र JavaScript प्रयोग गरेर रेस्पोन्सिभ र छिटो लोड हुने आधुनिक वेब एप्लिकेसन निर्माण गर्ने तरिका।</p>
+            </div>
+
+            <div class="article-card">
+                <h3 style="color:var(--dark); margin-bottom:8px;"><i class="fas fa-vector-square" style="color:#d97706;"></i> प्रभावकारी लोगो डिजाइन र ब्रान्डिङ</h3>
+                <p style="color:#64748b; font-size:0.95rem;">कुनै पनि संस्था वा व्यवसायको पहिचान झल्काउने अर्थपूर्ण लोगो बनाउँदा ध्यान दिनुपर्ने रङ्ग र आकृतिका नियमहरू।</p>
             </div>
         </div>
     </section>
@@ -624,7 +704,6 @@
                 <button class="btn-close-modal" onclick="closeModal('catalogModal')">&times;</button>
             </div>
             <div class="catalog-grid">
-                
                 <div class="catalog-item">
                     <div>
                         <h4>Website Development</h4>
@@ -696,7 +775,6 @@
                     </div>
                     <button class="btn-catalog-action" onclick="handleCourseClick('Fundamental Analysis', 'fund_analysis', 499, 5000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -803,15 +881,13 @@
                         <span><i class="fas fa-list-ul" style="color:#2563eb;"></i> Course Lessons</span>
                         <span id="courseProgressPercent" style="font-size:0.85rem; color:#10b981; font-weight:700;">0% Completed</span>
                     </h4>
-                    <div id="lessonsListContainer">
-                        <!-- Injected via JavaScript -->
-                    </div>
+                    <div id="lessonsListContainer"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ADVANCED ADMIN PANEL (COURSE APPROVALS & VIDEO UPLOADER) -->
+    <!-- ADVANCED ADMIN PANEL -->
     <div id="adminModal" class="modal">
         <div class="modal-content" style="max-width: 1050px;">
             <div class="modal-header">
@@ -929,7 +1005,6 @@
             'fund_analysis': 'Fundamental Analysis (Share Market)'
         };
 
-        // DEFAULT CURRICULUM (If Admin hasn't added dynamic ones yet)
         const DEFAULT_LESSONS = {
             'web_dev': [
                 { id: 'l1', title: 'Lesson 1: Introduction to Web Dev & Tools', vid: 'UB1O30fR-EE' },
@@ -1168,13 +1243,11 @@
             window.open(`https://wa.me/9779857069058?text=${text}`, '_blank');
         }
 
-        // ADVANCED COURSE PLAYER WITH PLAYLIST & PROGRESS TICKS
         async function openCoursePlayer(courseKey, title) {
             activeCourseKey = courseKey;
             document.getElementById("modalCourseTitle").innerText = title;
             document.getElementById("courseModal").style.display = "flex";
 
-            // Fetch dynamic lessons from Firestore (or fallback to defaults)
             const snapshot = await db.collection("courses").doc(courseKey).collection("lessons").orderBy("order", "asc").get();
             let lessons = [];
 
@@ -1204,7 +1277,7 @@
             const completed = (currentUserData && currentUserData.completedLessons && currentUserData.completedLessons[activeCourseKey]) || [];
             let completedCount = 0;
 
-            currentCourseLessons.forEach((lesson, index) => {
+            currentCourseLessons.forEach((lesson) => {
                 const isCompleted = completed.includes(lesson.id);
                 if (isCompleted) completedCount++;
 
@@ -1223,7 +1296,6 @@
                 container.appendChild(item);
             });
 
-            // Update Progress Percentage
             const percent = currentCourseLessons.length > 0 ? Math.round((completedCount / currentCourseLessons.length) * 100) : 0;
             document.getElementById("courseProgressPercent").innerText = `${percent}% Completed (${completedCount}/${currentCourseLessons.length})`;
         }
@@ -1235,7 +1307,6 @@
 
             document.getElementById("currentLessonName").innerText = lesson.title;
 
-            // Extract YouTube Embed URL
             let vidId = lesson.vid;
             if (vidId.includes("watch?v=")) {
                 vidId = vidId.split("watch?v=")[1].split("&")[0];
@@ -1274,7 +1345,6 @@
             }
         }
 
-        // ADMIN PANEL LOGIC
         function switchAdminTab(tab) {
             document.getElementById("adminTabStudents").style.display = tab === 'students' ? 'block' : 'none';
             document.getElementById("adminTabVideos").style.display = tab === 'videos' ? 'block' : 'none';
@@ -1348,7 +1418,6 @@
             }
         }
 
-        // SAVE NEW LESSON FROM ADMIN
         async function saveLessonToFirebase() {
             const courseKey = document.getElementById("uploadCourseSelect").value;
             const order = parseInt(document.getElementById("uploadLessonOrder").value) || 1;

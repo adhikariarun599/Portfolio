@@ -38,6 +38,7 @@
             color: var(--text-main);
             line-height: 1.6;
             font-size: 1.05rem;
+            overflow-x: hidden;
         }
 
         nav {
@@ -47,19 +48,19 @@
             background: #ffffff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
             z-index: 1000;
-            padding: 0.8rem 8%;
+            padding: 0.8rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             cursor: pointer;
         }
 
@@ -68,10 +69,19 @@
             align-items: center;
         }
 
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
+            gap: 1.2rem;
             align-items: center;
         }
 
@@ -101,7 +111,7 @@
             top: 100%;
             left: 0;
             background: #ffffff;
-            min-width: 320px;
+            min-width: 300px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
             border: 1px solid var(--card-border);
             border-radius: 8px;
@@ -168,29 +178,36 @@
             background: var(--primary-light);
         }
 
-        /* HERO SECTION */
+        /* HERO SECTION - FULLY RESPONSIVE */
         .hero {
-            min-height: 78vh;
-            padding: 105px 8% 40px 8%;
+            min-height: 80vh;
+            padding: 100px 5% 40px 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 2.5rem;
+            gap: 2rem;
             background: #ffffff;
         }
 
         .hero-content { flex: 1.2; }
-        .greeting { color: var(--primary-light); font-weight: 600; font-size: 1.2rem; }
-        .hero-content h1 { font-size: 3.2rem; color: var(--dark); margin-bottom: 0.2rem; }
-        .location { color: #64748b; margin-bottom: 0.8rem; font-size: 1.05rem; }
-        .roles { font-size: 1.25rem; font-weight: 600; color: var(--primary); min-height: 2.2rem; display: flex; align-items: center; flex-wrap: wrap; }
+        .greeting { color: var(--primary-light); font-weight: 600; font-size: 1.15rem; }
+        .hero-content h1 { font-size: 3rem; color: var(--dark); margin-bottom: 0.2rem; }
+        .location { color: #64748b; margin-bottom: 0.8rem; font-size: 1rem; }
+        .roles { font-size: 1.2rem; font-weight: 600; color: var(--primary); min-height: 2.2rem; display: flex; align-items: center; flex-wrap: wrap; }
         .highlight-dark-blue { color: #1e3a8a; font-weight: 700; }
         .highlight-yellow { color: #d97706; font-weight: 700; }
 
+        .hero-buttons {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
         .hero-image-container { flex: 0.8; display: flex; justify-content: center; align-items: center; }
         .profile-img-box {
-            width: 300px;
-            height: 300px;
+            width: 280px;
+            height: 280px;
             background: #e2e8f0;
             border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
             animation: morphBlob 8s ease-in-out infinite;
@@ -209,15 +226,15 @@
             100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
         }
 
-        section { padding: 50px 8%; }
-        .section-title { text-align: center; font-size: 2rem; color: var(--dark); margin-bottom: 0.5rem; }
-        .section-sub { text-align: center; color: #64748b; margin-bottom: 2rem; }
+        section { padding: 45px 5%; }
+        .section-title { text-align: center; font-size: 1.85rem; color: var(--dark); margin-bottom: 0.5rem; }
+        .section-sub { text-align: center; color: #64748b; margin-bottom: 1.8rem; font-size: 0.95rem; }
 
         .about-box {
-            max-width: 950px;
+            max-width: 900px;
             margin: 0 auto;
             background: #ffffff;
-            padding: 2rem;
+            padding: 1.8rem;
             border-radius: 12px;
             border: 1px solid var(--card-border);
             text-align: center;
@@ -226,20 +243,20 @@
 
         /* ACHIEVEMENTS */
         .achievement-card {
-            max-width: 950px;
+            max-width: 900px;
             margin: 0 auto;
             background: #ffffff;
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 1.5rem 2rem;
+            padding: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 1.8rem;
+            gap: 1.5rem;
         }
 
         .muni-logo-box {
-            width: 150px;
-            height: 150px;
+            width: 130px;
+            height: 130px;
             background: #ffffff;
             border-radius: 10px;
             padding: 5px;
@@ -251,59 +268,30 @@
         }
         .muni-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* ALL SERVICES GRID (RESTORED ALL 6 CARDS) */
+        /* SERVICES GRID */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-            max-width: 1150px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .service-card {
             background: #ffffff;
-            padding: 1.5rem;
+            padding: 1.3rem;
             border-radius: 10px;
             border: 1px solid var(--card-border);
             transition: all 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .service-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--primary);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.06);
         }
 
         .service-card h3 {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--dark);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        /* ARTICLES GRID */
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-            max-width: 1150px;
-            margin: 0 auto;
-        }
-
-        .article-card {
-            background: #ffffff;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border: 1px solid var(--card-border);
-            transition: all 0.2s;
-        }
-
-        .article-card:hover {
-            border-color: #089981;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.06);
         }
 
         /* MODALS */
@@ -318,7 +306,7 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal-content {
@@ -326,7 +314,7 @@
             border-radius: 12px;
             width: 100%;
             max-width: 650px;
-            padding: 1.8rem;
+            padding: 1.5rem;
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
@@ -352,13 +340,13 @@
         .catalog-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
         .catalog-item {
             border: 1px solid #e2e8f0;
             border-radius: 8px;
-            padding: 1.2rem;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -366,9 +354,9 @@
         }
 
         .btn-catalog-action {
-            padding: 0.6rem 1.1rem;
+            padding: 0.55rem 0.9rem;
             border-radius: 6px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
             border: none;
             cursor: pointer;
@@ -376,36 +364,32 @@
             color: #ffffff;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .coupon-box { display: flex; gap: 0.5rem; margin-bottom: 0.8rem; }
         .coupon-input { flex: 1; padding: 0.6rem 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; text-transform: uppercase; }
         .btn-apply-coupon { background: var(--primary); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
-        .payment-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+        .payment-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 1rem 0; }
         .pay-card { border: 1px solid #cbd5e1; padding: 0.8rem; border-radius: 8px; text-align: center; background: #f8fafc; }
         .btn-whatsapp-buy { width: 100%; background: #25d366; color: white; border: none; padding: 0.8rem; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
 
         .my-course-card {
             border: 1px solid #e2e8f0;
             border-radius: 8px;
-            padding: 1.2rem;
+            padding: 1rem;
             background: #ffffff;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* COURSE PLAYER & PLAYLIST */
+        /* COURSE PLAYER */
         .player-layout {
             display: grid;
             grid-template-columns: 1.8fr 1.2fr;
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 850px) {
-            .player-layout { grid-template-columns: 1fr; }
+            gap: 1.2rem;
         }
 
         .video-container {
@@ -432,7 +416,7 @@
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             padding: 0.8rem;
-            max-height: 480px;
+            max-height: 400px;
             overflow-y: auto;
         }
 
@@ -440,18 +424,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.7rem 0.8rem;
+            padding: 0.6rem 0.7rem;
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 6px;
             margin-bottom: 0.5rem;
             cursor: pointer;
             transition: all 0.2s;
-        }
-
-        .lesson-item:hover {
-            border-color: var(--primary);
-            background: #f1f5f9;
         }
 
         .lesson-item.active {
@@ -464,45 +443,129 @@
             background: transparent;
             border: none;
             cursor: pointer;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: #cbd5e1;
-            padding: 2px 6px;
-            transition: color 0.2s;
+            padding: 2px 4px;
         }
 
         .lesson-check-btn.completed {
             color: #10b981;
         }
 
-        /* ADMIN PANEL */
+        /* ADMIN */
         .admin-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-        .admin-table th, .admin-table td { border: 1px solid #e2e8f0; padding: 0.7rem; font-size: 0.95rem; }
+        .admin-table th, .admin-table td { border: 1px solid #e2e8f0; padding: 0.6rem; font-size: 0.9rem; }
         .admin-table th { background: #f1f5f9; text-align: left; }
-        
-        .btn-course-toggle {
-            padding: 0.35rem 0.6rem;
-            font-size: 0.8rem;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
+        .btn-course-toggle { padding: 0.3rem 0.5rem; font-size: 0.75rem; border-radius: 4px; border: none; cursor: pointer; font-weight: 700; display: inline-flex; align-items: center; gap: 3px; }
         .status-approved { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
         .status-pending { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
-        .btn-approve-all { background: #089981; color: white; padding: 0.4rem 0.8rem; border-radius: 5px; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; }
-        .btn-reset { background: #ef4444; color: white; padding: 0.4rem 0.8rem; border-radius: 5px; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; }
+        .btn-approve-all { background: #089981; color: white; padding: 0.4rem 0.7rem; border-radius: 5px; font-size: 0.8rem; font-weight: 700; border: none; cursor: pointer; }
+        .btn-reset { background: #ef4444; color: white; padding: 0.4rem 0.7rem; border-radius: 5px; font-size: 0.8rem; font-weight: 700; border: none; cursor: pointer; }
 
-        /* FOOTER */
-        footer { background: var(--dark); color: #94a3b8; text-align: center; padding: 2.5rem 1rem; }
-        .social-links { display: flex; justify-content: center; gap: 1.2rem; list-style: none; margin-top: 1rem; }
-        .social-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; color: #ffffff; text-decoration: none; font-size: 1.1rem; }
+        footer { background: var(--dark); color: #94a3b8; text-align: center; padding: 2rem 1rem; }
+        .social-links { display: flex; justify-content: center; gap: 1rem; list-style: none; margin-top: 0.8rem; }
+        .social-btn { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; color: #ffffff; text-decoration: none; font-size: 1.1rem; }
         .social-btn.facebook { background: #1877f2; }
         .social-btn.youtube { background: #ff0000; }
         .social-btn.whatsapp { background: #25d366; }
+
+        /* ================= MOBILE UI / UX OPTIMIZATIONS ================= */
+        @media (max-width: 850px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem;
+                gap: 1.2rem;
+                transition: left 0.3s ease;
+                overflow-y: auto;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .dropdown {
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+                width: 100%;
+                display: none;
+                margin-top: 0.4rem;
+            }
+
+            .dropdown.open .dropdown-menu {
+                display: block;
+            }
+
+            /* HERO MOBILE STACK */
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 90px;
+                gap: 1.5rem;
+            }
+
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.3rem;
+            }
+
+            .roles {
+                justify-content: center;
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .hero-buttons .btn-auth {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+            }
+
+            .profile-img-box {
+                width: 220px;
+                height: 220px;
+            }
+
+            /* ACHIEVEMENT MOBILE */
+            .achievement-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .muni-logo-box {
+                margin: 0 auto;
+            }
+
+            /* PLAYER MOBILE */
+            .player-layout {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -512,7 +575,7 @@
         <div class="logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">
             <span>Arun Adhikari</span>
             <div class="candlestick-chart-svg">
-                <svg width="70" height="28" viewBox="0 0 100 40">
+                <svg width="60" height="24" viewBox="0 0 100 40">
                     <line x1="0" y1="20" x2="100" y2="20" stroke="#f23645" stroke-width="1" stroke-dasharray="2,2"/>
                     <line x1="10" y1="22" x2="10" y2="38" stroke="#089981" stroke-width="1.5"/>
                     <rect x="8" y="26" width="4" height="8" fill="#089981"/>
@@ -523,14 +586,18 @@
                 </svg>
             </div>
         </div>
-        <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#achievements">Achievements</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#articles">Articles</a></li>
+
+        <button class="menu-toggle" id="menuToggleBtn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+            <li><a href="#achievements" onclick="closeMobileMenu()">Achievements</a></li>
+            <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
             
-            <li class="dropdown">
-                <a href="javascript:void(0)" onclick="openCoursesCatalog()"><i class="fas fa-graduation-cap" style="color:#089981;"></i> Courses <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i></a>
+            <li class="dropdown" id="coursesDropdown">
+                <a href="javascript:void(0)" onclick="toggleDropdownMenu()"><i class="fas fa-graduation-cap" style="color:#089981;"></i> Courses <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="javascript:void(0)" onclick="handleCourseClick('Website Development', 'web_dev', 999, 5000)">
@@ -573,10 +640,10 @@
 
             <!-- MY COURSES TAB -->
             <li id="myCoursesNavTab" style="display: none;">
-                <a href="javascript:void(0)" onclick="openMyCoursesDashboard()" style="color:#2563eb;"><i class="fas fa-play-circle"></i> My Courses</a>
+                <a href="javascript:void(0)" onclick="closeMobileMenu(); openMyCoursesDashboard()" style="color:#2563eb;"><i class="fas fa-play-circle"></i> My Courses</a>
             </li>
 
-            <li id="adminNavTab" style="display: none;"><a href="javascript:void(0)" onclick="openAdminPanel()" style="color: #dc2626;"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
+            <li id="adminNavTab" style="display: none;"><a href="javascript:void(0)" onclick="closeMobileMenu(); openAdminPanel()" style="color: #dc2626;"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
 
             <li>
                 <button id="authBtn" class="btn-auth" onclick="handleAuth()"><i class="fab fa-google"></i> Student Login</button>
@@ -591,10 +658,10 @@
             <h1>Arun Adhikari</h1>
             <div class="location"><i class="fas fa-map-marker-alt"></i> Shitaganga-03, Arghakhanchi, Nepal</div>
             <div class="roles"><span id="fullTypingRoles"></span></div>
-            <div style="margin-top: 1.8rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                <button onclick="openCoursesCatalog()" class="btn-auth" style="padding: 0.75rem 1.5rem; font-size: 1.05rem; background: #089981; border:none; cursor:pointer;"><i class="fas fa-graduation-cap"></i> View Courses & Offers</button>
-                <button id="heroMyCoursesBtn" onclick="openMyCoursesDashboard()" class="btn-auth" style="padding: 0.75rem 1.5rem; font-size: 1.05rem; background: #2563eb; border:none; cursor:pointer; display:none;"><i class="fas fa-play-circle"></i> My Enrolled Courses</button>
-                <a href="#contact" class="btn-auth" style="text-decoration: none; padding: 0.75rem 1.5rem; font-size: 1.05rem; background: #334155;"><i class="fas fa-envelope"></i> Contact Me</a>
+            <div class="hero-buttons">
+                <button onclick="openCoursesCatalog()" class="btn-auth" style="padding: 0.75rem 1.4rem; font-size: 1rem; background: #089981; border:none; cursor:pointer;"><i class="fas fa-graduation-cap"></i> View Courses & Offers</button>
+                <button id="heroMyCoursesBtn" onclick="openMyCoursesDashboard()" class="btn-auth" style="padding: 0.75rem 1.4rem; font-size: 1rem; background: #2563eb; border:none; cursor:pointer; display:none;"><i class="fas fa-play-circle"></i> My Courses</button>
+                <a href="#contact" class="btn-auth" style="text-decoration: none; padding: 0.75rem 1.4rem; font-size: 1rem; background: #334155;"><i class="fas fa-envelope"></i> Contact Me</a>
             </div>
         </div>
         <div class="hero-image-container">
@@ -629,43 +696,37 @@
         </div>
     </section>
 
-    <!-- SERVICES & EXPERTISE (ALL 6 CARDS RESTORED) -->
+    <!-- SERVICES & EXPERTISE -->
     <section id="services">
         <h2 class="section-title">Services & Expertise</h2>
         <p class="section-sub">Areas of professional expertise and client support</p>
         
         <div class="services-grid">
-            <!-- 1 -->
             <div class="service-card">
                 <h3><i class="fas fa-palette" style="color:var(--icon-yellow);"></i> Graphic Design</h3>
                 <p style="margin-top: 6px;"><span class="highlight-dark-blue">5 years of experience</span> in Illustrator, Photoshop & InDesign branding.</p>
             </div>
 
-            <!-- 2 -->
             <div class="service-card">
                 <h3><i class="fas fa-code" style="color:var(--icon-yellow);"></i> Web & App Development</h3>
                 <p style="margin-top: 6px;"><span class="highlight-dark-blue">5 years of experience</span> in designing responsive websites and mobile interfaces.</p>
             </div>
 
-            <!-- 3 -->
             <div class="service-card">
                 <h3><i class="fas fa-chart-line" style="color:var(--icon-yellow);"></i> Financial Guidance</h3>
                 <p style="margin-top: 6px;"><span class="highlight-dark-blue">10 years of experience</span> in Banking/Microfinance & Stock Market Analysis.</p>
             </div>
 
-            <!-- 4 -->
             <div class="service-card">
                 <h3><i class="fas fa-video" style="color:var(--icon-yellow);"></i> Video Production</h3>
-                <p style="margin-top: 6px;"><span class="highlight-dark-blue">Professional Editing</span> using Davinchi Resolve, and CapCut.</p>
+                <p style="margin-top: 6px;"><span class="highlight-dark-blue">Professional Editing</span> using DaVinci Resolve and CapCut.</p>
             </div>
 
-            <!-- 5 -->
             <div class="service-card">
                 <h3><i class="fas fa-bullhorn" style="color:var(--icon-yellow);"></i> Digital Marketing & Branding</h3>
                 <p style="margin-top: 6px;"><span class="highlight-dark-blue">Brand building strategies</span>, social media growth, and visual assets design.</p>
             </div>
 
-            <!-- 6 -->
             <div class="service-card">
                 <h3><i class="fas fa-chalkboard-teacher" style="color:var(--icon-yellow);"></i> Practical Mentorship</h3>
                 <p style="margin-top: 6px;"><span class="highlight-dark-blue">One-on-One training</span> for students in NEPSE technical analysis and modern tech skills.</p>
@@ -673,7 +734,6 @@
         </div>
     </section>
 
-    <!-- USE
     <!-- ALL COURSES CATALOG MODAL -->
     <div id="catalogModal" class="modal">
         <div class="modal-content" style="max-width: 720px;">
@@ -686,9 +746,9 @@
                     <div>
                         <h4>Website Development</h4>
                         <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
-                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. ५,०००</span>
-                            <span style="font-size:0.9rem; color:#64748b;">(८०% छुट)</span>
-                            <strong style="color:#089981; font-size:1.3rem;">रु. ९९९</strong>
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:0.95rem; font-weight:700;">रु. ५,०००</span>
+                            <span style="font-size:0.85rem; color:#64748b;">(८०% छुट)</span>
+                            <strong style="color:#089981; font-size:1.2rem;">रु. ९९९</strong>
                         </div>
                     </div>
                     <button class="btn-catalog-action" onclick="handleCourseClick('Website Development', 'web_dev', 999, 5000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
@@ -698,9 +758,9 @@
                     <div>
                         <h4>App Development</h4>
                         <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
-                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. २०,०००</span>
-                            <span style="font-size:0.9rem; color:#64748b;">(८८% छुट)</span>
-                            <strong style="color:#089981; font-size:1.3rem;">रु. २,५००</strong>
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:0.95rem; font-weight:700;">रु. २०,०००</span>
+                            <span style="font-size:0.85rem; color:#64748b;">(८८% छुट)</span>
+                            <strong style="color:#089981; font-size:1.2rem;">रु. २,५००</strong>
                         </div>
                     </div>
                     <button class="btn-catalog-action" onclick="handleCourseClick('App Development', 'app_dev', 2500, 20000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
@@ -710,9 +770,9 @@
                     <div>
                         <h4>Video Editing Masterclass</h4>
                         <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
-                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. ३०,०००</span>
-                            <span style="font-size:0.9rem; color:#64748b;">(९५% छुट)</span>
-                            <strong style="color:#089981; font-size:1.3rem;">रु. १,४९९</strong>
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:0.95rem; font-weight:700;">रु. ३०,०००</span>
+                            <span style="font-size:0.85rem; color:#64748b;">(९५% छुट)</span>
+                            <strong style="color:#089981; font-size:1.2rem;">रु. १,४९९</strong>
                         </div>
                     </div>
                     <button class="btn-catalog-action" onclick="handleCourseClick('Video Editing Masterclass', 'video_edit', 1499, 30000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
@@ -722,9 +782,9 @@
                     <div>
                         <h4>Graphic Design Pro</h4>
                         <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
-                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. ५,०००</span>
-                            <span style="font-size:0.9rem; color:#64748b;">(८०% छुट)</span>
-                            <strong style="color:#089981; font-size:1.3rem;">रु. ९९९</strong>
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:0.95rem; font-weight:700;">रु. ५,०००</span>
+                            <span style="font-size:0.85rem; color:#64748b;">(८०% छुट)</span>
+                            <strong style="color:#089981; font-size:1.2rem;">रु. ९९९</strong>
                         </div>
                     </div>
                     <button class="btn-catalog-action" onclick="handleCourseClick('Graphic Design Pro', 'graphic_design', 999, 5000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
@@ -734,9 +794,9 @@
                     <div>
                         <h4>Technical Analysis (Share Market)</h4>
                         <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
-                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. ३,०००</span>
-                            <span style="font-size:0.9rem; color:#64748b;">(८३% छुट)</span>
-                            <strong style="color:#089981; font-size:1.3rem;">रु. ४९९</strong>
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:0.95rem; font-weight:700;">रु. ३,०००</span>
+                            <span style="font-size:0.85rem; color:#64748b;">(८३% छुट)</span>
+                            <strong style="color:#089981; font-size:1.2rem;">रु. ४९९</strong>
                         </div>
                     </div>
                     <button class="btn-catalog-action" onclick="handleCourseClick('Technical Analysis', 'tech_analysis', 499, 3000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
@@ -746,9 +806,9 @@
                     <div>
                         <h4>Fundamental Analysis (Share Market)</h4>
                         <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
-                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. ५,०००</span>
-                            <span style="font-size:0.9rem; color:#64748b;">(९०% छुट)</span>
-                            <strong style="color:#089981; font-size:1.3rem;">रु. ४९९</strong>
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:0.95rem; font-weight:700;">रु. ५,०००</span>
+                            <span style="font-size:0.85rem; color:#64748b;">(९०% छुट)</span>
+                            <strong style="color:#089981; font-size:1.2rem;">रु. ४९९</strong>
                         </div>
                     </div>
                     <button class="btn-catalog-action" onclick="handleCourseClick('Fundamental Analysis', 'fund_analysis', 499, 5000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
@@ -777,7 +837,7 @@
             </div>
             
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 1.2rem; border-radius: 8px; margin-bottom: 1rem;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:1.05rem;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
                     <span>कोर्स:</span>
                     <strong id="summaryCourseName" style="color:var(--dark);">-</strong>
                 </div>
@@ -785,7 +845,7 @@
                     <span>वास्तविक मूल्य (Full Price):</span>
                     <span id="summaryOriginalPrice" style="text-decoration: line-through; color:#ef4444; font-weight:700;">-</span>
                 </div>
-                <div style="display:flex; justify-content:space-between; font-size:1.25rem; border-top:1px solid #e2e8f0; padding-top:8px; margin-top:6px;">
+                <div style="display:flex; justify-content:space-between; font-size:1.2rem; border-top:1px solid #e2e8f0; padding-top:8px; margin-top:6px;">
                     <strong>अफर मूल्य (Payable):</strong>
                     <strong id="summaryPayablePrice" style="color:#089981;">-</strong>
                 </div>
@@ -807,18 +867,18 @@
                 
                 <div class="payment-options-grid">
                     <div class="pay-card">
-                        <strong style="color:#60bb46; font-size:1.15rem;"><i class="fas fa-mobile-alt"></i> eSewa</strong>
-                        <p style="font-size:1.05rem; font-weight:700; margin-top:4px;">९८५७०६९०५८</p>
+                        <strong style="color:#60bb46; font-size:1.1rem;"><i class="fas fa-mobile-alt"></i> eSewa</strong>
+                        <p style="font-size:1rem; font-weight:700; margin-top:4px;">९८५७०६९०५८</p>
                         <small style="color:#64748b;">(Arun Adhikari)</small>
                     </div>
                     <div class="pay-card">
-                        <strong style="color:#5c2d91; font-size:1.15rem;"><i class="fas fa-wallet"></i> Khalti</strong>
-                        <p style="font-size:1.05rem; font-weight:700; margin-top:4px;">९८५७०६९०५८</p>
+                        <strong style="color:#5c2d91; font-size:1.1rem;"><i class="fas fa-wallet"></i> Khalti</strong>
+                        <p style="font-size:1rem; font-weight:700; margin-top:4px;">९८५७०६९०५८</p>
                         <small style="color:#64748b;">(Arun Adhikari)</small>
                     </div>
                 </div>
 
-                <div style="background:#fef3c7; border:1px solid #fde68a; padding:0.8rem; border-radius:6px; font-size:0.92rem; color:#92400e; margin-bottom:1rem;">
+                <div style="background:#fef3c7; border:1px solid #fde68a; padding:0.8rem; border-radius:6px; font-size:0.9rem; color:#92400e; margin-bottom:1rem;">
                     📌 <strong>भुक्तानी पछि:</strong> रकम पठाएको Screenshot तलको WhatsApp बटनमा पठाउनुहोस्। Admin ले Verify गरेर Approve गरेपछि तपाईंको खातामा <strong>"My Courses"</strong> खुल्नेछ।
                 </div>
 
@@ -829,7 +889,7 @@
         </div>
     </div>
 
-    <!-- ADVANCED COURSE PLAYER WITH PLAYLIST & PROGRESS -->
+    <!-- ADVANCED COURSE PLAYER -->
     <div id="courseModal" class="modal">
         <div class="modal-content" style="max-width: 950px;">
             <div class="modal-header">
@@ -842,7 +902,7 @@
                     <div class="video-container">
                         <iframe id="mainVideoPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:0.8rem 1rem; border-radius:8px; border:1px solid #e2e8f0;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:0.8rem 1rem; border-radius:8px; border:1px solid #e2e8f0; flex-wrap:wrap; gap:8px;">
                         <div>
                             <h4 id="currentLessonName" style="color:var(--dark);">Lesson Loading...</h4>
                             <small style="color:#64748b;">Arun Adhikari Learning Hub</small>
@@ -873,8 +933,7 @@
                 <button class="btn-close-modal" onclick="closeModal('adminModal')">&times;</button>
             </div>
 
-            <!-- TABS -->
-            <div style="display:flex; gap:10px; margin-bottom:1rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
+            <div style="display:flex; gap:10px; margin-bottom:1rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem; flex-wrap:wrap;">
                 <button class="btn-auth" style="background:#1e3a8a;" onclick="switchAdminTab('students')"><i class="fas fa-users"></i> Student Approvals</button>
                 <button class="btn-auth" style="background:#089981;" onclick="switchAdminTab('videos')"><i class="fas fa-video"></i> Upload / Manage Lessons</button>
             </div>
@@ -920,20 +979,18 @@
 
                 <div style="margin-bottom:10px;">
                     <label style="font-weight:600; font-size:0.9rem;">Lesson Title (पाठको नाम):</label>
-                    <input type="text" id="uploadLessonTitle" placeholder="उदा: Lesson 1: Introduction to HTML & CSS" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                    <input type="text" id="uploadLessonTitle" placeholder="उदा: Lesson 1: Introduction to Web" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
                 </div>
 
                 <div style="margin-bottom:15px;">
                     <label style="font-weight:600; font-size:0.9rem;">YouTube Video URL or Video ID:</label>
-                    <input type="text" id="uploadLessonUrl" placeholder="उदा: https://www.youtube.com/watch?v=dQw4w9WgXcQ वा भिडियो ID" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
-                    <small style="color:#64748b;">(तपाईंको Unlisted YouTube भिडियोको लिङ्क यहाँ हाल्न सक्नुहुन्छ)</small>
+                    <input type="text" id="uploadLessonUrl" placeholder="उदा: https://www.youtube.com/watch?v=dQw4w9WgXcQ वा ID" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
                 </div>
 
                 <button class="btn-catalog-action" style="width:100%; justify-content:center; padding:0.8rem;" onclick="saveLessonToFirebase()">
                     <i class="fas fa-cloud-upload-alt"></i> Save & Publish Lesson
                 </button>
             </div>
-
         </div>
     </div>
 
@@ -1014,6 +1071,19 @@
             'ARUN50': 0.50,
             'SPECIAL100': 100
         };
+
+        // MOBILE MENU CONTROLS
+        function toggleMobileMenu() {
+            document.getElementById("navLinks").classList.toggle("active");
+        }
+
+        function closeMobileMenu() {
+            document.getElementById("navLinks").classList.remove("active");
+        }
+
+        function toggleDropdownMenu() {
+            document.getElementById("coursesDropdown").classList.toggle("open");
+        }
 
         auth.onAuthStateChanged(async (user) => {
             currentUser = user;
@@ -1108,10 +1178,12 @@
         }
 
         function openCoursesCatalog() {
+            closeMobileMenu();
             document.getElementById("catalogModal").style.display = "flex";
         }
 
         function openMyCoursesDashboard() {
+            closeMobileMenu();
             const modal = document.getElementById("myCoursesModal");
             const area = document.getElementById("myCoursesListArea");
 
@@ -1155,6 +1227,7 @@
         }
 
         async function handleCourseClick(title, key, offerPrice, origPrice) {
+            closeMobileMenu();
             closeModal('catalogModal');
 
             if (!currentUser) {
@@ -1329,6 +1402,7 @@
         }
 
         async function openAdminPanel() {
+            closeMobileMenu();
             const modal = document.getElementById("adminModal");
             modal.style.display = "flex";
             const tbody = document.getElementById("adminUserTableBody");

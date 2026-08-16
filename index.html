@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arun Adhikari - Portfolio & Courses</title>
+    <title>Arun Adhikari - Official Portfolio & Courses</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <!-- FIREBASE SDKs -->
@@ -60,6 +60,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            cursor: pointer;
         }
 
         .candlestick-chart-svg {
@@ -74,10 +75,6 @@
             align-items: center;
         }
 
-        .nav-links li {
-            position: relative;
-        }
-
         .nav-links a {
             text-decoration: none;
             color: var(--text-dark);
@@ -86,7 +83,7 @@
             transition: color 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             cursor: pointer;
         }
 
@@ -94,13 +91,8 @@
             color: var(--primary);
         }
 
-        /* DROPDOWN MENU FOR COURSES */
         .dropdown {
             position: relative;
-        }
-
-        .dropdown-toggle {
-            cursor: pointer;
         }
 
         .dropdown-menu {
@@ -109,7 +101,7 @@
             top: 100%;
             left: 0;
             background: #ffffff;
-            min-width: 270px;
+            min-width: 320px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
             border: 1px solid var(--card-border);
             border-radius: 8px;
@@ -127,11 +119,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.6rem 1rem;
+            padding: 0.65rem 1rem;
             font-size: 0.95rem;
             color: #334155;
             font-weight: 500;
-            transition: background-color 0.2s;
         }
 
         .dropdown-menu li a:hover {
@@ -139,35 +130,48 @@
             color: var(--primary);
         }
 
-        .nav-badge-access {
+        .nav-price-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-orig-price {
+            text-decoration: line-through;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .nav-offer-price {
             background: #dcfce7;
             color: #15803d;
-            font-size: 0.72rem;
+            font-size: 0.8rem;
             font-weight: 700;
             padding: 0.15rem 0.45rem;
             border-radius: 4px;
-            text-transform: uppercase;
         }
 
-        /* AUTH BUTTON IN NAV */
         .btn-auth {
             background: var(--primary);
             color: #ffffff !important;
             padding: 0.45rem 1rem;
             border-radius: 6px;
             font-size: 0.95rem !important;
-            transition: all 0.2s ease;
             border: none;
             cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
 
         .btn-auth:hover {
             background: var(--primary-light);
         }
 
+        /* HERO */
         .hero {
-            min-height: 75vh;
-            padding: 100px 8% 30px 8%;
+            min-height: 78vh;
+            padding: 105px 8% 40px 8%;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -175,57 +179,15 @@
             background: #ffffff;
         }
 
-        .hero-content {
-            flex: 1.2;
-        }
+        .hero-content { flex: 1.2; }
+        .greeting { color: var(--primary-light); font-weight: 600; font-size: 1.2rem; }
+        .hero-content h1 { font-size: 3.2rem; color: var(--dark); margin-bottom: 0.2rem; }
+        .location { color: #64748b; margin-bottom: 0.8rem; font-size: 1.05rem; }
+        .roles { font-size: 1.25rem; font-weight: 600; color: var(--primary); min-height: 2.2rem; display: flex; align-items: center; flex-wrap: wrap; }
+        .highlight-dark-blue { color: #1e3a8a; font-weight: 700; }
+        .highlight-yellow { color: #d97706; font-weight: 700; }
 
-        .greeting {
-            color: var(--primary-light);
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .hero-content h1 {
-            font-size: 3rem;
-            color: var(--dark);
-            margin-bottom: 0.2rem;
-        }
-
-        .location {
-            color: #64748b;
-            margin-bottom: 0.8rem;
-            font-size: 1.05rem;
-        }
-
-        .roles {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0;
-            min-height: 2.2rem;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .highlight-dark-blue {
-            color: #1e3a8a;
-            font-weight: 700;
-        }
-
-        .highlight-yellow {
-            color: #d97706;
-            font-weight: 700;
-        }
-
-        .hero-image-container {
-            flex: 0.8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
+        .hero-image-container { flex: 0.8; display: flex; justify-content: center; align-items: center; }
         .profile-img-box {
             width: 300px;
             height: 300px;
@@ -239,12 +201,7 @@
             align-items: center;
             justify-content: center;
         }
-
-        .profile-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .profile-img-box img { width: 100%; height: 100%; object-fit: cover; }
 
         @keyframes morphBlob {
             0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
@@ -252,46 +209,31 @@
             100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
         }
 
-        section {
-            padding: 35px 8%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 1.9rem;
-            color: var(--dark);
-            margin-bottom: 1.2rem;
-        }
+        section { padding: 50px 8%; }
+        .section-title { text-align: center; font-size: 2rem; color: var(--dark); margin-bottom: 0.5rem; }
 
         .about-box {
             max-width: 900px;
             margin: 0 auto;
             background: #ffffff;
-            padding: 1.5rem 2rem;
+            padding: 2rem;
             border-radius: 12px;
             border: 1px solid var(--card-border);
             text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
         }
 
-        .achievement-section {
-            background-color: #ffffff;
-            border-top: 1px solid var(--card-border);
-            border-bottom: 1px solid var(--card-border);
-        }
-
+        /* ACHIEVEMENTS */
         .achievement-card {
             max-width: 900px;
             margin: 0 auto;
-            background: #f8fafc;
+            background: #ffffff;
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 1.2rem 1.8rem;
+            padding: 1.5rem 2rem;
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            transition: all 0.3s ease;
+            gap: 1.8rem;
         }
 
         .muni-logo-box {
@@ -305,200 +247,32 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            overflow: hidden;
         }
+        .muni-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        .muni-logo-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .achievement-info h3 {
-            font-size: 1.35rem;
-            color: var(--dark);
-            margin-bottom: 0.2rem;
-        }
-
-        .badge-tag {
-            display: inline-block;
-            background: #fef3c7;
-            color: #92400e;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-
-        .prize {
-            color: #d97706;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.3rem;
-        }
-
-        /* ARTICLE SECTION */
-        .article-section {
-            display: none;
-            background-color: #ffffff;
-            border-top: 1px solid var(--card-border);
-            border-bottom: 1px solid var(--card-border);
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .article-container {
-            max-width: 900px;
-            margin: 0 auto 0.8rem auto;
-            background: #f8fafc;
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 1.2rem 1.8rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .article-header {
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 0.4rem;
-            margin-bottom: 0.4rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .article-header h3 {
-            font-size: 1.35rem;
-            color: #1e3a8a;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .article-header.warning h3 {
-            color: #b91c1c;
-        }
-
-        .article-summary {
-            font-size: 1.05rem;
-            color: #475569;
-            margin-bottom: 0.4rem;
-        }
-
-        .article-content {
-            display: none;
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px dashed #cbd5e1;
-            cursor: default;
-        }
-
-        .article-content.show {
-            display: block;
-        }
-
-        .article-list {
-            list-style: none;
-        }
-
-        .article-list li {
-            position: relative;
-            padding-left: 1.8rem;
-            margin-bottom: 0.8rem;
-            color: #475569;
-            font-size: 1.05rem;
-            line-height: 1.5;
-        }
-
-        .article-list.danger li::before {
-            content: "⚠️";
-            position: absolute;
-            left: 0;
-            top: 0;
-            font-size: 0.95rem;
-        }
-
-        .article-list.guide li::before {
-            content: "📌";
-            position: absolute;
-            left: 0;
-            top: 0;
-            font-size: 0.95rem;
-        }
-
-        .article-list strong {
-            color: #1e3a8a;
-            display: block;
-            margin-bottom: 0.1rem;
-            font-size: 1.05rem;
-        }
-
-        .btn-see-more {
-            background: transparent;
-            border: none;
-            color: #1d4ed8;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            padding: 0;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        /* SERVICES GRID */
+        /* SERVICES */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.2rem;
+            gap: 1.5rem;
             max-width: 1100px;
             margin: 0 auto;
         }
 
         .service-card {
             background: #ffffff;
-            padding: 1.2rem 1.5rem;
+            padding: 1.5rem;
             border-radius: 10px;
             border: 1px solid var(--card-border);
-            transition: all 0.3s ease;
+            transition: transform 0.2s;
         }
 
         .service-card:hover {
-            background-color: #f0fdf4;
-            border-color: #10b981;
             transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.15);
+            border-color: var(--primary);
         }
 
-        .service-header {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .service-icon {
-            font-size: 1.8rem;
-            color: var(--icon-yellow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .service-card h3 {
-            font-size: 1.2rem;
-            color: var(--dark);
-            line-height: 1.2;
-            margin: 0;
-        }
-
-        /* MODAL POPUPS */
+        /* MODALS */
         .modal {
             display: none;
             position: fixed;
@@ -506,7 +280,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(15, 23, 42, 0.75);
             z-index: 2000;
             align-items: center;
             justify-content: center;
@@ -517,9 +291,8 @@
             background: #ffffff;
             border-radius: 12px;
             width: 100%;
-            max-width: 800px;
-            padding: 1.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+            max-width: 650px;
+            padding: 1.8rem;
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
@@ -531,12 +304,7 @@
             align-items: center;
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .modal-header h2 {
-            font-size: 1.4rem;
-            color: var(--primary);
+            margin-bottom: 1.2rem;
         }
 
         .btn-close-modal {
@@ -547,17 +315,79 @@
             color: #64748b;
         }
 
-        .video-box {
+        /* CATALOG */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .catalog-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+        }
+
+        .btn-catalog-action {
+            padding: 0.6rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            background: #089981;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* CHECKOUT */
+        .coupon-box { display: flex; gap: 0.5rem; margin-bottom: 0.8rem; }
+        .coupon-input { flex: 1; padding: 0.6rem 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; text-transform: uppercase; }
+        .btn-apply-coupon { background: var(--primary); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .payment-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+        .pay-card { border: 1px solid #cbd5e1; padding: 0.8rem; border-radius: 8px; text-align: center; background: #f8fafc; }
+        .btn-whatsapp-buy { width: 100%; background: #25d366; color: white; border: none; padding: 0.8rem; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+
+        /* MY COURSES */
+        .my-course-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.2rem;
+            background: #ffffff;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* COURSE PLAYER & LESSON PLAYLIST */
+        .player-layout {
+            display: grid;
+            grid-template-columns: 1.8fr 1.2fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 850px) {
+            .player-layout { grid-template-columns: 1fr; }
+        }
+
+        .video-container {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 8px;
             background: #000;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
-        .video-box iframe {
+        .video-container iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -566,198 +396,173 @@
             border: 0;
         }
 
-        /* ADMIN PANEL TABLE */
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .admin-table th, .admin-table td {
+        .playlist-box {
+            background: #f8fafc;
             border: 1px solid #e2e8f0;
-            padding: 0.6rem 0.8rem;
-            text-align: left;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            padding: 0.8rem;
+            max-height: 480px;
+            overflow-y: auto;
         }
 
-        .admin-table th {
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 0.8rem;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lesson-item:hover {
+            border-color: var(--primary);
             background: #f1f5f9;
-            color: var(--dark);
         }
 
-        .btn-action {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.75rem;
-            border-radius: 4px;
+        .lesson-item.active {
+            border-color: #2563eb;
+            background: #eff6ff;
+            font-weight: 700;
+        }
+
+        .lesson-check-btn {
+            background: transparent;
             border: none;
             cursor: pointer;
-            font-weight: 600;
-        }
-
-        .btn-activate { background: #0284c7; color: white; }
-        .btn-activate:hover { background: #0369a1; }
-        .btn-reset { background: #ef4444; color: white; }
-        .btn-reset:hover { background: #dc2626; }
-
-        /* FOOTER */
-        footer {
-            background: var(--dark);
-            color: #94a3b8;
-            text-align: center;
-            padding: 1.2rem 1rem 1rem 1rem;
-            font-size: 1rem;
-        }
-
-        footer h3 {
-            color: #ffffff;
-            margin-bottom: 0.2rem;
             font-size: 1.25rem;
+            color: #cbd5e1;
+            padding: 2px 6px;
+            transition: color 0.2s;
         }
 
-        .social-box {
-            margin: 0.5rem 0;
+        .lesson-check-btn.completed {
+            color: #10b981;
         }
 
-        .social-title {
-            color: #f8fafc;
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 0.6rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-
-        .social-btn {
+        /* ADMIN PANEL */
+        .admin-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .admin-table th, .admin-table td { border: 1px solid #e2e8f0; padding: 0.7rem; font-size: 0.95rem; }
+        .admin-table th { background: #f1f5f9; text-align: left; }
+        
+        .btn-course-toggle {
+            padding: 0.35rem 0.6rem;
+            font-size: 0.8rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            color: #ffffff;
-            font-size: 1.3rem;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+            gap: 4px;
         }
 
+        .status-approved { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+        .status-pending { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+        .btn-approve-all { background: #089981; color: white; padding: 0.4rem 0.8rem; border-radius: 5px; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; }
+        .btn-reset { background: #ef4444; color: white; padding: 0.4rem 0.8rem; border-radius: 5px; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; }
+
+        /* FOOTER */
+        footer { background: var(--dark); color: #94a3b8; text-align: center; padding: 2rem 1rem; }
+        .social-links { display: flex; justify-content: center; gap: 1rem; list-style: none; margin-top: 0.8rem; }
+        .social-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; color: #ffffff; text-decoration: none; }
         .social-btn.facebook { background: #1877f2; }
         .social-btn.youtube { background: #ff0000; }
-        .social-btn.tiktok { background: #000000; border: 1px solid #334155; }
         .social-btn.whatsapp { background: #25d366; }
-        .social-btn.email { background: #ea4335; }
-
-        .copyright {
-            margin-top: 0.6rem;
-            font-size: 0.82rem;
-            color: #64748b;
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column-reverse;
-                text-align: center;
-                padding-top: 80px;
-            }
-
-            .profile-img-box {
-                width: 230px;
-                height: 230px;
-            }
-
-            .achievement-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .nav-links {
-                display: none;
-            }
-            
-            section {
-                padding: 25px 5%;
-            }
-
-            .roles {
-                justify-content: center;
-            }
-        }
     </style>
 </head>
 <body>
 
     <!-- NAVBAR -->
     <nav>
-        <div class="logo">
+        <div class="logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">
             <span>Arun Adhikari</span>
-            <div class="candlestick-chart-svg" title="Share Market Candlestick Chart">
+            <div class="candlestick-chart-svg">
                 <svg width="70" height="28" viewBox="0 0 100 40">
                     <line x1="0" y1="20" x2="100" y2="20" stroke="#f23645" stroke-width="1" stroke-dasharray="2,2"/>
                     <line x1="10" y1="22" x2="10" y2="38" stroke="#089981" stroke-width="1.5"/>
                     <rect x="8" y="26" width="4" height="8" fill="#089981"/>
-                    <line x1="22" y1="18" x2="22" y2="30" stroke="#f23645" stroke-width="1.5"/>
-                    <rect x="20" y="20" width="4" height="6" fill="#f23645"/>
                     <line x1="34" y1="10" x2="34" y2="28" stroke="#089981" stroke-width="1.5"/>
                     <rect x="32" y="14" width="4" height="11" fill="#089981"/>
-                    <line x1="46" y1="12" x2="46" y2="24" stroke="#f23645" stroke-width="1.5"/>
-                    <rect x="44" y="16" width="4" height="5" fill="#f23645"/>
-                    <line x1="58" y1="15" x2="58" y2="35" stroke="#f23645" stroke-width="1.5"/>
-                    <rect x="56" y="18" width="4" height="13" fill="#f23645"/>
-                    <line x1="70" y1="12" x2="70" y2="28" stroke="#089981" stroke-width="1.5"/>
-                    <rect x="68" y="15" width="4" height="9" fill="#089981"/>
                     <line x1="82" y1="2" x2="82" y2="22" stroke="#089981" stroke-width="1.5"/>
                     <rect x="80" y="5" width="4" height="12" fill="#089981"/>
-                    <line x1="94" y1="0" x2="94" y2="15" stroke="#089981" stroke-width="1.5"/>
-                    <rect x="92" y="1" width="4" height="9" fill="#089981"/>
                 </svg>
             </div>
         </div>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#achievements">Achievements</a></li>
-            <li><a href="javascript:void(0)" onclick="showArticlesSection()">Articles</a></li>
             <li><a href="#services">Services</a></li>
             
-            <!-- COURSES DROPDOWN -->
             <li class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle">Courses <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 2px;"></i></a>
+                <a href="javascript:void(0)" onclick="openCoursesCatalog()"><i class="fas fa-graduation-cap" style="color:#089981;"></i> Courses <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i></a>
                 <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" onclick="openCourse('Website Development', 'web_dev')">Website Development <span class="nav-badge-access">Open</span></a></li>
-                    <li><a href="javascript:void(0)" onclick="openCourse('App Development', 'app_dev')">App Development <span class="nav-badge-access">Open</span></a></li>
-                    <li><a href="javascript:void(0)" onclick="openCourse('Video Editing', 'video_edit')">Video Editing <span class="nav-badge-access">Open</span></a></li>
-                    <li><a href="javascript:void(0)" onclick="openCourse('Graphic Design', 'graphic_design')">Graphic Design <span class="nav-badge-access">Open</span></a></li>
-                    <li><a href="javascript:void(0)" onclick="openCourse('Technical Analysis', 'tech_analysis')">Technical Analysis <span class="nav-badge-access">Open</span></a></li>
-                    <li><a href="javascript:void(0)" onclick="openCourse('Fundamental Analysis', 'fund_analysis')">Fundamental Analysis <span class="nav-badge-access">Open</span></a></li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="handleCourseClick('Website Development', 'web_dev', 999, 5000)">
+                            <span>Website Dev</span>
+                            <div class="nav-price-tag"><span class="nav-orig-price">रु. ५,०००</span><span class="nav-offer-price">रु. ९९९</span></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="handleCourseClick('App Development', 'app_dev', 2500, 20000)">
+                            <span>App Dev</span>
+                            <div class="nav-price-tag"><span class="nav-orig-price">रु. २०,०००</span><span class="nav-offer-price">रु. २,५००</span></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="handleCourseClick('Video Editing Masterclass', 'video_edit', 1499, 30000)">
+                            <span>Video Editing</span>
+                            <div class="nav-price-tag"><span class="nav-orig-price">रु. ३०,०००</span><span class="nav-offer-price">रु. १,४९९</span></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="handleCourseClick('Graphic Design Pro', 'graphic_design', 999, 5000)">
+                            <span>Graphic Design</span>
+                            <div class="nav-price-tag"><span class="nav-orig-price">रु. ५,०००</span><span class="nav-offer-price">रु. ९९९</span></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="handleCourseClick('Technical Analysis', 'tech_analysis', 499, 3000)">
+                            <span>Technical Analysis</span>
+                            <div class="nav-price-tag"><span class="nav-orig-price">रु. ३,०००</span><span class="nav-offer-price">रु. ४९९</span></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="handleCourseClick('Fundamental Analysis', 'fund_analysis', 499, 5000)">
+                            <span>Fundamental Analysis</span>
+                            <div class="nav-price-tag"><span class="nav-orig-price">रु. ५,०००</span><span class="nav-offer-price">रु. ४९९</span></div>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
-            <!-- ADMIN TAB -->
-            <li id="adminNavTab" style="display: none;"><a href="javascript:void(0)" onclick="openAdminPanel()" style="color: #dc2626;"><i class="fas fa-user-shield"></i> Admin</a></li>
+            <!-- MY COURSES TAB -->
+            <li id="myCoursesNavTab" style="display: none;">
+                <a href="javascript:void(0)" onclick="openMyCoursesDashboard()" style="color:#2563eb;"><i class="fas fa-play-circle"></i> My Courses</a>
+            </li>
 
-            <li><a href="#contact">Contact</a></li>
+            <li id="adminNavTab" style="display: none;"><a href="javascript:void(0)" onclick="openAdminPanel()" style="color: #dc2626;"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
 
-            <!-- LOGIN / LOGOUT BUTTON -->
             <li>
                 <button id="authBtn" class="btn-auth" onclick="handleAuth()"><i class="fab fa-google"></i> Student Login</button>
             </li>
         </ul>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- PORTFOLIO HERO -->
     <section class="hero">
         <div class="hero-content">
             <div class="greeting">Hello, Namaste! I am</div>
             <h1>Arun Adhikari</h1>
             <div class="location"><i class="fas fa-map-marker-alt"></i> Shitaganga-03, Arghakhanchi, Nepal</div>
-            
-            <div class="roles">
-                <span id="fullTypingRoles"></span>
+            <div class="roles"><span id="fullTypingRoles"></span></div>
+            <div style="margin-top: 1.8rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button onclick="openCoursesCatalog()" class="btn-auth" style="padding: 0.75rem 1.5rem; font-size: 1.05rem; background: #089981; border:none; cursor:pointer;"><i class="fas fa-graduation-cap"></i> View Courses & Offers</button>
+                <button id="heroMyCoursesBtn" onclick="openMyCoursesDashboard()" class="btn-auth" style="padding: 0.75rem 1.5rem; font-size: 1.05rem; background: #2563eb; border:none; cursor:pointer; display:none;"><i class="fas fa-play-circle"></i> My Enrolled Courses</button>
+                <a href="#contact" class="btn-auth" style="text-decoration: none; padding: 0.75rem 1.5rem; font-size: 1.05rem; background: #334155;"><i class="fas fa-envelope"></i> Contact Me</a>
             </div>
         </div>
         <div class="hero-image-container">
@@ -772,197 +577,264 @@
         <h2 class="section-title">About Me</h2>
         <div class="about-box">
             <p>Hello! I am a passionate and multi-skilled professional operating across <span class="highlight-dark-blue">Creative Design</span>, <span class="highlight-dark-blue">Web Technologies</span>, and the <span class="highlight-dark-blue">Financial Sector</span>.</p>
-            <p>With <span class="highlight-dark-blue">10 years of experience</span> in the <span class="highlight-dark-blue">Microfinance Industry</span> and active knowledge of stock market trading (<span class="highlight-dark-blue">Technical & Fundamental Analysis</span>), I blend strategy with financial insight.</p>
-            <p>On the creative side, I am an award-winning <span class="highlight-dark-blue">Graphic Designer</span>, <span class="highlight-dark-blue">Web Developer</span>, and <span class="highlight-dark-blue">Video Editor</span> focused on delivering top-quality results.</p>
+            <p style="margin-top: 0.8rem;">With <span class="highlight-dark-blue">10 years of experience</span> in the <span class="highlight-dark-blue">Microfinance Industry</span> and expertise in the stock market (<span class="highlight-dark-blue">Technical & Fundamental Analysis</span>), I am committed to sharing practical skills and helping others grow.</p>
         </div>
     </section>
 
-    <!-- ACHIEVEMENTS SECTION -->
-    <section id="achievements" class="achievement-section">
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements" style="background:#ffffff; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
         <h2 class="section-title">Key Achievement</h2>
         <div class="achievement-card">
             <div class="muni-logo-box">
                 <img src="shitaganga-logo.png.jpg" alt="Shitaganga Municipality Logo">
             </div>
             <div class="achievement-info">
-                <span class="badge-tag">🏆 1st Place Award Winner</span>
-                <h3>Official Logo Designer – Shitaganga Municipality</h3>
-                <div class="prize">NPR 50,000 Cash Prize</div>
-                <p>Designed and created the official logo for Shitaganga Municipality, Arghakhanchi, selected as the winning entry in an open design competition.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ARTICLES SECTION -->
-    <section id="articles" class="article-section">
-        <h2 class="section-title">Useful Articles & Guidance</h2>
-        
-        <!-- ARTICLE 1 -->
-        <div class="article-container" onclick="toggleArticle('art1', this)">
-            <div class="article-header">
-                <h3><i class="fas fa-user-tie"></i> Interview दिन जाँदै हुनुहुन्छ? जानिराखौँ यी कुराहरू</h3>
-                <button class="btn-see-more" type="button">
-                    <span>See More</span> <i class="fas fa-chevron-down"></i>
-                </button>
-            </div>
-            <p class="article-summary">अन्तर्वार्तामा जाँदा ध्यान दिनुपर्ने पोसाक, समय, प्रवेश शैली तथा व्यवहार सम्बन्धी महत्वपूर्ण मार्गदर्शनहरू।</p>
-            
-            <div id="art1" class="article-content" onclick="event.stopPropagation();">
-                <ul class="article-list guide">
-                    <li>
-                        <strong>अन्तर्वार्तामा ड्रेस कस्तो लगाउने?</strong>
-                        अन्तर्वार्तामा ड्रेस साधारण हुनुपर्दछ, ड्रेस तडकभडक हुनु हुँदैन। पुरुषले सुट र महिलाले सुट, कुर्तासलवार वा साडी लगाउँदा राम्रो हुन्छ। ड्रेसका कारणले अन्तर्वार्ता कोठाभित्र आफूलाई अप्ठ्यारो हुनु हुँदैन।
-                    </li>
-                    <li>
-                        <strong>अन्तर्वार्ताको दिन कति समय पहिले पुग्ने?</strong>
-                        अन्तर्वार्ताको दिन परीक्षा केन्द्र/कार्यालय वा लोकसेवामा गएर केही फाराम भर्नुपर्ने हुनसक्छ, त्यसैले सकेसम्म अन्तर्वार्ता सुरु हुनुपूर्व कम्तीमा १ घण्टा अगाडि नै पुग्नुपर्दछ।
-                    </li>
-                    <li>
-                        <strong>अन्तर्वार्ता कोठाभित्र प्रवेश गर्दा के गर्ने?</strong>
-                        अन्तर्वार्ता कोठाभित्र प्रवेश गर्दा पालो गरेर नाम बोलाइन्छ, अनि आफैँले ढोका खोलेर भित्र पस्नुपर्दछ। ढोकाभित्र प्रवेश गरेपछि अन्तर्वार्ता समितिका सबै सदस्यहरूलाई एकै पटक सामूहिक रूपमा नमस्कार गर्ने र सबैलाई नजर पुर्याएर हेर्नुपर्दछ। सुरुमा डर लाग्न सक्छ तर डर मान्नु हुँदैन; कुराकानी गर्दै जाँदा त्यो डर आफैँ हराउँछ।
-                    </li>
-                    <li>
-                        <strong>कुर्सीमा बस्दा ध्यान दिनुपर्ने कुरा:</strong>
-                        अन्तर्वार्ता कोठाभित्र प्रवेश गरेपछि आफ्ना लागि छुट्टै कुर्सीको व्यवस्था गरिएको हुन्छ। अन्तर्वार्ता समितिको अध्यक्ष वा टोलीले "कुर्सीमा बस्नुहोस्" भनेपछि मात्र धन्यवाद दिँदै अनुशासित र सीधा भएर बस्नुपर्दछ।
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- ARTICLE 2 -->
-        <div class="article-container" onclick="toggleArticle('art2', this)">
-            <div class="article-header warning">
-                <h3><i class="fas fa-exclamation-triangle"></i> यसकारण लिनु हुँदैन असुरक्षित माध्यमबाट ऋण?</h3>
-                <button class="btn-see-more" type="button">
-                    <span>See More</span> <i class="fas fa-chevron-down"></i>
-                </button>
-            </div>
-            <p class="article-summary">प्राय जसो साथी-भाई, आफन्त, वा साहु-महाजनसँग असुरक्षित ऋण लिँदा ठगिमा पर्न सक्ने गम्भीर जोखिम र समस्याहरू।</p>
-            
-            <div id="art2" class="article-content" onclick="event.stopPropagation();">
-                <p class="article-intro" style="margin-bottom: 0.8rem;">यसबाट तपाईँलाई निम्न समस्याहरू पर्न सक्छन्:</p>
-                <ul class="article-list danger">
-                    <li>
-                        <strong>ठगिमा पर्ने सम्भावना बढी हुन्छ:</strong>
-                        यो तरिकाबाट ऋण लिँदा धेरै जसो समयमा कागजी अभिलेख राखिएको हुँदैन, जसले गर्दा कति पैसा, कुन मितिमा, कस्ता सर्तहरू सहित लेन-देन भयो भन्ने कुराको कुनै प्रमाण हुँदैन।
-                    </li>
-                    <li>
-                        <strong>सर्त र ब्याजदर फेरबदल हुने जोखिम:</strong>
-                        कुन मितिमा, कहाँ र कस्तो सर्तहरू राखेर ऋण लेन-देन भएको थियो भन्ने कुरा बिर्सिन सक्छ। साँवाबापतको रकम वा सहमति गरेको ब्याजदर भविष्यमा फेरबदल गरी ठगिमा पार्ने सम्भावना बढी हुन्छ।
-                    </li>
-                    <li>
-                        <strong>रकममा विवाद हुने सम्भावना:</strong>
-                        ऋण दिनेले दिइएको रकमलाई बढाएर माग्न सक्छन् भने ऋण लिनेले लिएको रकम कम गरेर दिन सक्छन्।
-                    </li>
-                    <li>
-                        <strong>सर्तहरू स्पष्ट नहुँदा अन्योलता:</strong>
-                        लिइएको ऋण कति समयसम्ममा, कति ब्याजदर सहित तिर्नु पर्ने भनी दुवै पक्षलाई सुरुमै प्रष्ट हुँदैन। यसकारण दुवै पक्षमा अन्योलता हुन्छ, र एक अर्काको बुझाइमा फरक परी झगडा हुन सक्छ।
-                    </li>
-                    <li>
-                        <strong>हिसाब गल्ती हुने सम्भावना:</strong>
-                        ऋण रकम लेन-देन गर्ने व्यक्तिहरूले नै सम्पूर्ण हिसाब-किताब राख्नु पर्ने हुँदा, हिसाब राख्दा गल्ती हुने सम्भावना बढी हुन्छ।
-                    </li>
-                    <li>
-                        <strong>सामाजिक सम्बन्ध र प्रतिष्ठामा आँच:</strong>
-                        समयमै ऋण तिर्न सकिएन भने साथी-भाई र आफन्तसँगको सम्बन्ध बिग्रिन सक्छ। समाजमा चिनेजानेका मानिसहरू समक्ष नचाहिँदो हल्ला फैलिएर बदनामी हुन सक्छ।
-                    </li>
-                    <li>
-                        <strong>धितो/धरौटीको जोखिम:</strong>
-                        तपाईँको धरौटीको सुरक्षा हुँदैन। धरौटी बापत राखिएको वस्तु, सुनचाँदी, प्रमाणपत्र वा धनीपुर्जाहरू लिएर भाग्न सक्छन् वा दुरुपयोग हुन सक्छ। समयमै ऋण तिर्न नसकेमा ती मूल्यवान् वस्तुहरू बेचबिखन गरी असुल गर्न सक्छन्।
-                    </li>
-                </ul>
+                <span style="background:#fef3c7; color:#92400e; padding:0.2rem 0.6rem; border-radius:4px; font-size:0.85rem; font-weight:700;">🏆 1st Place Award Winner</span>
+                <h3 style="margin-top:6px; color:var(--dark);">Official Logo Designer – Shitaganga Municipality</h3>
+                <div style="color:#d97706; font-weight:700; font-size:1.1rem; margin:4px 0;">NPR 50,000 Cash Prize</div>
+                <p>Designed and created the official municipal identity logo for Shitaganga Municipality, Arghakhanchi.</p>
             </div>
         </div>
     </section>
 
     <!-- SERVICES -->
     <section id="services">
-        <h2 class="section-title">What I Offer</h2>
+        <h2 class="section-title">Services & Expertise</h2>
         <div class="services-grid">
-            
             <div class="service-card">
-                <div class="service-header">
-                    <div class="service-icon"><i class="fas fa-palette"></i></div>
-                    <h3>Creative Graphic Design</h3>
-                </div>
-                <p><span class="highlight-dark-blue">5 years of experience</span> in <span class="highlight-dark-blue">Illustrator, Photoshop & InDesign</span>. Specializing in <span class="highlight-dark-blue">Official Logos, Vector Graphics</span>, and Brand Design.</p>
+                <h3><i class="fas fa-palette" style="color:var(--icon-yellow);"></i> Graphic Design</h3>
+                <p style="margin-top: 6px;"><span class="highlight-dark-blue">5 years of experience</span> in Illustrator, Photoshop & InDesign branding.</p>
             </div>
-
             <div class="service-card">
-                <div class="service-header">
-                    <div class="service-icon"><i class="fas fa-code"></i></div>
-                    <h3>Web & App Development</h3>
-                </div>
-                <p><span class="highlight-dark-blue">5 years of experience</span> creating modern, fast and responsive <span class="highlight-dark-blue">Websites and Web Apps</span> using <span class="highlight-dark-blue">HTML, CSS, and JavaScript</span>.</p>
+                <h3><i class="fas fa-code" style="color:var(--icon-yellow);"></i> Web & App Development</h3>
+                <p style="margin-top: 6px;"><span class="highlight-dark-blue">5 years of experience</span> in designing responsive websites and mobile interfaces.</p>
             </div>
-
             <div class="service-card">
-                <div class="service-header">
-                    <div class="service-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Financial Expertise</h3>
-                </div>
-                <p><span class="highlight-dark-blue">10 years of experience</span> in the <span class="highlight-dark-blue">Microfinance Industry</span>, combined with Share Market <span class="highlight-dark-blue">Technical & Fundamental Analysis</span>.</p>
+                <h3><i class="fas fa-chart-line" style="color:var(--icon-yellow);"></i> Financial Guidance</h3>
+                <p style="margin-top: 6px;"><span class="highlight-dark-blue">10 years of experience</span> in Banking/Microfinance & Stock Market Analysis.</p>
             </div>
-
-            <div class="service-card">
-                <div class="service-header">
-                    <div class="service-icon"><i class="fas fa-network-wired"></i></div>
-                    <h3>Technical / ISP Experience</h3>
-                </div>
-                <p><span class="highlight-dark-blue">3 years of experience</span> as an <span class="highlight-dark-blue">ISP Technician</span> for practical network setup, routing and hardware troubleshooting.</p>
-            </div>
-
-            <div class="service-card">
-                <div class="service-header">
-                    <div class="service-icon"><i class="fas fa-film"></i></div>
-                    <h3>Video Editing</h3>
-                </div>
-                <p>Crafting engaging <span class="highlight-dark-blue">Story-driven Video Content</span> and promotional edits for personal and business branding.</p>
-            </div>
-
-            <div class="service-card">
-                <div class="service-header">
-                    <div class="service-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                        </svg>
-                    </div>
-                    <h3>Client Satisfaction</h3>
-                </div>
-                <p>Consistent <span class="highlight-dark-blue">5-Star Positive Rating</span> for delivering top quality graphic design, web and editing projects.</p>
-            </div>
-
         </div>
     </section>
 
-    <!-- COURSE PLAYER MODAL -->
-    <div id="courseModal" class="modal">
+    <!-- ALL COURSES CATALOG MODAL -->
+    <div id="catalogModal" class="modal">
+        <div class="modal-content" style="max-width: 720px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-graduation-cap" style="color:#089981;"></i> Premium Courses (Special Discount)</h2>
+                <button class="btn-close-modal" onclick="closeModal('catalogModal')">&times;</button>
+            </div>
+            <div class="catalog-grid">
+                
+                <div class="catalog-item">
+                    <div>
+                        <h4>Website Development</h4>
+                        <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. ५,०००</span>
+                            <span style="font-size:0.9rem; color:#64748b;">(८०% छुट)</span>
+                            <strong style="color:#089981; font-size:1.3rem;">रु. ९९९</strong>
+                        </div>
+                    </div>
+                    <button class="btn-catalog-action" onclick="handleCourseClick('Website Development', 'web_dev', 999, 5000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
+                </div>
+
+                <div class="catalog-item">
+                    <div>
+                        <h4>App Development</h4>
+                        <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. २०,०००</span>
+                            <span style="font-size:0.9rem; color:#64748b;">(८८% छुट)</span>
+                            <strong style="color:#089981; font-size:1.3rem;">रु. २,५००</strong>
+                        </div>
+                    </div>
+                    <button class="btn-catalog-action" onclick="handleCourseClick('App Development', 'app_dev', 2500, 20000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
+                </div>
+
+                <div class="catalog-item">
+                    <div>
+                        <h4>Video Editing Masterclass</h4>
+                        <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. ३०,०००</span>
+                            <span style="font-size:0.9rem; color:#64748b;">(९५% छुट)</span>
+                            <strong style="color:#089981; font-size:1.3rem;">रु. १,४९९</strong>
+                        </div>
+                    </div>
+                    <button class="btn-catalog-action" onclick="handleCourseClick('Video Editing Masterclass', 'video_edit', 1499, 30000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
+                </div>
+
+                <div class="catalog-item">
+                    <div>
+                        <h4>Graphic Design Pro</h4>
+                        <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. ५,०००</span>
+                            <span style="font-size:0.9rem; color:#64748b;">(८०% छुट)</span>
+                            <strong style="color:#089981; font-size:1.3rem;">रु. ९९९</strong>
+                        </div>
+                    </div>
+                    <button class="btn-catalog-action" onclick="handleCourseClick('Graphic Design Pro', 'graphic_design', 999, 5000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
+                </div>
+
+                <div class="catalog-item">
+                    <div>
+                        <h4>Technical Analysis (Share Market)</h4>
+                        <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. ३,०००</span>
+                            <span style="font-size:0.9rem; color:#64748b;">(८३% छुट)</span>
+                            <strong style="color:#089981; font-size:1.3rem;">रु. ४९९</strong>
+                        </div>
+                    </div>
+                    <button class="btn-catalog-action" onclick="handleCourseClick('Technical Analysis', 'tech_analysis', 499, 3000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
+                </div>
+
+                <div class="catalog-item">
+                    <div>
+                        <h4>Fundamental Analysis (Share Market)</h4>
+                        <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
+                            <span style="text-decoration:line-through; color:#ef4444; font-size:1rem; font-weight:700;">रु. ५,०००</span>
+                            <span style="font-size:0.9rem; color:#64748b;">(९०% छुट)</span>
+                            <strong style="color:#089981; font-size:1.3rem;">रु. ४९९</strong>
+                        </div>
+                    </div>
+                    <button class="btn-catalog-action" onclick="handleCourseClick('Fundamental Analysis', 'fund_analysis', 499, 5000)"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MY COURSES DASHBOARD MODAL -->
+    <div id="myCoursesModal" class="modal">
+        <div class="modal-content" style="max-width: 650px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-graduation-cap" style="color:#2563eb;"></i> My Approved Courses</h2>
+                <button class="btn-close-modal" onclick="closeModal('myCoursesModal')">&times;</button>
+            </div>
+            <div id="myCoursesListArea"></div>
+        </div>
+    </div>
+
+    <!-- COURSE CHECKOUT MODAL -->
+    <div id="checkoutModal" class="modal">
         <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="checkoutCourseTitle">Course Checkout</h2>
+                <button class="btn-close-modal" onclick="closeModal('checkoutModal')">&times;</button>
+            </div>
+            
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 1.2rem; border-radius: 8px; margin-bottom: 1rem;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:1.05rem;">
+                    <span>कोर्स:</span>
+                    <strong id="summaryCourseName" style="color:var(--dark);">-</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                    <span>वास्तविक मूल्य (Full Price):</span>
+                    <span id="summaryOriginalPrice" style="text-decoration: line-through; color:#ef4444; font-weight:700;">-</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:1.25rem; border-top:1px solid #e2e8f0; padding-top:8px; margin-top:6px;">
+                    <strong>अफर मूल्य (Payable):</strong>
+                    <strong id="summaryPayablePrice" style="color:#089981;">-</strong>
+                </div>
+            </div>
+
+            <!-- COUPON SYSTEM -->
+            <div>
+                <label style="font-weight:600; font-size:0.95rem; margin-bottom:4px; display:block;">कूपन कोड छ? (Coupon Code):</label>
+                <div class="coupon-box">
+                    <input type="text" id="couponInput" class="coupon-input" placeholder="उदा: ARUN50">
+                    <button class="btn-apply-coupon" onclick="applyCoupon()">Apply</button>
+                </div>
+                <div id="couponMsg" style="font-size:0.9rem; margin-bottom:1rem;"></div>
+            </div>
+
+            <!-- PAYMENT INSTRUCTIONS -->
+            <div style="border-top:1px solid #e2e8f0; padding-top:1rem;">
+                <h4 style="margin-bottom:0.5rem; color:var(--dark);"><i class="fas fa-wallet"></i> भुक्तानी गर्ने माध्यम:</h4>
+                
+                <div class="payment-options-grid">
+                    <div class="pay-card">
+                        <strong style="color:#60bb46; font-size:1.15rem;"><i class="fas fa-mobile-alt"></i> eSewa</strong>
+                        <p style="font-size:1.05rem; font-weight:700; margin-top:4px;">९८५७०६९०५८</p>
+                        <small style="color:#64748b;">(Arun Adhikari)</small>
+                    </div>
+                    <div class="pay-card">
+                        <strong style="color:#5c2d91; font-size:1.15rem;"><i class="fas fa-wallet"></i> Khalti</strong>
+                        <p style="font-size:1.05rem; font-weight:700; margin-top:4px;">९८५७०६९०५८</p>
+                        <small style="color:#64748b;">(Arun Adhikari)</small>
+                    </div>
+                </div>
+
+                <div style="background:#fef3c7; border:1px solid #fde68a; padding:0.8rem; border-radius:6px; font-size:0.92rem; color:#92400e; margin-bottom:1rem;">
+                    📌 <strong>भुक्तानी पछि:</strong> रकम पठाएको Screenshot तलको WhatsApp बटनमा पठाउनुहोस्। Admin ले Verify गरेर Approve गरेपछि तपाईंको खातामा <strong>"My Courses"</strong> खुल्नेछ।
+                </div>
+
+                <button class="btn-whatsapp-buy" onclick="sendWhatsAppConfirmation()">
+                    <i class="fab fa-whatsapp"></i> भुक्तानीको Screenshot पठाउनुहोस्
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADVANCED COURSE PLAYER WITH PLAYLIST & PROGRESS -->
+    <div id="courseModal" class="modal">
+        <div class="modal-content" style="max-width: 950px;">
             <div class="modal-header">
                 <h2 id="modalCourseTitle">Course Player</h2>
                 <button class="btn-close-modal" onclick="closeModal('courseModal')">&times;</button>
             </div>
-            <div id="courseContentArea"></div>
+            
+            <div class="player-layout">
+                <div>
+                    <div class="video-container">
+                        <iframe id="mainVideoPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:0.8rem 1rem; border-radius:8px; border:1px solid #e2e8f0;">
+                        <div>
+                            <h4 id="currentLessonName" style="color:var(--dark);">Lesson Loading...</h4>
+                            <small style="color:#64748b;">Arun Adhikari Learning Hub</small>
+                        </div>
+                        <button id="btnMarkComplete" class="btn-catalog-action" style="background:#2563eb;" onclick="toggleCurrentLessonComplete()">
+                            <i class="fas fa-check"></i> Mark Complete
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PLAYLIST AREA -->
+                <div class="playlist-box">
+                    <h4 style="margin-bottom:0.8rem; color:var(--dark); display:flex; justify-content:space-between; align-items:center;">
+                        <span><i class="fas fa-list-ul" style="color:#2563eb;"></i> Course Lessons</span>
+                        <span id="courseProgressPercent" style="font-size:0.85rem; color:#10b981; font-weight:700;">0% Completed</span>
+                    </h4>
+                    <div id="lessonsListContainer">
+                        <!-- Injected via JavaScript -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- ADMIN PANEL MODAL -->
+    <!-- ADVANCED ADMIN PANEL (COURSE APPROVALS & VIDEO UPLOADER) -->
     <div id="adminModal" class="modal">
-        <div class="modal-content" style="max-width: 950px;">
+        <div class="modal-content" style="max-width: 1050px;">
             <div class="modal-header">
-                <h2><i class="fas fa-user-shield"></i> Course Admin Panel</h2>
+                <h2><i class="fas fa-user-shield" style="color:#dc2626;"></i> Admin Manager (Students & Lessons)</h2>
                 <button class="btn-close-modal" onclick="closeModal('adminModal')">&times;</button>
             </div>
-            <p>विद्यार्थीहरूको कोर्स एक्सेस (Toggle/क्लिक गरेर अन-अफ गर्ने) तथा दर्ता भएका डिभाइसहरू व्यवस्थापन गर्नुहोस्:</p>
-            <div style="overflow-x: auto;">
+
+            <!-- TABS -->
+            <div style="display:flex; gap:10px; margin-bottom:1rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
+                <button class="btn-auth" style="background:#1e3a8a;" onclick="switchAdminTab('students')"><i class="fas fa-users"></i> Student Approvals</button>
+                <button class="btn-auth" style="background:#089981;" onclick="switchAdminTab('videos')"><i class="fas fa-video"></i> Upload / Manage Lessons</button>
+            </div>
+
+            <!-- TAB 1: STUDENT APPROVALS -->
+            <div id="adminTabStudents" style="overflow-x: auto;">
                 <table class="admin-table">
                     <thead>
                         <tr>
                             <th>Student</th>
                             <th>Email</th>
-                            <th>Active Courses</th>
                             <th>Devices</th>
-                            <th>Toggle Course Access / Reset</th>
+                            <th>Course Approvals (Click to Toggle)</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="adminUserTableBody">
@@ -970,38 +842,60 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- TAB 2: LESSON UPLOADER -->
+            <div id="adminTabVideos" style="display: none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0;">
+                <h3 style="margin-bottom:0.8rem; color:var(--dark);"><i class="fas fa-plus-circle"></i> Add New Lesson to Course</h3>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
+                    <div>
+                        <label style="font-weight:600; font-size:0.9rem;">Choose Course:</label>
+                        <select id="uploadCourseSelect" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                            <option value="web_dev">Website Development</option>
+                            <option value="app_dev">App Development</option>
+                            <option value="video_edit">Video Editing Masterclass</option>
+                            <option value="graphic_design">Graphic Design Pro</option>
+                            <option value="tech_analysis">Technical Analysis</option>
+                            <option value="fund_analysis">Fundamental Analysis</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-weight:600; font-size:0.9rem;">Lesson Number / Order:</label>
+                        <input type="number" id="uploadLessonOrder" placeholder="उदा: 1" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                    </div>
+                </div>
+
+                <div style="margin-bottom:10px;">
+                    <label style="font-weight:600; font-size:0.9rem;">Lesson Title (पाठको नाम):</label>
+                    <input type="text" id="uploadLessonTitle" placeholder="उदा: Lesson 1: Introduction to HTML & CSS" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                </div>
+
+                <div style="margin-bottom:15px;">
+                    <label style="font-weight:600; font-size:0.9rem;">YouTube Video URL or Video ID:</label>
+                    <input type="text" id="uploadLessonUrl" placeholder="उदा: https://www.youtube.com/watch?v=dQw4w9WgXcQ वा भिडियो ID" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                    <small style="color:#64748b;">(तपाईंको Unlisted YouTube भिडियोको लिङ्क यहाँ हाल्न सक्नुहुन्छ)</small>
+                </div>
+
+                <button class="btn-catalog-action" style="width:100%; justify-content:center; padding:0.8rem;" onclick="saveLessonToFirebase()">
+                    <i class="fas fa-cloud-upload-alt"></i> Save & Publish Lesson
+                </button>
+            </div>
+
         </div>
     </div>
 
     <!-- FOOTER -->
     <footer id="contact">
-        <h3>Let's Connect & Work Together</h3>
-        
-        <div class="social-box">
-            <div class="social-title">Connect with Us</div>
-            <div class="social-links">
-                <a href="https://www.facebook.com/helloarunadhikari/" target="_blank" rel="noopener noreferrer" class="social-btn facebook" title="Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://www.youtube.com/@ArunAdhikari" target="_blank" rel="noopener noreferrer" class="social-btn youtube" title="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-                <a href="https://www.tiktok.com/@hellowarunadhikari" target="_blank" rel="noopener noreferrer" class="social-btn tiktok" title="TikTok">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-                <a href="https://wa.me/9779857069058" target="_blank" rel="noopener noreferrer" class="social-btn whatsapp" title="WhatsApp (+977 9857069058)">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="mailto:arunadhikari2053@gmail.com" class="social-btn email" title="Email: arunadhikari2053@gmail.com">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
+        <h3>Connect & Contact</h3>
+        <p style="margin-top:4px;">WhatsApp / Phone: +977 9857069058 | Email: arunadhikari2053@gmail.com</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/helloarunadhikari/" target="_blank" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://youtube.com/@ArunAdhikari" target="_blank" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+            <a href="https://wa.me/9779857069058" target="_blank" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
         </div>
-
-        <p class="copyright">&copy; 2026 Arun Adhikari. All Rights Reserved.</p>
+        <p style="font-size:0.85rem; margin-top:1rem; color:#64748b;">&copy; 2026 Arun Adhikari. All Rights Reserved.</p>
     </footer>
 
-    <!-- FIREBASE & CORE LOGIC -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyBLIgjthPddTsuf8mR4Y6fq8ETsolelhOY",
@@ -1015,56 +909,108 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
-
-        // ADMIN EMAILS
         const ADMIN_EMAIL = "info.arunadhikari2053@gmail.com"; 
+
+        const COURSE_KEYS = [
+            { key: 'web_dev', label: 'Web Dev' },
+            { key: 'app_dev', label: 'App Dev' },
+            { key: 'video_edit', label: 'Video Edit' },
+            { key: 'graphic_design', label: 'Graphic' },
+            { key: 'tech_analysis', label: 'Tech Analysis' },
+            { key: 'fund_analysis', label: 'Fund Analysis' }
+        ];
+
+        const COURSE_NAMES = {
+            'web_dev': 'Website Development',
+            'app_dev': 'App Development',
+            'video_edit': 'Video Editing Masterclass',
+            'graphic_design': 'Graphic Design Pro',
+            'tech_analysis': 'Technical Analysis (Share Market)',
+            'fund_analysis': 'Fundamental Analysis (Share Market)'
+        };
+
+        // DEFAULT CURRICULUM (If Admin hasn't added dynamic ones yet)
+        const DEFAULT_LESSONS = {
+            'web_dev': [
+                { id: 'l1', title: 'Lesson 1: Introduction to Web Dev & Tools', vid: 'UB1O30fR-EE' },
+                { id: 'l2', title: 'Lesson 2: HTML5 Semantic Elements', vid: 'UB1O30fR-EE' },
+                { id: 'l3', title: 'Lesson 3: CSS3 Flexbox & Grid Masterclass', vid: 'UB1O30fR-EE' }
+            ],
+            'tech_analysis': [
+                { id: 'l1', title: 'Lesson 1: Candlestick Psychology & Basics', vid: 'UB1O30fR-EE' },
+                { id: 'l2', title: 'Lesson 2: Support & Resistance Strategies', vid: 'UB1O30fR-EE' },
+                { id: 'l3', title: 'Lesson 3: RSI & MACD Indicators Explained', vid: 'UB1O30fR-EE' }
+            ]
+        };
 
         let currentUser = null;
         let currentUserData = null;
+        let activeCourseKey = null;
+        let currentPlayingLessonId = null;
+        let currentCourseLessons = [];
 
-        // AUTH LISTENER
+        let activeCheckout = {
+            title: '',
+            key: '',
+            originalPrice: 0,
+            currentPrice: 0,
+            appliedCoupon: null
+        };
+
+        const COUPONS = {
+            'ARUN50': 0.50,
+            'SPECIAL100': 100
+        };
+
         auth.onAuthStateChanged(async (user) => {
             currentUser = user;
             const authBtn = document.getElementById("authBtn");
             const adminNav = document.getElementById("adminNavTab");
+            const myCoursesNav = document.getElementById("myCoursesNavTab");
+            const heroMyCoursesBtn = document.getElementById("heroMyCoursesBtn");
 
             if (user) {
                 authBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout (${user.displayName ? user.displayName.split(' ')[0] : 'User'})`;
                 
-                if (user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() || user.email.toLowerCase() === "arunadhikari2053@gmail.com") {
-                    adminNav.style.display = "block";
-                } else {
-                    adminNav.style.display = "none";
-                }
+                const isAdmin = user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() || user.email.toLowerCase() === "arunadhikari2053@gmail.com";
+                adminNav.style.display = isAdmin ? "block" : "none";
+
+                db.collection("users").doc(user.uid).onSnapshot(async (doc) => {
+                    if (doc.exists) {
+                        currentUserData = doc.data();
+                        const enrolled = currentUserData.enrolledCourses || [];
+
+                        if (isAdmin || enrolled.length > 0) {
+                            myCoursesNav.style.display = "block";
+                            heroMyCoursesBtn.style.display = "inline-block";
+                        } else {
+                            myCoursesNav.style.display = "none";
+                            heroMyCoursesBtn.style.display = "none";
+                        }
+                    }
+                });
 
                 await handleUserDeviceRegistration(user);
             } else {
                 authBtn.innerHTML = `<i class="fab fa-google"></i> Student Login`;
                 adminNav.style.display = "none";
+                myCoursesNav.style.display = "none";
+                heroMyCoursesBtn.style.display = "none";
                 currentUserData = null;
             }
         });
 
         function handleAuth() {
             if (currentUser) {
-                auth.signOut().then(() => {
-                    alert("सफलतापूर्वक Logout भयो।");
-                    location.reload();
-                });
+                auth.signOut().then(() => { location.reload(); });
             } else {
                 const provider = new firebase.auth.GoogleAuthProvider();
-                auth.signInWithPopup(provider).catch((error) => {
-                    alert("Login त्रुटि: " + error.message);
-                });
+                auth.signInWithPopup(provider).catch((e) => alert("Login त्रुटि: " + e.message));
             }
         }
 
         function getDeviceType() {
-            const ua = navigator.userAgent;
-            if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua)) {
-                return 'mobile';
-            }
-            return 'desktop';
+            return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
         }
 
         function getOrCreateDeviceToken() {
@@ -1087,10 +1033,8 @@
                     name: user.displayName || "Student",
                     email: user.email,
                     enrolledCourses: [],
-                    devices: {
-                        desktop: currentDevType === 'desktop' ? currentDevToken : null,
-                        mobile: currentDevType === 'mobile' ? currentDevToken : null
-                    },
+                    completedLessons: {},
+                    devices: { desktop: currentDevType === 'desktop' ? currentDevToken : null, mobile: currentDevType === 'mobile' ? currentDevToken : null },
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 await userRef.set(initialData);
@@ -1098,105 +1042,252 @@
             } else {
                 currentUserData = doc.data();
                 const devices = currentUserData.devices || { desktop: null, mobile: null };
-
                 if (currentDevType === 'desktop') {
                     if (!devices.desktop) {
-                        devices.desktop = currentDevToken;
                         await userRef.update({ "devices.desktop": currentDevToken });
-                    } else if (devices.desktop !== currentDevToken) {
-                        currentUserData.deviceBlocked = true;
                     }
-                } else if (currentDevType === 'mobile') {
+                } else {
                     if (!devices.mobile) {
-                        devices.mobile = currentDevToken;
                         await userRef.update({ "devices.mobile": currentDevToken });
-                    } else if (devices.mobile !== currentDevToken) {
-                        currentUserData.deviceBlocked = true;
                     }
                 }
-                currentUserData.devices = devices;
             }
         }
 
-        async function openCourse(courseName, courseKey) {
-            const modal = document.getElementById("courseModal");
-            const title = document.getElementById("modalCourseTitle");
-            const area = document.getElementById("courseContentArea");
+        function openCoursesCatalog() {
+            document.getElementById("catalogModal").style.display = "flex";
+        }
 
-            title.innerText = courseName;
-            modal.style.display = "flex";
+        function openMyCoursesDashboard() {
+            const modal = document.getElementById("myCoursesModal");
+            const area = document.getElementById("myCoursesListArea");
 
             if (!currentUser) {
-                area.innerHTML = `
-                    <div style="text-align: center; padding: 2rem 1rem;">
-                        <i class="fas fa-lock" style="font-size: 3rem; color: #d97706; margin-bottom: 1rem;"></i>
-                        <h3>यो कोर्स हेर्नको लागि पहिले लगइन गर्नुहोस्</h3>
-                        <p style="margin-bottom: 1.2rem; color: #64748b;">कृपया आफ्नो Google (Gmail) ID बाट लगइन गर्नुहोस्।</p>
-                        <button class="btn-auth" onclick="handleAuth()"><i class="fab fa-google"></i> Login with Google</button>
-                    </div>
-                `;
-                return;
-            }
-
-            if (currentUserData && currentUserData.deviceBlocked) {
-                const currentDev = getDeviceType().toUpperCase();
-                area.innerHTML = `
-                    <div style="text-align: center; padding: 2rem 1rem;">
-                        <i class="fas fa-ban" style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem;"></i>
-                        <h3 style="color: #ef4444;">डिभाइस सीमा समाप्त भयो!</h3>
-                        <p style="color: #64748b; margin-top: 0.5rem;">
-                            तपाईंको खातामा पहिले नै अर्को <strong>${currentDev}</strong> दर्ता भइसकेको छ।<br>
-                            नियम अनुसार १ Desktop र १ Mobile मा मात्र कोर्स हेर्न मिल्छ।<br>
-                            डिभाइस रिसेट गर्न Admin सँग सम्पर्क गर्नुहोस्।
-                        </p>
-                    </div>
-                `;
+                area.innerHTML = `<p style="text-align:center; padding:1.5rem;">कृपया पहिले लगइन गर्नुहोस्।</p>`;
+                modal.style.display = "flex";
                 return;
             }
 
             const isAdmin = currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() || currentUser.email.toLowerCase() === "arunadhikari2053@gmail.com";
-            const isEnrolled = currentUserData && currentUserData.enrolledCourses && currentUserData.enrolledCourses.includes(courseKey);
+            const enrolled = currentUserData && currentUserData.enrolledCourses ? currentUserData.enrolledCourses : [];
+
+            if (!isAdmin && enrolled.length === 0) {
+                area.innerHTML = `
+                    <div style="text-align:center; padding:2rem 1rem;">
+                        <i class="fas fa-clock" style="font-size:3rem; color:#d97706; margin-bottom:1rem;"></i>
+                        <h3>तपाईंको कुनै स्वीकृत कोर्स छैन</h3>
+                        <p style="color:#64748b; margin-top:6px;">यदि तपाईंले रकम भुक्तानी गर्नुभएको छ भने Admin ले Approve गरेपछि यहाँ स्वतः देखिनेछ।</p>
+                    </div>`;
+            } else {
+                let html = '<div style="display:flex; flex-direction:column; gap:0.8rem;">';
+                const listToRender = isAdmin ? Object.keys(COURSE_NAMES) : enrolled;
+
+                listToRender.forEach(key => {
+                    const cTitle = COURSE_NAMES[key] || key;
+                    html += `
+                        <div class="my-course-card">
+                            <div>
+                                <h4 style="color:var(--dark); margin-bottom:3px;">${cTitle}</h4>
+                                <span style="font-size:0.85rem; color:#15803d; font-weight:700;">✅ Approved & Active</span>
+                            </div>
+                            <button class="btn-catalog-action" onclick="closeModal('myCoursesModal'); openCoursePlayer('${key}', '${cTitle}');">
+                                <i class="fas fa-play"></i> भिडियो हेर्नुहोस्
+                            </button>
+                        </div>`;
+                });
+                html += '</div>';
+                area.innerHTML = html;
+            }
+            modal.style.display = "flex";
+        }
+
+        async function handleCourseClick(title, key, offerPrice, origPrice) {
+            closeModal('catalogModal');
+
+            if (!currentUser) {
+                initiatePurchase(title, key, offerPrice, origPrice);
+                return;
+            }
+
+            const isAdmin = currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() || currentUser.email.toLowerCase() === "arunadhikari2053@gmail.com";
+            const isEnrolled = currentUserData && currentUserData.enrolledCourses && currentUserData.enrolledCourses.includes(key);
 
             if (isAdmin || isEnrolled) {
-                area.innerHTML = `
-                    <div class="video-box">
-                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-                    </div>
-                    <div style="background: #f0fdf4; border: 1px solid #10b981; padding: 1rem; border-radius: 8px;">
-                        <h4 style="color: #15803d;"><i class="fas fa-check-circle"></i> कोर्स सक्रिय छ!</h4>
-                        <p style="font-size: 0.95rem; color: #334155; margin-top: 4px;">तपाईंले यो कोर्स सफलतापूर्वक पहुँच गर्नुभएको छ।</p>
-                    </div>
-                `;
+                openCoursePlayer(key, title);
             } else {
-                area.innerHTML = `
-                    <div style="text-align: center; padding: 2rem 1rem;">
-                        <i class="fas fa-shield-alt" style="font-size: 3rem; color: #3b82f6; margin-bottom: 1rem;"></i>
-                        <h3>कोर्स पहुँच सक्रिय गरिएको छैन</h3>
-                        <p style="color: #64748b; margin: 0.5rem 0 1.2rem 0;">
-                            तपाईंको खातामा यो कोर्सको पहुँच दिन बाँकी छ। कोर्स खरिद पुष्टि पछि Admin ले तपाईंलाई तुरुन्त एक्सेस दिनुहुनेछ।
-                        </p>
-                        <a href="https://wa.me/9779857069058?text=Hello%20Arun%20Sir,%20I%20have%20purchased%20${encodeURIComponent(courseName)}%20using%20email%20${currentUser.email}" target="_blank" class="btn-auth" style="text-decoration: none; display: inline-block;">
-                            <i class="fab fa-whatsapp"></i> Access को लागि WhatsApp मा सम्पर्क गर्नुहोस्
-                        </a>
-                    </div>
-                `;
+                initiatePurchase(title, key, offerPrice, origPrice);
             }
         }
 
-        // ADMIN PANEL FUNCTIONS (WITH ALL 6 COURSES)
+        function initiatePurchase(title, key, offerPrice, origPrice) {
+            activeCheckout = {
+                title: title,
+                key: key,
+                originalPrice: origPrice,
+                currentPrice: offerPrice,
+                appliedCoupon: null
+            };
+
+            document.getElementById("checkoutCourseTitle").innerText = title + " - Buy Now";
+            document.getElementById("summaryCourseName").innerText = title;
+            document.getElementById("summaryOriginalPrice").innerText = "रु. " + origPrice;
+            document.getElementById("summaryPayablePrice").innerText = "रु. " + offerPrice;
+            document.getElementById("couponInput").value = "";
+            document.getElementById("couponMsg").innerHTML = "";
+
+            document.getElementById("checkoutModal").style.display = "flex";
+        }
+
+        function applyCoupon() {
+            const code = document.getElementById("couponInput").value.trim().toUpperCase();
+            const msg = document.getElementById("couponMsg");
+
+            if (COUPONS[code]) {
+                const discount = COUPONS[code];
+                let finalPrice = activeCheckout.currentPrice;
+
+                if (discount < 1) {
+                    finalPrice = Math.round(finalPrice * (1 - discount));
+                    msg.innerHTML = `<span style="color:#15803d;">✅ कूपन सफल! ५०% थप छुट प्राप्त भयो।</span>`;
+                } else {
+                    finalPrice = finalPrice - discount;
+                    msg.innerHTML = `<span style="color:#15803d;">✅ कूपन सफल! रु. ${discount} थप छुट प्राप्त भयो।</span>`;
+                }
+
+                activeCheckout.appliedCoupon = code;
+                activeCheckout.currentPrice = finalPrice;
+                document.getElementById("summaryPayablePrice").innerText = "रु. " + finalPrice;
+            } else {
+                msg.innerHTML = `<span style="color:#dc2626;">❌ अमान्य कूपन कोड!</span>`;
+            }
+        }
+
+        function sendWhatsAppConfirmation() {
+            const userEmail = currentUser ? currentUser.email : "Not Logged In";
+            const text = `Namaste Arun Sir!%0Aम यो कोर्स खरिद गर्न चाहन्छु:%0A- कोर्स: *${activeCheckout.title}*%0A- भुक्तानी रकम: *रु. ${activeCheckout.currentPrice}*%0A- कूपन: *${activeCheckout.appliedCoupon || 'None'}*%0A- मेरो Email: *${userEmail}*%0A%0Aमैले भुक्तानी गरेको Screenshot यसैसँग पठाएको छु। कृपया मेरो कोर्स Verify गरेर Access Approve गरिदिनुहोला।`;
+            window.open(`https://wa.me/9779857069058?text=${text}`, '_blank');
+        }
+
+        // ADVANCED COURSE PLAYER WITH PLAYLIST & PROGRESS TICKS
+        async function openCoursePlayer(courseKey, title) {
+            activeCourseKey = courseKey;
+            document.getElementById("modalCourseTitle").innerText = title;
+            document.getElementById("courseModal").style.display = "flex";
+
+            // Fetch dynamic lessons from Firestore (or fallback to defaults)
+            const snapshot = await db.collection("courses").doc(courseKey).collection("lessons").orderBy("order", "asc").get();
+            let lessons = [];
+
+            if (!snapshot.empty) {
+                snapshot.forEach(doc => {
+                    lessons.push({ id: doc.id, ...doc.data() });
+                });
+            } else {
+                lessons = DEFAULT_LESSONS[courseKey] || [
+                    { id: 'l1', title: 'Lesson 1: Introduction & Foundation', vid: 'UB1O30fR-EE' },
+                    { id: 'l2', title: 'Lesson 2: Core Concepts & Practice', vid: 'UB1O30fR-EE' },
+                    { id: 'l3', title: 'Lesson 3: Advanced Projects & Workflow', vid: 'UB1O30fR-EE' }
+                ];
+            }
+
+            currentCourseLessons = lessons;
+            renderLessonsPlaylist();
+            if (lessons.length > 0) {
+                playLesson(lessons[0].id);
+            }
+        }
+
+        function renderLessonsPlaylist() {
+            const container = document.getElementById("lessonsListContainer");
+            container.innerHTML = "";
+
+            const completed = (currentUserData && currentUserData.completedLessons && currentUserData.completedLessons[activeCourseKey]) || [];
+            let completedCount = 0;
+
+            currentCourseLessons.forEach((lesson, index) => {
+                const isCompleted = completed.includes(lesson.id);
+                if (isCompleted) completedCount++;
+
+                const isActive = lesson.id === currentPlayingLessonId;
+
+                const item = document.createElement("div");
+                item.className = `lesson-item ${isActive ? 'active' : ''}`;
+                item.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:8px;" onclick="playLesson('${lesson.id}')">
+                        <i class="fas fa-play-circle" style="color:${isActive ? '#2563eb' : '#64748b'};"></i>
+                        <span style="font-size:0.95rem;">${lesson.title}</span>
+                    </div>
+                    <button class="lesson-check-btn ${isCompleted ? 'completed' : ''}" onclick="toggleLessonComplete(event, '${lesson.id}')" title="Mark as Finished">
+                        <i class="fas fa-check-circle"></i>
+                    </button>`;
+                container.appendChild(item);
+            });
+
+            // Update Progress Percentage
+            const percent = currentCourseLessons.length > 0 ? Math.round((completedCount / currentCourseLessons.length) * 100) : 0;
+            document.getElementById("courseProgressPercent").innerText = `${percent}% Completed (${completedCount}/${currentCourseLessons.length})`;
+        }
+
+        function playLesson(lessonId) {
+            currentPlayingLessonId = lessonId;
+            const lesson = currentCourseLessons.find(l => l.id === lessonId);
+            if (!lesson) return;
+
+            document.getElementById("currentLessonName").innerText = lesson.title;
+
+            // Extract YouTube Embed URL
+            let vidId = lesson.vid;
+            if (vidId.includes("watch?v=")) {
+                vidId = vidId.split("watch?v=")[1].split("&")[0];
+            } else if (vidId.includes("youtu.be/")) {
+                vidId = vidId.split("youtu.be/")[1].split("?")[0];
+            }
+
+            document.getElementById("mainVideoPlayer").src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1`;
+            renderLessonsPlaylist();
+        }
+
+        async function toggleLessonComplete(e, lessonId) {
+            if (e) e.stopPropagation();
+            if (!currentUser) return;
+
+            const userRef = db.collection("users").doc(currentUser.uid);
+            let userCompleted = currentUserData.completedLessons || {};
+            let courseCompleted = userCompleted[activeCourseKey] || [];
+
+            if (courseCompleted.includes(lessonId)) {
+                courseCompleted = courseCompleted.filter(id => id !== lessonId);
+            } else {
+                courseCompleted.push(lessonId);
+            }
+
+            userCompleted[activeCourseKey] = courseCompleted;
+            currentUserData.completedLessons = userCompleted;
+
+            await userRef.update({ completedLessons: userCompleted });
+            renderLessonsPlaylist();
+        }
+
+        function toggleCurrentLessonComplete() {
+            if (currentPlayingLessonId) {
+                toggleLessonComplete(null, currentPlayingLessonId);
+            }
+        }
+
+        // ADMIN PANEL LOGIC
+        function switchAdminTab(tab) {
+            document.getElementById("adminTabStudents").style.display = tab === 'students' ? 'block' : 'none';
+            document.getElementById("adminTabVideos").style.display = tab === 'videos' ? 'block' : 'none';
+        }
+
         async function openAdminPanel() {
             const modal = document.getElementById("adminModal");
             modal.style.display = "flex";
             const tbody = document.getElementById("adminUserTableBody");
-            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">डेटा लोड हुँदैछ...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">डेटा लोड हुँदैछ...</td></tr>`;
 
             const snapshot = await db.collection("users").get();
             tbody.innerHTML = "";
-
-            if (snapshot.empty) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">कुनै विद्यार्थी दर्ता भएका छैनन्।</td></tr>`;
-                return;
-            }
 
             snapshot.forEach((doc) => {
                 const u = doc.data();
@@ -1204,27 +1295,30 @@
                 const enrolled = u.enrolledCourses || [];
                 const dev = u.devices || {};
 
+                let togglesHtml = '<div style="display:flex; flex-wrap:wrap; gap:4px;">';
+                COURSE_KEYS.forEach(c => {
+                    const isApproved = enrolled.includes(c.key);
+                    const statusClass = isApproved ? 'status-approved' : 'status-pending';
+                    const icon = isApproved ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
+                    togglesHtml += `
+                        <button class="btn-course-toggle ${statusClass}" onclick="toggleCourseAccess('${uid}', '${c.key}')">
+                            ${icon} ${c.label}
+                        </button>`;
+                });
+                togglesHtml += '</div>';
+
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td><strong>${u.name}</strong></td>
                     <td>${u.email}</td>
-                    <td>${enrolled.length > 0 ? enrolled.join(", ") : "<span style='color:#94a3b8;'>कुनै छैन</span>"}</td>
+                    <td><small>PC: ${dev.desktop ? '✅' : '❌'}</small><br><small>Mob: ${dev.mobile ? '✅' : '❌'}</small></td>
+                    <td>${togglesHtml}</td>
                     <td>
-                        <small>PC: ${dev.desktop ? '✅ Active' : '❌'}</small><br>
-                        <small>Mobile: ${dev.mobile ? '✅ Active' : '❌'}</small>
-                    </td>
-                    <td>
-                        <div style="display:flex; flex-wrap:wrap; gap:4px; max-width:280px; margin-bottom:6px;">
-                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'web_dev')">± Web</button>
-                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'app_dev')">± App</button>
-                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'video_edit')">± Video</button>
-                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'graphic_design')">± Graphic</button>
-                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'tech_analysis')">± Tech</button>
-                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'fund_analysis')">± Fund</button>
+                        <div style="display:flex; flex-direction:column; gap:4px;">
+                            <button class="btn-approve-all" onclick="approveAllCourses('${uid}')"><i class="fas fa-check-double"></i> Approve All</button>
+                            <button class="btn-reset" onclick="resetUserDevices('${uid}')"><i class="fas fa-redo"></i> Reset</button>
                         </div>
-                        <button class="btn-action btn-reset" onclick="resetUserDevices('${uid}')"><i class="fas fa-trash"></i> Reset Devices</button>
-                    </td>
-                `;
+                    </td>`;
                 tbody.appendChild(row);
             });
         }
@@ -1234,106 +1328,86 @@
             const doc = await ref.get();
             if (doc.exists) {
                 let list = doc.data().enrolledCourses || [];
-                if (list.includes(courseKey)) {
-                    list = list.filter(k => k !== courseKey);
-                } else {
-                    list.push(courseKey);
-                }
+                list = list.includes(courseKey) ? list.filter(k => k !== courseKey) : [...list, courseKey];
                 await ref.update({ enrolledCourses: list });
                 openAdminPanel();
             }
         }
 
+        async function approveAllCourses(uid) {
+            const ref = db.collection("users").doc(uid);
+            const allKeys = COURSE_KEYS.map(c => c.key);
+            await ref.update({ enrolledCourses: allKeys });
+            openAdminPanel();
+        }
+
         async function resetUserDevices(uid) {
-            if (confirm("के तपाईं यस प्रयोगकर्ताका दुवै दर्ता भएका डिभाइस रिसेट गर्न चाहनुहुन्छ?")) {
-                await db.collection("users").doc(uid).update({
-                    "devices.desktop": null,
-                    "devices.mobile": null
-                });
-                alert("डिभाइस सफलतापूर्वक रिसेट भयो!");
+            if (confirm("के तपाईं यो विद्यार्थीको डिभाइस रिसेट गर्न चाहनुहुन्छ?")) {
+                await db.collection("users").doc(uid).update({ "devices.desktop": null, "devices.mobile": null });
                 openAdminPanel();
             }
         }
 
-        function closeModal(id) {
-            document.getElementById(id).style.display = "none";
+        // SAVE NEW LESSON FROM ADMIN
+        async function saveLessonToFirebase() {
+            const courseKey = document.getElementById("uploadCourseSelect").value;
+            const order = parseInt(document.getElementById("uploadLessonOrder").value) || 1;
+            const title = document.getElementById("uploadLessonTitle").value.trim();
+            const url = document.getElementById("uploadLessonUrl").value.trim();
+
+            if (!title || !url) {
+                alert("कृपया Lesson Title र Video URL दुवै भर्नुहोस्!");
+                return;
+            }
+
+            await db.collection("courses").doc(courseKey).collection("lessons").add({
+                order: order,
+                title: title,
+                vid: url,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            alert("✅ Lesson सफलतापूर्वक थपियो!");
+            document.getElementById("uploadLessonTitle").value = "";
+            document.getElementById("uploadLessonUrl").value = "";
+            document.getElementById("uploadLessonOrder").value = order + 1;
         }
 
-        function showArticlesSection() {
-            const artSec = document.getElementById("articles");
-            artSec.style.display = "block";
-            artSec.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function toggleArticle(id, cardElement) {
-            const content = document.getElementById(id);
-            const btn = cardElement.querySelector('.btn-see-more');
-            const isShowing = content.classList.contains('show');
-
-            if (isShowing) {
-                content.classList.remove('show');
-                btn.innerHTML = '<span>See More</span> <i class="fas fa-chevron-down"></i>';
-            } else {
-                content.classList.add('show');
-                btn.innerHTML = '<span>See Less</span> <i class="fas fa-chevron-up"></i>';
+        function closeModal(id) { 
+            document.getElementById(id).style.display = "none"; 
+            if(id === 'courseModal') {
+                document.getElementById("mainVideoPlayer").src = "";
             }
         }
 
-        // TYPING ANIMATION
+        // TYPING EFFECT
         const roleItems = [
-            { text: "Investor", class: "highlight-dark-blue" },
-            { text: " | ", class: "separator" },
-            { text: "Trader", class: "highlight-yellow" },
-            { text: " | ", class: "separator" },
-            { text: "Graphic Designer", class: "highlight-dark-blue" },
-            { text: " | ", class: "separator" },
-            { text: "Video Editor", class: "highlight-yellow" },
-            { text: " | ", class: "separator" },
-            { text: "Web Developer", class: "highlight-dark-blue" }
+            { text: "Investor", class: "highlight-dark-blue" }, { text: " | ", class: "separator" },
+            { text: "Trader", class: "highlight-yellow" }, { text: " | ", class: "separator" },
+            { text: "Graphic Designer", class: "highlight-dark-blue" }, { text: " | ", class: "separator" },
+            { text: "Web Developer", class: "highlight-yellow" }
         ];
-
-        let itemIndex = 0;
-        let charIndex = 0;
+        let itemIndex = 0, charIndex = 0;
         const container = document.getElementById("fullTypingRoles");
         let currentSpan = null;
 
         function typeAllRoles() {
             if (itemIndex >= roleItems.length) {
-                setTimeout(() => {
-                    container.innerHTML = "";
-                    itemIndex = 0;
-                    charIndex = 0;
-                    currentSpan = null;
-                    typeAllRoles();
-                }, 3000);
+                setTimeout(() => { container.innerHTML = ""; itemIndex = 0; charIndex = 0; currentSpan = null; typeAllRoles(); }, 3000);
                 return;
             }
-
-            const currentItem = roleItems[itemIndex];
-
+            const item = roleItems[itemIndex];
             if (charIndex === 0) {
                 currentSpan = document.createElement("span");
-                if (currentItem.class !== "separator") {
-                    currentSpan.className = currentItem.class;
-                }
+                if (item.class !== "separator") currentSpan.className = item.class;
                 container.appendChild(currentSpan);
             }
-
-            currentSpan.textContent += currentItem.text.charAt(charIndex);
+            currentSpan.textContent += item.text.charAt(charIndex);
             charIndex++;
-
-            if (charIndex < currentItem.text.length) {
-                setTimeout(typeAllRoles, 45);
-            } else {
-                charIndex = 0;
-                itemIndex++;
-                setTimeout(typeAllRoles, 70);
-            }
+            if (charIndex < item.text.length) setTimeout(typeAllRoles, 45);
+            else { charIndex = 0; itemIndex++; setTimeout(typeAllRoles, 70); }
         }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(typeAllRoles, 400);
-        });
+        document.addEventListener("DOMContentLoaded", () => setTimeout(typeAllRoles, 400));
     </script>
 </body>
 </html>

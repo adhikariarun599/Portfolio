@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arun Adhikari - Portfolio</title>
+    <title>Arun Adhikari - Portfolio & Courses</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- FIREBASE SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
     <style>
         :root {
             --primary: #1e3a8a;
@@ -64,7 +70,12 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links li {
+            position: relative;
         }
 
         .nav-links a {
@@ -73,15 +84,90 @@
             font-weight: 600;
             font-size: 1.05rem;
             transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
         }
 
         .nav-links a:hover {
             color: var(--primary);
         }
 
+        /* DROPDOWN MENU FOR COURSES */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            min-width: 270px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            list-style: none;
+            z-index: 1100;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+            color: #334155;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .nav-badge-access {
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        /* AUTH BUTTON IN NAV */
+        .btn-auth {
+            background: var(--primary);
+            color: #ffffff !important;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            font-size: 0.95rem !important;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-auth:hover {
+            background: var(--primary-light);
+        }
+
         .hero {
             min-height: 75vh;
-            padding: 90px 8% 25px 8%;
+            padding: 100px 8% 30px 8%;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -112,12 +198,11 @@
             font-size: 1.05rem;
         }
 
-        /* ALL ROLES FULL TYPING ANIMATION CONTAINER */
         .roles {
             font-size: 1.25rem;
             font-weight: 600;
             color: var(--primary);
-            margin-bottom: 1.2rem;
+            margin-bottom: 0;
             min-height: 2.2rem;
             display: flex;
             align-items: center;
@@ -167,52 +252,15 @@
             100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
         }
 
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-
-        .btn-whatsapp {
-            background-color: #25d366;
-            color: white;
-        }
-
-        .btn-whatsapp:hover {
-            background-color: #1eb857;
-        }
-
-        .btn-outline {
-            border: 1.5px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-
         section {
-            padding: 20px 8%;
+            padding: 35px 8%;
         }
 
         .section-title {
             text-align: center;
             font-size: 1.9rem;
             color: var(--dark);
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
         .about-box {
@@ -225,23 +273,6 @@
             text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.03);
             transition: all 0.3s ease;
-        }
-
-        .about-box:hover {
-            background-color: #f0fdf4;
-            border-color: #10b981;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
-        }
-
-        .about-box p {
-            margin-bottom: 0.6rem;
-            color: #334155;
-            font-size: 1.15rem;
-            line-height: 1.6;
-        }
-
-        .about-box p:last-child {
-            margin-bottom: 0;
         }
 
         .achievement-section {
@@ -261,12 +292,6 @@
             align-items: center;
             gap: 1.5rem;
             transition: all 0.3s ease;
-        }
-
-        .achievement-card:hover {
-            background-color: #f0fdf4;
-            border-color: #10b981;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
         }
 
         .muni-logo-box {
@@ -313,14 +338,18 @@
             margin-bottom: 0.3rem;
         }
 
-        .achievement-info p {
-            font-size: 1.05rem;
-        }
-
+        /* ARTICLE SECTION */
         .article-section {
+            display: none;
             background-color: #ffffff;
             border-top: 1px solid var(--card-border);
             border-bottom: 1px solid var(--card-border);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .article-container {
@@ -331,22 +360,16 @@
             border-radius: 12px;
             padding: 1.2rem 1.8rem;
             transition: all 0.3s ease;
-        }
-
-        .article-container:hover {
-            background-color: #f0fdf4;
-            border-color: #10b981;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
-        }
-
-        .article-container:last-child {
-            margin-bottom: 0;
+            cursor: pointer;
         }
 
         .article-header {
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 0.4rem;
             margin-bottom: 0.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .article-header h3 {
@@ -372,6 +395,7 @@
             margin-top: 0.8rem;
             padding-top: 0.8rem;
             border-top: 1px dashed #cbd5e1;
+            cursor: default;
         }
 
         .article-content.show {
@@ -427,10 +451,7 @@
             gap: 0.3rem;
         }
 
-        .btn-see-more:hover {
-            text-decoration: underline;
-        }
-
+        /* SERVICES GRID */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -477,24 +498,165 @@
             margin: 0;
         }
 
-        .service-card p {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: var(--text-main);
+        /* MODAL POPUPS */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
+        .modal-content {
+            background: #ffffff;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 800px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        .btn-close-modal {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .video-box {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
+            margin-bottom: 1rem;
+        }
+
+        .video-box iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ADMIN PANEL TABLE */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .admin-table th, .admin-table td {
+            border: 1px solid #e2e8f0;
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .admin-table th {
+            background: #f1f5f9;
+            color: var(--dark);
+        }
+
+        .btn-action {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-activate { background: #0284c7; color: white; }
+        .btn-activate:hover { background: #0369a1; }
+        .btn-reset { background: #ef4444; color: white; }
+        .btn-reset:hover { background: #dc2626; }
+
+        /* FOOTER */
         footer {
             background: var(--dark);
             color: #94a3b8;
             text-align: center;
-            padding: 1.8rem 1rem;
+            padding: 1.2rem 1rem 1rem 1rem;
             font-size: 1rem;
         }
 
         footer h3 {
             color: #ffffff;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.2rem;
             font-size: 1.25rem;
+        }
+
+        .social-box {
+            margin: 0.5rem 0;
+        }
+
+        .social-title {
+            color: #f8fafc;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+        }
+
+        .social-btn.facebook { background: #1877f2; }
+        .social-btn.youtube { background: #ff0000; }
+        .social-btn.tiktok { background: #000000; border: 1px solid #334155; }
+        .social-btn.whatsapp { background: #25d366; }
+        .social-btn.email { background: #ea4335; }
+
+        .copyright {
+            margin-top: 0.6rem;
+            font-size: 0.82rem;
+            color: #64748b;
         }
 
         @media (max-width: 768px) {
@@ -514,30 +676,23 @@
                 text-align: center;
             }
 
-            .cta-buttons {
-                justify-content: center;
-            }
-
             .nav-links {
                 display: none;
             }
             
             section {
-                padding: 15px 5%;
+                padding: 25px 5%;
             }
 
             .roles {
                 justify-content: center;
-            }
-
-            .about-box p, .article-list li, .service-card p {
-                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- NAVBAR -->
     <nav>
         <div class="logo">
             <span>Arun Adhikari</span>
@@ -566,28 +721,43 @@
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#achievements">Achievements</a></li>
-            <li><a href="#articles">Articles</a></li>
+            <li><a href="javascript:void(0)" onclick="showArticlesSection()">Articles</a></li>
             <li><a href="#services">Services</a></li>
+            
+            <!-- COURSES DROPDOWN -->
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropdown-toggle">Courses <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 2px;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0)" onclick="openCourse('Website Development', 'web_dev')">Website Development <span class="nav-badge-access">Open</span></a></li>
+                    <li><a href="javascript:void(0)" onclick="openCourse('App Development', 'app_dev')">App Development <span class="nav-badge-access">Open</span></a></li>
+                    <li><a href="javascript:void(0)" onclick="openCourse('Video Editing', 'video_edit')">Video Editing <span class="nav-badge-access">Open</span></a></li>
+                    <li><a href="javascript:void(0)" onclick="openCourse('Graphic Design', 'graphic_design')">Graphic Design <span class="nav-badge-access">Open</span></a></li>
+                    <li><a href="javascript:void(0)" onclick="openCourse('Technical Analysis', 'tech_analysis')">Technical Analysis <span class="nav-badge-access">Open</span></a></li>
+                    <li><a href="javascript:void(0)" onclick="openCourse('Fundamental Analysis', 'fund_analysis')">Fundamental Analysis <span class="nav-badge-access">Open</span></a></li>
+                </ul>
+            </li>
+
+            <!-- ADMIN TAB -->
+            <li id="adminNavTab" style="display: none;"><a href="javascript:void(0)" onclick="openAdminPanel()" style="color: #dc2626;"><i class="fas fa-user-shield"></i> Admin</a></li>
+
             <li><a href="#contact">Contact</a></li>
+
+            <!-- LOGIN / LOGOUT BUTTON -->
+            <li>
+                <button id="authBtn" class="btn-auth" onclick="handleAuth()"><i class="fab fa-google"></i> Student Login</button>
+            </li>
         </ul>
     </nav>
 
+    <!-- HERO SECTION -->
     <section class="hero">
         <div class="hero-content">
             <div class="greeting">Hello, Namaste! I am</div>
             <h1>Arun Adhikari</h1>
             <div class="location"><i class="fas fa-map-marker-alt"></i> Shitaganga-03, Arghakhanchi, Nepal</div>
             
-            <!-- ALL ROLES TYPING ANIMATION (NO BOTTOM CURSOR LINE & INFINITE LOOP) -->
             <div class="roles">
                 <span id="fullTypingRoles"></span>
-            </div>
-
-            <div class="cta-buttons">
-                <a href="https://wa.me/9779857069058" class="btn btn-whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Contact on WhatsApp
-                </a>
-                <a href="#services" class="btn btn-outline">My Services</a>
             </div>
         </div>
         <div class="hero-image-container">
@@ -597,6 +767,7 @@
         </div>
     </section>
 
+    <!-- ABOUT SECTION -->
     <section id="about">
         <h2 class="section-title">About Me</h2>
         <div class="about-box">
@@ -606,6 +777,7 @@
         </div>
     </section>
 
+    <!-- ACHIEVEMENTS SECTION -->
     <section id="achievements" class="achievement-section">
         <h2 class="section-title">Key Achievement</h2>
         <div class="achievement-card">
@@ -621,21 +793,21 @@
         </div>
     </section>
 
+    <!-- ARTICLES SECTION -->
     <section id="articles" class="article-section">
         <h2 class="section-title">Useful Articles & Guidance</h2>
         
         <!-- ARTICLE 1 -->
-        <div class="article-container">
+        <div class="article-container" onclick="toggleArticle('art1', this)">
             <div class="article-header">
                 <h3><i class="fas fa-user-tie"></i> Interview दिन जाँदै हुनुहुन्छ? जानिराखौँ यी कुराहरू</h3>
+                <button class="btn-see-more" type="button">
+                    <span>See More</span> <i class="fas fa-chevron-down"></i>
+                </button>
             </div>
             <p class="article-summary">अन्तर्वार्तामा जाँदा ध्यान दिनुपर्ने पोसाक, समय, प्रवेश शैली तथा व्यवहार सम्बन्धी महत्वपूर्ण मार्गदर्शनहरू।</p>
             
-            <button class="btn-see-more" onclick="toggleArticle('art1', this)">
-                <span>See More</span> <i class="fas fa-chevron-down"></i>
-            </button>
-
-            <div id="art1" class="article-content">
+            <div id="art1" class="article-content" onclick="event.stopPropagation();">
                 <ul class="article-list guide">
                     <li>
                         <strong>अन्तर्वार्तामा ड्रेस कस्तो लगाउने?</strong>
@@ -658,17 +830,16 @@
         </div>
 
         <!-- ARTICLE 2 -->
-        <div class="article-container">
+        <div class="article-container" onclick="toggleArticle('art2', this)">
             <div class="article-header warning">
                 <h3><i class="fas fa-exclamation-triangle"></i> यसकारण लिनु हुँदैन असुरक्षित माध्यमबाट ऋण?</h3>
+                <button class="btn-see-more" type="button">
+                    <span>See More</span> <i class="fas fa-chevron-down"></i>
+                </button>
             </div>
             <p class="article-summary">प्राय जसो साथी-भाई, आफन्त, वा साहु-महाजनसँग असुरक्षित ऋण लिँदा ठगिमा पर्न सक्ने गम्भीर जोखिम र समस्याहरू।</p>
             
-            <button class="btn-see-more" onclick="toggleArticle('art2', this)">
-                <span>See More</span> <i class="fas fa-chevron-down"></i>
-            </button>
-
-            <div id="art2" class="article-content">
+            <div id="art2" class="article-content" onclick="event.stopPropagation();">
                 <p class="article-intro" style="margin-bottom: 0.8rem;">यसबाट तपाईँलाई निम्न समस्याहरू पर्न सक्छन्:</p>
                 <ul class="article-list danger">
                     <li>
@@ -704,6 +875,7 @@
         </div>
     </section>
 
+    <!-- SERVICES -->
     <section id="services">
         <h2 class="section-title">What I Offer</h2>
         <div class="services-grid">
@@ -763,16 +935,339 @@
         </div>
     </section>
 
+    <!-- COURSE PLAYER MODAL -->
+    <div id="courseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalCourseTitle">Course Player</h2>
+                <button class="btn-close-modal" onclick="closeModal('courseModal')">&times;</button>
+            </div>
+            <div id="courseContentArea"></div>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL MODAL -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content" style="max-width: 950px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-shield"></i> Course Admin Panel</h2>
+                <button class="btn-close-modal" onclick="closeModal('adminModal')">&times;</button>
+            </div>
+            <p>विद्यार्थीहरूको कोर्स एक्सेस (Toggle/क्लिक गरेर अन-अफ गर्ने) तथा दर्ता भएका डिभाइसहरू व्यवस्थापन गर्नुहोस्:</p>
+            <div style="overflow-x: auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Email</th>
+                            <th>Active Courses</th>
+                            <th>Devices</th>
+                            <th>Toggle Course Access / Reset</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminUserTableBody">
+                        <tr><td colspan="5" style="text-align: center;">डेटा लोड हुँदैछ...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
     <footer id="contact">
         <h3>Let's Connect & Work Together</h3>
-        <p>WhatsApp / Mobile: <strong>+977 9857069058</strong></p>
-        <p style="margin-top: 10px; font-size: 0.85rem;">&copy; 2026 Arun Adhikari. All Rights Reserved.</p>
+        
+        <div class="social-box">
+            <div class="social-title">Connect with Us</div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/helloarunadhikari/" target="_blank" rel="noopener noreferrer" class="social-btn facebook" title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.youtube.com/@ArunAdhikari" target="_blank" rel="noopener noreferrer" class="social-btn youtube" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://www.tiktok.com/@hellowarunadhikari" target="_blank" rel="noopener noreferrer" class="social-btn tiktok" title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://wa.me/9779857069058" target="_blank" rel="noopener noreferrer" class="social-btn whatsapp" title="WhatsApp (+977 9857069058)">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="mailto:arunadhikari2053@gmail.com" class="social-btn email" title="Email: arunadhikari2053@gmail.com">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+
+        <p class="copyright">&copy; 2026 Arun Adhikari. All Rights Reserved.</p>
     </footer>
 
+    <!-- FIREBASE & CORE LOGIC -->
     <script>
-        /* ARTICLE TOGGLE SCRIPT */
-        function toggleArticle(id, btn) {
+        const firebaseConfig = {
+            apiKey: "AIzaSyBLIgjthPddTsuf8mR4Y6fq8ETsolelhOY",
+            authDomain: "arun-courses.firebaseapp.com",
+            projectId: "arun-courses",
+            storageBucket: "arun-courses.firebasestorage.app",
+            messagingSenderId: "532244891416",
+            appId: "1:532244891416:web:90b7d7c65c047d799e406d"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // ADMIN EMAILS
+        const ADMIN_EMAIL = "info.arunadhikari2053@gmail.com"; 
+
+        let currentUser = null;
+        let currentUserData = null;
+
+        // AUTH LISTENER
+        auth.onAuthStateChanged(async (user) => {
+            currentUser = user;
+            const authBtn = document.getElementById("authBtn");
+            const adminNav = document.getElementById("adminNavTab");
+
+            if (user) {
+                authBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout (${user.displayName ? user.displayName.split(' ')[0] : 'User'})`;
+                
+                if (user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() || user.email.toLowerCase() === "arunadhikari2053@gmail.com") {
+                    adminNav.style.display = "block";
+                } else {
+                    adminNav.style.display = "none";
+                }
+
+                await handleUserDeviceRegistration(user);
+            } else {
+                authBtn.innerHTML = `<i class="fab fa-google"></i> Student Login`;
+                adminNav.style.display = "none";
+                currentUserData = null;
+            }
+        });
+
+        function handleAuth() {
+            if (currentUser) {
+                auth.signOut().then(() => {
+                    alert("सफलतापूर्वक Logout भयो।");
+                    location.reload();
+                });
+            } else {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                auth.signInWithPopup(provider).catch((error) => {
+                    alert("Login त्रुटि: " + error.message);
+                });
+            }
+        }
+
+        function getDeviceType() {
+            const ua = navigator.userAgent;
+            if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua)) {
+                return 'mobile';
+            }
+            return 'desktop';
+        }
+
+        function getOrCreateDeviceToken() {
+            let token = localStorage.getItem("arun_courses_device_token");
+            if (!token) {
+                token = 'dev_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+                localStorage.setItem("arun_courses_device_token", token);
+            }
+            return token;
+        }
+
+        async function handleUserDeviceRegistration(user) {
+            const userRef = db.collection("users").doc(user.uid);
+            const doc = await userRef.get();
+            const currentDevType = getDeviceType();
+            const currentDevToken = getOrCreateDeviceToken();
+
+            if (!doc.exists) {
+                const initialData = {
+                    name: user.displayName || "Student",
+                    email: user.email,
+                    enrolledCourses: [],
+                    devices: {
+                        desktop: currentDevType === 'desktop' ? currentDevToken : null,
+                        mobile: currentDevType === 'mobile' ? currentDevToken : null
+                    },
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                await userRef.set(initialData);
+                currentUserData = initialData;
+            } else {
+                currentUserData = doc.data();
+                const devices = currentUserData.devices || { desktop: null, mobile: null };
+
+                if (currentDevType === 'desktop') {
+                    if (!devices.desktop) {
+                        devices.desktop = currentDevToken;
+                        await userRef.update({ "devices.desktop": currentDevToken });
+                    } else if (devices.desktop !== currentDevToken) {
+                        currentUserData.deviceBlocked = true;
+                    }
+                } else if (currentDevType === 'mobile') {
+                    if (!devices.mobile) {
+                        devices.mobile = currentDevToken;
+                        await userRef.update({ "devices.mobile": currentDevToken });
+                    } else if (devices.mobile !== currentDevToken) {
+                        currentUserData.deviceBlocked = true;
+                    }
+                }
+                currentUserData.devices = devices;
+            }
+        }
+
+        async function openCourse(courseName, courseKey) {
+            const modal = document.getElementById("courseModal");
+            const title = document.getElementById("modalCourseTitle");
+            const area = document.getElementById("courseContentArea");
+
+            title.innerText = courseName;
+            modal.style.display = "flex";
+
+            if (!currentUser) {
+                area.innerHTML = `
+                    <div style="text-align: center; padding: 2rem 1rem;">
+                        <i class="fas fa-lock" style="font-size: 3rem; color: #d97706; margin-bottom: 1rem;"></i>
+                        <h3>यो कोर्स हेर्नको लागि पहिले लगइन गर्नुहोस्</h3>
+                        <p style="margin-bottom: 1.2rem; color: #64748b;">कृपया आफ्नो Google (Gmail) ID बाट लगइन गर्नुहोस्।</p>
+                        <button class="btn-auth" onclick="handleAuth()"><i class="fab fa-google"></i> Login with Google</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (currentUserData && currentUserData.deviceBlocked) {
+                const currentDev = getDeviceType().toUpperCase();
+                area.innerHTML = `
+                    <div style="text-align: center; padding: 2rem 1rem;">
+                        <i class="fas fa-ban" style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #ef4444;">डिभाइस सीमा समाप्त भयो!</h3>
+                        <p style="color: #64748b; margin-top: 0.5rem;">
+                            तपाईंको खातामा पहिले नै अर्को <strong>${currentDev}</strong> दर्ता भइसकेको छ।<br>
+                            नियम अनुसार १ Desktop र १ Mobile मा मात्र कोर्स हेर्न मिल्छ।<br>
+                            डिभाइस रिसेट गर्न Admin सँग सम्पर्क गर्नुहोस्।
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            const isAdmin = currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() || currentUser.email.toLowerCase() === "arunadhikari2053@gmail.com";
+            const isEnrolled = currentUserData && currentUserData.enrolledCourses && currentUserData.enrolledCourses.includes(courseKey);
+
+            if (isAdmin || isEnrolled) {
+                area.innerHTML = `
+                    <div class="video-box">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                    </div>
+                    <div style="background: #f0fdf4; border: 1px solid #10b981; padding: 1rem; border-radius: 8px;">
+                        <h4 style="color: #15803d;"><i class="fas fa-check-circle"></i> कोर्स सक्रिय छ!</h4>
+                        <p style="font-size: 0.95rem; color: #334155; margin-top: 4px;">तपाईंले यो कोर्स सफलतापूर्वक पहुँच गर्नुभएको छ।</p>
+                    </div>
+                `;
+            } else {
+                area.innerHTML = `
+                    <div style="text-align: center; padding: 2rem 1rem;">
+                        <i class="fas fa-shield-alt" style="font-size: 3rem; color: #3b82f6; margin-bottom: 1rem;"></i>
+                        <h3>कोर्स पहुँच सक्रिय गरिएको छैन</h3>
+                        <p style="color: #64748b; margin: 0.5rem 0 1.2rem 0;">
+                            तपाईंको खातामा यो कोर्सको पहुँच दिन बाँकी छ। कोर्स खरिद पुष्टि पछि Admin ले तपाईंलाई तुरुन्त एक्सेस दिनुहुनेछ।
+                        </p>
+                        <a href="https://wa.me/9779857069058?text=Hello%20Arun%20Sir,%20I%20have%20purchased%20${encodeURIComponent(courseName)}%20using%20email%20${currentUser.email}" target="_blank" class="btn-auth" style="text-decoration: none; display: inline-block;">
+                            <i class="fab fa-whatsapp"></i> Access को लागि WhatsApp मा सम्पर्क गर्नुहोस्
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // ADMIN PANEL FUNCTIONS (WITH ALL 6 COURSES)
+        async function openAdminPanel() {
+            const modal = document.getElementById("adminModal");
+            modal.style.display = "flex";
+            const tbody = document.getElementById("adminUserTableBody");
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">डेटा लोड हुँदैछ...</td></tr>`;
+
+            const snapshot = await db.collection("users").get();
+            tbody.innerHTML = "";
+
+            if (snapshot.empty) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">कुनै विद्यार्थी दर्ता भएका छैनन्।</td></tr>`;
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const u = doc.data();
+                const uid = doc.id;
+                const enrolled = u.enrolledCourses || [];
+                const dev = u.devices || {};
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td><strong>${u.name}</strong></td>
+                    <td>${u.email}</td>
+                    <td>${enrolled.length > 0 ? enrolled.join(", ") : "<span style='color:#94a3b8;'>कुनै छैन</span>"}</td>
+                    <td>
+                        <small>PC: ${dev.desktop ? '✅ Active' : '❌'}</small><br>
+                        <small>Mobile: ${dev.mobile ? '✅ Active' : '❌'}</small>
+                    </td>
+                    <td>
+                        <div style="display:flex; flex-wrap:wrap; gap:4px; max-width:280px; margin-bottom:6px;">
+                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'web_dev')">± Web</button>
+                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'app_dev')">± App</button>
+                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'video_edit')">± Video</button>
+                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'graphic_design')">± Graphic</button>
+                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'tech_analysis')">± Tech</button>
+                            <button class="btn-action btn-activate" onclick="toggleCourseAccess('${uid}', 'fund_analysis')">± Fund</button>
+                        </div>
+                        <button class="btn-action btn-reset" onclick="resetUserDevices('${uid}')"><i class="fas fa-trash"></i> Reset Devices</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function toggleCourseAccess(uid, courseKey) {
+            const ref = db.collection("users").doc(uid);
+            const doc = await ref.get();
+            if (doc.exists) {
+                let list = doc.data().enrolledCourses || [];
+                if (list.includes(courseKey)) {
+                    list = list.filter(k => k !== courseKey);
+                } else {
+                    list.push(courseKey);
+                }
+                await ref.update({ enrolledCourses: list });
+                openAdminPanel();
+            }
+        }
+
+        async function resetUserDevices(uid) {
+            if (confirm("के तपाईं यस प्रयोगकर्ताका दुवै दर्ता भएका डिभाइस रिसेट गर्न चाहनुहुन्छ?")) {
+                await db.collection("users").doc(uid).update({
+                    "devices.desktop": null,
+                    "devices.mobile": null
+                });
+                alert("डिभाइस सफलतापूर्वक रिसेट भयो!");
+                openAdminPanel();
+            }
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
+
+        function showArticlesSection() {
+            const artSec = document.getElementById("articles");
+            artSec.style.display = "block";
+            artSec.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleArticle(id, cardElement) {
             const content = document.getElementById(id);
+            const btn = cardElement.querySelector('.btn-see-more');
             const isShowing = content.classList.contains('show');
 
             if (isShowing) {
@@ -784,7 +1279,7 @@
             }
         }
 
-        /* LOOPING TYPING ANIMATION SCRIPT */
+        // TYPING ANIMATION
         const roleItems = [
             { text: "Investor", class: "highlight-dark-blue" },
             { text: " | ", class: "separator" },
@@ -804,7 +1299,6 @@
 
         function typeAllRoles() {
             if (itemIndex >= roleItems.length) {
-                // Whole line finished typing -> Wait 3 seconds, clear, and restart loop!
                 setTimeout(() => {
                     container.innerHTML = "";
                     itemIndex = 0;
@@ -841,6 +1335,5 @@
             setTimeout(typeAllRoles, 400);
         });
     </script>
-
 </body>
 </html>

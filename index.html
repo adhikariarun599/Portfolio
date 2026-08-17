@@ -178,7 +178,7 @@
             background: var(--primary-light);
         }
 
-        /* HERO SECTION - FULLY RESPONSIVE */
+        /* HERO SECTION */
         .hero {
             min-height: 80vh;
             padding: 100px 5% 40px 5%;
@@ -365,6 +365,7 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            text-decoration: none;
         }
 
         .coupon-box { display: flex; gap: 0.5rem; margin-bottom: 0.8rem; }
@@ -416,7 +417,7 @@
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             padding: 0.8rem;
-            max-height: 400px;
+            max-height: 480px;
             overflow-y: auto;
         }
 
@@ -469,12 +470,8 @@
         .social-btn.youtube { background: #ff0000; }
         .social-btn.whatsapp { background: #25d366; }
 
-        /* ================= MOBILE UI / UX OPTIMIZATIONS ================= */
         @media (max-width: 850px) {
-            .menu-toggle {
-                display: block;
-            }
-
+            .menu-toggle { display: block; }
             .nav-links {
                 position: fixed;
                 top: 60px;
@@ -490,81 +487,20 @@
                 overflow-y: auto;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .dropdown {
-                width: 100%;
-            }
-
-            .dropdown-menu {
-                position: static;
-                box-shadow: none;
-                border: 1px solid #e2e8f0;
-                width: 100%;
-                display: none;
-                margin-top: 0.4rem;
-            }
-
-            .dropdown.open .dropdown-menu {
-                display: block;
-            }
-
-            /* HERO MOBILE STACK */
-            .hero {
-                flex-direction: column-reverse;
-                text-align: center;
-                padding-top: 90px;
-                gap: 1.5rem;
-            }
-
-            .hero-content {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .hero-content h1 {
-                font-size: 2.3rem;
-            }
-
-            .roles {
-                justify-content: center;
-                font-size: 1.1rem;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-                width: 100%;
-            }
-
-            .hero-buttons .btn-auth {
-                width: 100%;
-                max-width: 280px;
-                text-align: center;
-            }
-
-            .profile-img-box {
-                width: 220px;
-                height: 220px;
-            }
-
-            /* ACHIEVEMENT MOBILE */
-            .achievement-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .muni-logo-box {
-                margin: 0 auto;
-            }
-
-            /* PLAYER MOBILE */
-            .player-layout {
-                grid-template-columns: 1fr;
-            }
+            .nav-links.active { left: 0; }
+            .dropdown { width: 100%; }
+            .dropdown-menu { position: static; box-shadow: none; border: 1px solid #e2e8f0; width: 100%; display: none; margin-top: 0.4rem; }
+            .dropdown.open .dropdown-menu { display: block; }
+            .hero { flex-direction: column-reverse; text-align: center; padding-top: 90px; gap: 1.5rem; }
+            .hero-content { display: flex; flex-direction: column; align-items: center; }
+            .hero-content h1 { font-size: 2.3rem; }
+            .roles { justify-content: center; font-size: 1.1rem; }
+            .hero-buttons { justify-content: center; width: 100%; }
+            .hero-buttons .btn-auth { width: 100%; max-width: 280px; text-align: center; }
+            .profile-img-box { width: 220px; height: 220px; }
+            .achievement-card { flex-direction: column; text-align: center; }
+            .muni-logo-box { margin: 0 auto; }
+            .player-layout { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -902,6 +838,7 @@
                     <div class="video-container">
                         <iframe id="mainVideoPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
+                    
                     <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:0.8rem 1rem; border-radius:8px; border:1px solid #e2e8f0; flex-wrap:wrap; gap:8px;">
                         <div>
                             <h4 id="currentLessonName" style="color:var(--dark);">Lesson Loading...</h4>
@@ -910,6 +847,18 @@
                         <button id="btnMarkComplete" class="btn-catalog-action" style="background:#2563eb;" onclick="toggleCurrentLessonComplete()">
                             <i class="fas fa-check"></i> Mark Complete
                         </button>
+                    </div>
+
+                    <!-- LESSON DETAILS & DOWNLOAD AREA -->
+                    <div id="lessonExtraDetails" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:1rem; margin-top:0.8rem;">
+                        <h4 style="color:var(--dark); margin-bottom:0.4rem;"><i class="fas fa-info-circle" style="color:#2563eb;"></i> Lesson Description & Notes:</h4>
+                        <p id="currentLessonDesc" style="color:#475569; font-size:0.95rem; white-space: pre-line; margin-bottom:0.8rem;">कुनै विवरण छैन।</p>
+                        
+                        <div id="lessonDownloadContainer" style="display:none; border-top:1px solid #f1f5f9; padding-top:0.8rem;">
+                            <a id="btnLessonDownload" href="#" target="_blank" class="btn-catalog-action" style="background:#089981;">
+                                <i class="fas fa-download"></i> Download Resources / Notes
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -982,9 +931,21 @@
                     <input type="text" id="uploadLessonTitle" placeholder="उदा: Lesson 1: Introduction to Web" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
                 </div>
 
-                <div style="margin-bottom:15px;">
+                <div style="margin-bottom:10px;">
                     <label style="font-weight:600; font-size:0.9rem;">YouTube Video URL or Video ID:</label>
                     <input type="text" id="uploadLessonUrl" placeholder="उदा: https://www.youtube.com/watch?v=dQw4w9WgXcQ वा ID" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                </div>
+
+                <!-- NEW: RESOURCE DOWNLOAD LINK -->
+                <div style="margin-bottom:10px;">
+                    <label style="font-weight:600; font-size:0.9rem;">Download / Resource Link (Google Drive, GitHub, PDF, Zip): <span style="font-weight:normal; color:#64748b;">(वैकल्पिक)</span></label>
+                    <input type="url" id="uploadLessonResource" placeholder="उदा: https://drive.google.com/file/d/.../view" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                </div>
+
+                <!-- NEW: LESSON DESCRIPTION -->
+                <div style="margin-bottom:15px;">
+                    <label style="font-weight:600; font-size:0.9rem;">Lesson Description / Notes (विवरण तथा निर्देशन):</label>
+                    <textarea id="uploadLessonDesc" rows="3" placeholder="यस पाठको विवरण वा विद्यार्थीको लागि निर्देशन यहाँ लेख्नुहोस्..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
                 </div>
 
                 <button class="btn-catalog-action" style="width:100%; justify-content:center; padding:0.8rem;" onclick="saveLessonToFirebase()">
@@ -1042,14 +1003,14 @@
 
         const DEFAULT_LESSONS = {
             'web_dev': [
-                { id: 'l1', title: 'Lesson 1: Introduction to Web Dev & Tools', vid: 'UB1O30fR-EE' },
-                { id: 'l2', title: 'Lesson 2: HTML5 Semantic Elements', vid: 'UB1O30fR-EE' },
-                { id: 'l3', title: 'Lesson 3: CSS3 Flexbox & Grid Masterclass', vid: 'UB1O30fR-EE' }
+                { id: 'l1', title: 'Lesson 1: Introduction to Web Dev & Tools', vid: 'UB1O30fR-EE', desc: 'Introduction to HTML/CSS', resourceUrl: '' },
+                { id: 'l2', title: 'Lesson 2: HTML5 Semantic Elements', vid: 'UB1O30fR-EE', desc: 'Understanding layout structure', resourceUrl: '' },
+                { id: 'l3', title: 'Lesson 3: CSS3 Flexbox & Grid Masterclass', vid: 'UB1O30fR-EE', desc: 'Mastering flex and grid layout', resourceUrl: '' }
             ],
             'tech_analysis': [
-                { id: 'l1', title: 'Lesson 1: Candlestick Psychology & Basics', vid: 'UB1O30fR-EE' },
-                { id: 'l2', title: 'Lesson 2: Support & Resistance Strategies', vid: 'UB1O30fR-EE' },
-                { id: 'l3', title: 'Lesson 3: RSI & MACD Indicators Explained', vid: 'UB1O30fR-EE' }
+                { id: 'l1', title: 'Lesson 1: Candlestick Psychology & Basics', vid: 'UB1O30fR-EE', desc: 'Basics of price action candles', resourceUrl: '' },
+                { id: 'l2', title: 'Lesson 2: Support & Resistance Strategies', vid: 'UB1O30fR-EE', desc: 'Drawing dynamic support & resistance levels', resourceUrl: '' },
+                { id: 'l3', title: 'Lesson 3: RSI & MACD Indicators Explained', vid: 'UB1O30fR-EE', desc: 'Using momentum indicators effectively', resourceUrl: '' }
             ]
         };
 
@@ -1072,7 +1033,6 @@
             'SPECIAL100': 100
         };
 
-        // MOBILE MENU CONTROLS
         function toggleMobileMenu() {
             document.getElementById("navLinks").classList.toggle("active");
         }
@@ -1308,9 +1268,7 @@
                 });
             } else {
                 lessons = DEFAULT_LESSONS[courseKey] || [
-                    { id: 'l1', title: 'Lesson 1: Introduction & Foundation', vid: 'UB1O30fR-EE' },
-                    { id: 'l2', title: 'Lesson 2: Core Concepts & Practice', vid: 'UB1O30fR-EE' },
-                    { id: 'l3', title: 'Lesson 3: Advanced Projects & Workflow', vid: 'UB1O30fR-EE' }
+                    { id: 'l1', title: 'Lesson 1: Introduction & Foundation', vid: 'UB1O30fR-EE', desc: 'Default introduction notes', resourceUrl: '' }
                 ];
             }
 
@@ -1358,7 +1316,22 @@
 
             document.getElementById("currentLessonName").innerText = lesson.title;
 
-            let vidId = lesson.vid;
+            // Update Description and Resource Button
+            const descArea = document.getElementById("currentLessonDesc");
+            const downloadContainer = document.getElementById("lessonDownloadContainer");
+            const downloadBtn = document.getElementById("btnLessonDownload");
+
+            descArea.innerText = lesson.desc && lesson.desc.trim() !== "" ? lesson.desc : "यस पाठको कुनै थप विवरण उपलब्ध छैन।";
+
+            if (lesson.resourceUrl && lesson.resourceUrl.trim() !== "") {
+                downloadContainer.style.display = "block";
+                downloadBtn.href = lesson.resourceUrl.trim();
+            } else {
+                downloadContainer.style.display = "none";
+                downloadBtn.href = "#";
+            }
+
+            let vidId = lesson.vid || '';
             if (vidId.includes("watch?v=")) {
                 vidId = vidId.split("watch?v=")[1].split("&")[0];
             } else if (vidId.includes("youtu.be/")) {
@@ -1475,6 +1448,8 @@
             const order = parseInt(document.getElementById("uploadLessonOrder").value) || 1;
             const title = document.getElementById("uploadLessonTitle").value.trim();
             const url = document.getElementById("uploadLessonUrl").value.trim();
+            const resourceUrl = document.getElementById("uploadLessonResource").value.trim();
+            const desc = document.getElementById("uploadLessonDesc").value.trim();
 
             if (!title || !url) {
                 alert("कृपया Lesson Title र Video URL दुवै भर्नुहोस्!");
@@ -1485,12 +1460,16 @@
                 order: order,
                 title: title,
                 vid: url,
+                resourceUrl: resourceUrl,
+                desc: desc,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
 
-            alert("✅ Lesson सफलतापूर्वक थपियो!");
+            alert("✅ Lesson (Resource/Desc सहित) सफलतापूर्वक थपियो!");
             document.getElementById("uploadLessonTitle").value = "";
             document.getElementById("uploadLessonUrl").value = "";
+            document.getElementById("uploadLessonResource").value = "";
+            document.getElementById("uploadLessonDesc").value = "";
             document.getElementById("uploadLessonOrder").value = order + 1;
         }
 
@@ -1501,7 +1480,6 @@
             }
         }
 
-        // TYPING EFFECT
         const roleItems = [
             { text: "Investor", class: "highlight-dark-blue" }, { text: " | ", class: "separator" },
             { text: "Trader", class: "highlight-yellow" }, { text: " | ", class: "separator" },
@@ -1531,4 +1509,4 @@
         document.addEventListener("DOMContentLoaded", () => setTimeout(typeAllRoles, 400));
     </script>
 </body>
-</html>
+</html> 

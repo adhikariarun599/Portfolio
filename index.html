@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arun Adhikari - Official Portfolio & Courses</title>
+    <title>Arun Adhikari - Official Portfolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- FIREBASE SDKs (No Paid Storage Required) -->
+    <!-- FIREBASE SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
     <style>
@@ -31,10 +30,6 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Arial, sans-serif;
             scroll-behavior: smooth;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
 
         body {
@@ -68,7 +63,7 @@
             background: #ffffff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
             z-index: 1000;
-            padding: 0.8rem 5%;
+            padding: 0.7rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -99,15 +94,15 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 1.2rem;
+            gap: 1rem;
             align-items: center;
         }
 
-        .nav-links a {
+        .nav-links a.nav-item {
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: color 0.2s;
             display: inline-flex;
             align-items: center;
@@ -115,80 +110,50 @@
             cursor: pointer;
         }
 
-        .nav-links a:hover { color: var(--primary); }
+        .nav-links a.nav-item:hover { color: var(--primary); }
 
-        .dropdown { position: relative; }
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #ffffff;
-            min-width: 320px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 0.5rem 0;
-            list-style: none;
-            z-index: 1100;
-            margin-top: 0.5rem;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .dropdown:hover .dropdown-menu { display: block; }
-
-        .dropdown-menu li a {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.65rem 1rem;
-            font-size: 0.95rem;
-            color: #334155;
-            font-weight: 500;
-        }
-
-        .dropdown-menu li a:hover {
-            background-color: #f1f5f9;
-            color: var(--primary);
-        }
-
-        .nav-price-tag { display: flex; align-items: center; gap: 6px; }
-        .nav-orig-price { text-decoration: line-through; color: #94a3b8; font-size: 0.8rem; font-weight: 600; }
-        .nav-offer-price { background: #dcfce7; color: #15803d; font-size: 0.8rem; font-weight: 700; padding: 0.15rem 0.45rem; border-radius: 4px; }
-
-        .btn-auth {
-            background: var(--primary);
-            color: #ffffff !important;
-            padding: 0.45rem 1rem;
-            border-radius: 6px;
-            font-size: 0.95rem !important;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
+        /* UNIFORM SAME-SIZED NAVBAR BUTTONS */
+        .btn-nav-action {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
-        }
-
-        .btn-auth:hover { background: var(--primary-light); }
-
-        .btn-admin-login-nav {
-            background: #475569;
-            color: white !important;
-            padding: 0.45rem 0.8rem;
+            height: 38px;
+            padding: 0 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
             border-radius: 6px;
-            font-size: 0.85rem;
+            text-decoration: none;
             border: none;
             cursor: pointer;
-            font-weight: 600;
+            line-height: 1;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
         }
+
+        .btn-courses {
+            background: #089981;
+            color: #ffffff !important;
+        }
+        .btn-courses:hover { background: #057a66; }
+
+        .btn-dashboard {
+            background: #1e3a8a;
+            color: #ffffff !important;
+        }
+        .btn-dashboard:hover { background: #1d4ed8; }
+
+        .btn-logout {
+            background: #dc2626;
+            color: #ffffff !important;
+        }
+        .btn-logout:hover { background: #b91c1c; }
 
         /* HERO SECTION */
         .hero {
             min-height: 80vh;
-            padding: 110px 5% 40px 5%;
+            padding: 110px 5% 50px 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -227,7 +192,7 @@
             100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
         }
 
-        section { padding: 45px 5%; }
+        section { padding: 50px 5%; }
         .section-title { text-align: center; font-size: 1.85rem; color: var(--dark); margin-bottom: 0.5rem; }
         .section-sub { text-align: center; color: #64748b; margin-bottom: 1.8rem; font-size: 0.95rem; }
 
@@ -269,25 +234,41 @@
         }
         .muni-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* SERVICES GRID */
-        .services-grid, .reviews-grid {
+        /* SERVICES GRID (ALL 6 CARDS) */
+        .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.2rem;
             max-width: 1100px;
             margin: 0 auto;
         }
 
-        .service-card, .review-card {
+        .service-card {
             background: #ffffff;
-            padding: 1.3rem;
+            padding: 1.4rem;
             border-radius: 10px;
             border: 1px solid var(--card-border);
             transition: all 0.2s;
         }
 
-        .review-card { position: relative; }
-        .review-stars { color: #f59e0b; margin-bottom: 6px; font-size: 0.9rem; }
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+
+        .service-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark);
+            font-size: 1.15rem;
+        }
+
+        .service-card p {
+            margin-top: 8px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
 
         /* MODALS */
         .modal {
@@ -368,120 +349,6 @@
             display: block;
         }
 
-        .catalog-grid { display: grid; grid-template-columns: 1fr; gap: 0.8rem; }
-        .catalog-item {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f8fafc;
-        }
-
-        .btn-catalog-action {
-            padding: 0.55rem 0.9rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            background: #089981;
-            color: #ffffff;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            text-decoration: none;
-        }
-
-        .coupon-box { display: flex; gap: 0.5rem; margin-bottom: 0.8rem; }
-        .coupon-input { flex: 1; padding: 0.6rem 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; text-transform: uppercase; }
-        .btn-apply-coupon { background: var(--primary); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
-        .payment-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 1rem 0; }
-        .pay-card { border: 1px solid #cbd5e1; padding: 0.8rem; border-radius: 8px; text-align: center; background: #f8fafc; }
-        .btn-whatsapp-buy { width: 100%; background: #25d366; color: white; border: none; padding: 0.8rem; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-
-        .my-course-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 1rem;
-            background: #ffffff;
-            margin-bottom: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* SECURE PLAYER & WATERMARK */
-        .player-layout { display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 1.2rem; }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            background: #000;
-            margin-bottom: 0.8rem;
-        }
-
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-
-        .video-watermark {
-            position: absolute;
-            top: 15%;
-            left: 15%;
-            color: rgba(255, 255, 255, 0.22);
-            font-size: 1.1rem;
-            font-weight: 800;
-            pointer-events: none;
-            z-index: 10;
-            transform: rotate(-15deg);
-            white-space: nowrap;
-        }
-
-        .screen-protect-overlay {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000;
-            color: #ef4444;
-            z-index: 50;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .playlist-box {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 0.8rem;
-            max-height: 480px;
-            overflow-y: auto;
-        }
-
-        .lesson-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.6rem 0.7rem;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .lesson-item.active { border-color: #2563eb; background: #eff6ff; font-weight: 700; }
-        .lesson-check-btn { background: transparent; border: none; cursor: pointer; font-size: 1.2rem; color: #cbd5e1; padding: 2px 4px; }
-        .lesson-check-btn.completed { color: #10b981; }
-
         /* ADMIN TABS & TABLES */
         .admin-nav-bar { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; }
         .admin-tab-btn { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; color: #334155; }
@@ -496,17 +363,7 @@
         .btn-approve-all { background: #089981; color: white; padding: 0.4rem 0.7rem; border-radius: 5px; font-size: 0.8rem; font-weight: 700; border: none; cursor: pointer; }
         .btn-reset { background: #ef4444; color: white; padding: 0.4rem 0.7rem; border-radius: 5px; font-size: 0.8rem; font-weight: 700; border: none; cursor: pointer; }
 
-        /* CERTIFICATE STYLING */
-        #certificatePrintArea {
-            border: 8px double #1e3a8a;
-            padding: 2.5rem 1.5rem;
-            text-align: center;
-            background: #fffdfa;
-            border-radius: 12px;
-            color: #0f172a;
-        }
-
-        footer { background: var(--dark); color: #94a3b8; text-align: center; padding: 2rem 1rem; }
+        footer { background: var(--dark); color: #94a3b8; text-align: center; padding: 2.5rem 1rem; }
         .social-links { display: flex; justify-content: center; gap: 1rem; list-style: none; margin-top: 0.8rem; }
         .social-btn { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; color: #ffffff; text-decoration: none; font-size: 1.1rem; }
         .social-btn.facebook { background: #1877f2; }
@@ -531,30 +388,26 @@
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             }
             .nav-links.active { left: 0; }
-            .dropdown { width: 100%; }
-            .dropdown-menu { position: static; box-shadow: none; border: 1px solid #e2e8f0; width: 100%; display: none; margin-top: 0.4rem; }
-            .dropdown.open .dropdown-menu { display: block; }
             .hero { flex-direction: column-reverse; text-align: center; padding-top: 90px; gap: 1.5rem; }
             .hero-content { display: flex; flex-direction: column; align-items: center; }
             .hero-content h1 { font-size: 2.3rem; }
             .roles { justify-content: center; font-size: 1.1rem; }
             .hero-buttons { justify-content: center; width: 100%; }
-            .hero-buttons .btn-auth { width: 100%; max-width: 280px; text-align: center; }
+            .hero-buttons .btn-nav-action { width: 100%; max-width: 280px; }
             .profile-img-box { width: 220px; height: 220px; }
             .achievement-card { flex-direction: column; text-align: center; }
             .muni-logo-box { margin: 0 auto; }
-            .player-layout { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
     <!-- TOP NOTICE BANNER -->
     <div id="siteNoticeBanner">
         <span id="siteNoticeText">📢 विशेष अफर: आज मात्र सबै कोर्सहरूमा भारी छुट!</span>
     </div>
 
-    <!-- FRONT PHOTO NOTICE MODAL (EVERY VISIT POPUP) -->
+    <!-- FRONT PHOTO NOTICE MODAL -->
     <div id="photoNoticeModal" class="modal" style="z-index: 3000;">
         <div class="photo-notice-dialog">
             <button class="btn-close-modal" onclick="closeModal('photoNoticeModal')" style="position: absolute; top: 10px; right: 15px; font-size: 1.8rem; color: #ef4444; z-index: 10;">&times;</button>
@@ -564,10 +417,10 @@
             </div>
             <p id="photoNoticeDesc" style="color: #475569; font-size: 0.95rem; margin-bottom: 1rem;"></p>
             <div style="display:flex; gap:8px;">
-                <button id="photoNoticeActionBtn" class="btn-auth" style="flex:1; justify-content:center; background:#089981; display:none;" onclick="handlePhotoNoticeAction()">
+                <a href="https://courses.arunadhikari.com.np" id="photoNoticeActionBtn" class="btn-nav-action btn-courses" style="flex:1; justify-content:center; display:none;" target="_blank">
                     <i class="fas fa-arrow-right"></i> अफर हेर्नुहोस्
-                </button>
-                <button class="btn-auth" style="flex:1; justify-content:center; background:#64748b;" onclick="closeModal('photoNoticeModal')">
+                </a>
+                <button class="btn-nav-action" style="flex:1; justify-content:center; background:#64748b; color:white;" onclick="closeModal('photoNoticeModal')">
                     <i class="fas fa-times"></i> बन्द गर्नुहोस्
                 </button>
             </div>
@@ -596,35 +449,29 @@
         </button>
 
         <ul class="nav-links" id="navLinks">
-            <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
-            <li><a href="#achievements" onclick="closeMobileMenu()">Achievements</a></li>
-            <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
-            <li><a href="#reviews" onclick="closeMobileMenu()">Reviews</a></li>
+            <li><a href="#about" class="nav-item" onclick="closeMobileMenu()">About</a></li>
+            <li><a href="#achievements" class="nav-item" onclick="closeMobileMenu()">Achievements</a></li>
+            <li><a href="#services" class="nav-item" onclick="closeMobileMenu()">Services</a></li>
             
-            <!-- DYNAMIC COURSES DROPDOWN -->
-            <li class="dropdown" id="coursesDropdown">
-                <a href="javascript:void(0)" onclick="toggleDropdownMenu()"><i class="fas fa-graduation-cap" style="color:#089981;"></i> Courses <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i></a>
-                <ul class="dropdown-menu" id="navCoursesDropdownList">
-                    <!-- Loaded Dynamically -->
-                </ul>
-            </li>
-
-            <!-- MY COURSES TAB -->
-            <li id="myCoursesNavTab" style="display: none;">
-                <a href="javascript:void(0)" onclick="closeMobileMenu(); openMyCoursesDashboard()" style="color:#2563eb;"><i class="fas fa-play-circle"></i> My Courses</a>
-            </li>
-
-            <!-- ADMIN TAB -->
-            <li id="adminNavTab" style="display: none;"><a href="javascript:void(0)" onclick="closeMobileMenu(); openAdminPanel()" style="color: #dc2626;"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
-
-            <!-- STUDENT AUTH -->
+            <!-- 1. COURSES PORTAL BUTTON -->
             <li>
-                <button id="authBtn" class="btn-auth" onclick="handleStudentAuth()"><i class="fab fa-google"></i> Student Login</button>
+                <a href="https://courses.arunadhikari.com.np" class="btn-nav-action btn-courses" target="_blank">
+                    <i class="fas fa-graduation-cap"></i> Courses Portal
+                </a>
             </li>
 
-            <!-- ADMIN AUTH -->
+            <!-- 2. ADMIN OPEN DASHBOARD BUTTON -->
+            <li id="adminNavTab" style="display: none;">
+                <button onclick="closeMobileMenu(); openAdminPanel()" class="btn-nav-action btn-dashboard">
+                    <i class="fas fa-user-shield"></i> Open Dashboard
+                </button>
+            </li>
+
+            <!-- 3. ADMIN LOGIN / LOGOUT BUTTON -->
             <li>
-                <button id="adminLoginBtn" class="btn-admin-login-nav" onclick="openAdminAuthModal()"><i class="fas fa-lock"></i> Admin</button>
+                <button id="adminLoginBtn" class="btn-nav-action btn-logout" onclick="openAdminAuthModal()">
+                    <i class="fas fa-lock"></i> Admin
+                </button>
             </li>
         </ul>
     </nav>
@@ -637,9 +484,12 @@
             <div class="location"><i class="fas fa-map-marker-alt"></i> Shitaganga-03, Arghakhanchi, Nepal</div>
             <div class="roles"><span id="fullTypingRoles"></span></div>
             <div class="hero-buttons">
-                <button onclick="openCoursesCatalog()" class="btn-auth" style="padding: 0.75rem 1.4rem; font-size: 1rem; background: #089981; border:none; cursor:pointer;"><i class="fas fa-graduation-cap"></i> View Courses & Offers</button>
-                <button id="heroMyCoursesBtn" onclick="openMyCoursesDashboard()" class="btn-auth" style="padding: 0.75rem 1.4rem; font-size: 1rem; background: #2563eb; border:none; cursor:pointer; display:none;"><i class="fas fa-play-circle"></i> My Courses</button>
-                <a href="#contactFormSection" class="btn-auth" style="text-decoration: none; padding: 0.75rem 1.4rem; font-size: 1rem; background: #334155;"><i class="fas fa-envelope"></i> Contact Me</a>
+                <a href="https://courses.arunadhikari.com.np" class="btn-nav-action btn-courses" style="height: 44px; padding: 0 1.5rem; font-size: 1rem;" target="_blank">
+                    <i class="fas fa-graduation-cap"></i> View Courses & Offers
+                </a>
+                <a href="https://wa.me/9779857069058" target="_blank" class="btn-nav-action" style="background: #334155; color: white; height: 44px; padding: 0 1.5rem; font-size: 1rem;">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Me
+                </a>
             </div>
         </div>
         <div class="hero-image-container">
@@ -674,7 +524,7 @@
         </div>
     </section>
 
-    <!-- SERVICES & EXPERTISE -->
+    <!-- SERVICES & EXPERTISE (ALL 6 CARDS) -->
     <section id="services">
         <h2 class="section-title">Services & Expertise</h2>
         <p class="section-sub">Areas of professional expertise and client support</p>
@@ -682,265 +532,30 @@
         <div class="services-grid">
             <div class="service-card">
                 <h3><i class="fas fa-palette" style="color:var(--icon-yellow);"></i> Graphic Design</h3>
-                <p style="margin-top: 6px;"><span class="highlight-dark-blue">5 years of experience</span> in Illustrator, Photoshop & InDesign branding.</p>
+                <p><span class="highlight-dark-blue">5 years of experience</span> in Illustrator, Photoshop & InDesign branding.</p>
             </div>
             <div class="service-card">
                 <h3><i class="fas fa-code" style="color:var(--icon-yellow);"></i> Web & App Development</h3>
-                <p style="margin-top: 6px;"><span class="highlight-dark-blue">5 years of experience</span> in designing responsive websites and mobile interfaces.</p>
+                <p><span class="highlight-dark-blue">5 years of experience</span> in designing responsive websites and mobile interfaces.</p>
             </div>
             <div class="service-card">
                 <h3><i class="fas fa-chart-line" style="color:var(--icon-yellow);"></i> Financial Guidance</h3>
-                <p style="margin-top: 6px;"><span class="highlight-dark-blue">10 years of experience</span> in Banking/Microfinance & Stock Market Analysis.</p>
+                <p><span class="highlight-dark-blue">10 years of experience</span> in Banking/Microfinance & Stock Market Analysis.</p>
             </div>
             <div class="service-card">
                 <h3><i class="fas fa-video" style="color:var(--icon-yellow);"></i> Video Production</h3>
-                <p style="margin-top: 6px;"><span class="highlight-dark-blue">Professional Editing</span> using DaVinci Resolve and CapCut.</p>
+                <p><span class="highlight-dark-blue">Professional Editing</span> using DaVinci Resolve and CapCut.</p>
+            </div>
+            <div class="service-card">
+                <h3><i class="fas fa-bullhorn" style="color:var(--icon-yellow);"></i> Digital Marketing & Branding</h3>
+                <p><span class="highlight-dark-blue">Brand building strategies</span>, social media growth, and visual assets design.</p>
+            </div>
+            <div class="service-card">
+                <h3><i class="fas fa-chalkboard-teacher" style="color:var(--icon-yellow);"></i> Practical Mentorship</h3>
+                <p><span class="highlight-dark-blue">One-on-One training</span> for students in NEPSE technical analysis and modern tech skills.</p>
             </div>
         </div>
     </section>
-
-    <!-- STUDENT REVIEWS & FEEDBACK -->
-    <section id="reviews" style="background:#ffffff; border-top:1px solid #e2e8f0;">
-        <h2 class="section-title">Student Reviews & Feedback</h2>
-        <p class="section-sub">What our successful students say about the learning journey</p>
-        
-        <div class="reviews-grid" id="publicReviewsContainer">
-            <!-- Reviews loaded here -->
-        </div>
-
-        <div style="text-align:center; margin-top:1.5rem;">
-            <button class="btn-auth" onclick="openFeedbackModal()"><i class="fas fa-comment-dots"></i> Leave Your Feedback / Review</button>
-        </div>
-    </section>
-
-    <!-- CONTACT / INQUIRY SECTION -->
-    <section id="contactFormSection" style="background:#f8fafc; border-top:1px solid #e2e8f0;">
-        <h2 class="section-title">Get In Touch</h2>
-        <p class="section-sub">कोर्स वा परामर्श सम्बन्धी कुनै पनि जिज्ञासा भए सन्देश पठाउनुहोस्</p>
-        <div class="about-box" style="max-width: 600px; text-align: left;">
-            <div style="margin-bottom: 10px;">
-                <label style="font-weight:600; font-size:0.9rem;">Your Name (नाम):</label>
-                <input type="text" id="inquiryName" placeholder="तपाईंको पूरा नाम" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
-            </div>
-            <div style="margin-bottom: 10px;">
-                <label style="font-weight:600; font-size:0.9rem;">Phone / WhatsApp:</label>
-                <input type="tel" id="inquiryPhone" placeholder="९८xxxxxxxx" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
-            </div>
-            <div style="margin-bottom: 15px;">
-                <label style="font-weight:600; font-size:0.9rem;">Message / Inquiry (जिज्ञासा):</label>
-                <textarea id="inquiryMsg" rows="3" placeholder="तपाईंको प्रश्न यहाँ लेख्नुहोस्..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
-            </div>
-            <button class="btn-auth" style="width: 100%; justify-content: center;" onclick="submitInquiryMessage()"><i class="fas fa-paper-plane"></i> Send Message</button>
-        </div>
-    </section>
-
-    <!-- COURSES CATALOG MODAL -->
-    <div id="catalogModal" class="modal">
-        <div class="modal-content" style="max-width: 720px;">
-            <div class="modal-header">
-                <h2><i class="fas fa-graduation-cap" style="color:#089981;"></i> Premium Courses (Special Discount)</h2>
-                <button class="btn-close-modal" onclick="closeModal('catalogModal')">&times;</button>
-            </div>
-            <div class="catalog-grid" id="catalogModalGridArea">
-                <!-- Loaded dynamically -->
-            </div>
-        </div>
-    </div>
-
-    <!-- MY COURSES DASHBOARD MODAL -->
-    <div id="myCoursesModal" class="modal">
-        <div class="modal-content" style="max-width: 650px;">
-            <div class="modal-header">
-                <h2><i class="fas fa-graduation-cap" style="color:#2563eb;"></i> My Approved Courses</h2>
-                <button class="btn-close-modal" onclick="closeModal('myCoursesModal')">&times;</button>
-            </div>
-            <div id="myCoursesListArea"></div>
-        </div>
-    </div>
-
-    <!-- COURSE CHECKOUT MODAL WITH DESCRIPTION -->
-    <div id="checkoutModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="checkoutCourseTitle">Course Checkout</h2>
-                <button class="btn-close-modal" onclick="closeModal('checkoutModal')">&times;</button>
-            </div>
-            
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 1.2rem; border-radius: 8px; margin-bottom: 1rem;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                    <span>कोर्स:</span>
-                    <strong id="summaryCourseName" style="color:var(--dark);">-</strong>
-                </div>
-                <!-- Dynamic Course Description Display -->
-                <div id="summaryCourseDescArea" style="background:#ffffff; border:1px solid #e2e8f0; padding:0.7rem; border-radius:6px; margin: 8px 0; font-size:0.92rem; color:#475569; white-space: pre-line;"></div>
-
-                <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                    <span>वास्तविक मूल्य (Full Price):</span>
-                    <span id="summaryOriginalPrice" style="text-decoration: line-through; color:#ef4444; font-weight:700;">-</span>
-                </div>
-                <div style="display:flex; justify-content:space-between; font-size:1.2rem; border-top:1px solid #e2e8f0; padding-top:8px; margin-top:6px;">
-                    <strong>अफर मूल्य (Payable):</strong>
-                    <strong id="summaryPayablePrice" style="color:#089981;">-</strong>
-                </div>
-            </div>
-
-            <!-- COUPON SYSTEM -->
-            <div>
-                <label style="font-weight:600; font-size:0.95rem; margin-bottom:4px; display:block;">कूपन कोड छ? (Coupon Code):</label>
-                <div class="coupon-box">
-                    <input type="text" id="couponInput" class="coupon-input" placeholder="उदा: ARUN50">
-                    <button class="btn-apply-coupon" onclick="applyCoupon()">Apply</button>
-                </div>
-                <div id="couponMsg" style="font-size:0.9rem; margin-bottom:1rem;"></div>
-            </div>
-
-            <!-- PAYMENT INSTRUCTIONS -->
-            <div style="border-top:1px solid #e2e8f0; padding-top:1rem;">
-                <h4 style="margin-bottom:0.5rem; color:var(--dark);"><i class="fas fa-wallet"></i> भुक्तानी गर्ने माध्यम:</h4>
-                
-                <div class="payment-options-grid">
-                    <div class="pay-card">
-                        <strong style="color:#60bb46; font-size:1.1rem;"><i class="fas fa-mobile-alt"></i> eSewa</strong>
-                        <p style="font-size:1rem; font-weight:700; margin-top:4px;">९८५७०६९०५८</p>
-                        <small style="color:#64748b;">(Arun Adhikari)</small>
-                    </div>
-                    <div class="pay-card">
-                        <strong style="color:#5c2d91; font-size:1.1rem;"><i class="fas fa-wallet"></i> Khalti</strong>
-                        <p style="font-size:1rem; font-weight:700; margin-top:4px;">९८५७०६९०५८</p>
-                        <small style="color:#64748b;">(Arun Adhikari)</small>
-                    </div>
-                </div>
-
-                <div style="background:#fef3c7; border:1px solid #fde68a; padding:0.8rem; border-radius:6px; font-size:0.9rem; color:#92400e; margin-bottom:1rem;">
-                    📌 <strong>भुक्तानी पछि:</strong> रकम पठाएको Screenshot तलको WhatsApp बटनमा पठाउनुहोस्। Admin ले Verify गरेर Approve गरेपछि तपाईंको खातामा <strong>"My Courses"</strong> खुल्नेछ।
-                </div>
-
-                <button class="btn-whatsapp-buy" onclick="sendWhatsAppConfirmation()">
-                    <i class="fab fa-whatsapp"></i> भुक्तानीको Screenshot पठाउनुहोस्
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- COURSE PLAYER & DRM PROTECTION -->
-    <div id="courseModal" class="modal">
-        <div class="modal-content" style="max-width: 950px;">
-            <div class="modal-header">
-                <h2 id="modalCourseTitle">Course Player</h2>
-                <button class="btn-close-modal" onclick="closeModal('courseModal')">&times;</button>
-            </div>
-            
-            <div class="player-layout">
-                <div>
-                    <div class="video-container">
-                        <div id="videoWatermarkText" class="video-watermark">Protected Content</div>
-                        <div id="screenShield" class="screen-protect-overlay">
-                            <i class="fas fa-shield-alt" style="font-size: 3rem; margin-bottom: 10px;"></i>
-                            <h3>⚠️ Security Alert: Video Protected</h3>
-                            <p style="font-size:0.9rem; color:#cbd5e1; margin-top:5px;">Recording & Screenshot are strictly restricted.</p>
-                        </div>
-                        <iframe id="mainVideoPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:0.8rem 1rem; border-radius:8px; border:1px solid #e2e8f0; flex-wrap:wrap; gap:8px;">
-                        <div>
-                            <h4 id="currentLessonName" style="color:var(--dark);">Lesson Loading...</h4>
-                            <small style="color:#64748b;">Arun Adhikari Learning Hub</small>
-                        </div>
-                        <div style="display:flex; gap:6px;">
-                            <button id="btnMarkComplete" class="btn-catalog-action" style="background:#2563eb;" onclick="toggleCurrentLessonComplete()">
-                                <i class="fas fa-check"></i> Mark Complete
-                            </button>
-                            <button id="btnGetCertificate" class="btn-catalog-action" style="background:#d97706; display:none;" onclick="openCertificateModal()">
-                                <i class="fas fa-award"></i> View Certificate
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- LESSON DETAILS & DOWNLOAD AREA -->
-                    <div id="lessonExtraDetails" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:1rem; margin-top:0.8rem;">
-                        <h4 style="color:var(--dark); margin-bottom:0.4rem;"><i class="fas fa-info-circle" style="color:#2563eb;"></i> Lesson Description & Notes:</h4>
-                        <p id="currentLessonDesc" style="color:#475569; font-size:0.95rem; white-space: pre-line; margin-bottom:0.8rem;">कुनै विवरण छैन।</p>
-                        
-                        <div id="lessonDownloadContainer" style="display:none; border-top:1px solid #f1f5f9; padding-top:0.8rem;">
-                            <a id="btnLessonDownload" href="#" target="_blank" class="btn-catalog-action" style="background:#089981;">
-                                <i class="fas fa-download"></i> Download Resources / Notes
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PLAYLIST AREA -->
-                <div class="playlist-box">
-                    <h4 style="margin-bottom:0.8rem; color:var(--dark); display:flex; justify-content:space-between; align-items:center;">
-                        <span><i class="fas fa-list-ul" style="color:#2563eb;"></i> Course Lessons</span>
-                        <span id="courseProgressPercent" style="font-size:0.85rem; color:#10b981; font-weight:700;">0% Completed</span>
-                    </h4>
-                    <div id="lessonsListContainer"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- CERTIFICATE MODAL -->
-    <div id="certificateModal" class="modal">
-        <div class="modal-content" style="max-width: 700px; text-align:center;">
-            <div class="modal-header">
-                <h3>🏆 Course Completion Certificate</h3>
-                <button class="btn-close-modal" onclick="closeModal('certificateModal')">&times;</button>
-            </div>
-            
-            <div id="certificatePrintArea">
-                <i class="fas fa-award" style="font-size: 3.5rem; color: #d97706; margin-bottom: 0.5rem;"></i>
-                <h1 style="font-size: 1.8rem; letter-spacing: 1px; color: #1e3a8a;">CERTIFICATE OF COMPLETION</h1>
-                <p style="color: #64748b; font-size: 0.95rem; margin-top: 4px;">This is proudly presented to</p>
-                <h2 id="certStudentName" style="color: #0f172a; font-size: 1.7rem; margin: 0.8rem 0; border-bottom: 2px dashed #cbd5e1; display: inline-block; padding: 0 1.5rem 0.3rem 1.5rem;">Student Name</h2>
-                <p style="font-size: 1rem; color: #334155; max-width: 500px; margin: 0 auto 1.2rem auto;">
-                    for successfully mastering and completing all modules of the course <br><strong id="certCourseTitle" style="color: #1e3a8a;">Course Name</strong>.
-                </p>
-                <div style="display:flex; justify-content:space-around; align-items:flex-end; margin-top:2rem; padding-top:1rem; border-top:1px solid #e2e8f0;">
-                    <div>
-                        <small style="color:#64748b; display:block;">Issued On</small>
-                        <strong id="certIssueDate">2026-08-22</strong>
-                    </div>
-                    <div>
-                        <div style="font-family: cursive; font-size: 1.2rem; color: #1e3a8a; font-weight: bold;">Arun Adhikari</div>
-                        <div style="border-top: 1px solid #0f172a; width: 140px; margin: 3px auto 0 auto;"></div>
-                        <small style="color: #64748b;">Instructor / Founder</small>
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn-auth" style="background:#089981; margin-top:1.2rem; justify-content:center; width:100%;" onclick="window.print()">
-                <i class="fas fa-print"></i> Print / Download PDF
-            </button>
-        </div>
-    </div>
-
-    <!-- STUDENT FEEDBACK MODAL -->
-    <div id="feedbackModal" class="modal">
-        <div class="modal-content" style="max-width: 480px;">
-            <div class="modal-header">
-                <h3><i class="fas fa-star" style="color:#f59e0b;"></i> Leave Your Review</h3>
-                <button class="btn-close-modal" onclick="closeModal('feedbackModal')">&times;</button>
-            </div>
-            <div>
-                <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Rating:</label>
-                    <select id="reviewRating" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
-                        <option value="5">⭐⭐⭐⭐⭐ (5/5 Excellent)</option>
-                        <option value="4">⭐⭐⭐⭐ (4/5 Very Good)</option>
-                        <option value="3">⭐⭐⭐ (3/5 Good)</option>
-                    </select>
-                </div>
-                <div style="margin-bottom:12px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Your Review / Experience (तपाईंको अनुभव):</label>
-                    <textarea id="reviewText" rows="3" placeholder="कोर्स सिकेर कस्तो लाग्यो? यहाँ लेख्नुहोस्..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
-                </div>
-                <button class="btn-auth" style="width:100%; justify-content:center;" onclick="submitReview()"><i class="fas fa-paper-plane"></i> Post Review</button>
-            </div>
-        </div>
-    </div>
 
     <!-- ADMIN LOGIN MODAL -->
     <div id="adminLoginModal" class="modal">
@@ -952,7 +567,7 @@
             <div style="margin: 1rem 0;">
                 <input type="text" id="adminUserField" placeholder="Admin Username" style="width: 100%; padding: 0.7rem; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 0.8rem; font-size: 1rem;">
                 <input type="password" id="adminPassField" placeholder="Admin Secret Password" style="width: 100%; padding: 0.7rem; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 1rem; font-size: 1rem;">
-                <button class="btn-auth" style="width: 100%; justify-content: center; background: #dc2626; padding: 0.75rem;" onclick="processAdminDirectLogin()">
+                <button class="btn-nav-action btn-logout" style="width: 100%; justify-content: center; height: 42px;" onclick="processAdminDirectLogin()">
                     <i class="fas fa-sign-in-alt"></i> Login as Admin
                 </button>
             </div>
@@ -974,7 +589,6 @@
                 <button class="admin-tab-btn" onclick="switchAdminTab('lessons', this)"><i class="fas fa-video"></i> Upload Lessons</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('coupons', this)"><i class="fas fa-tags"></i> Coupons</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('notice', this)"><i class="fas fa-bullhorn"></i> Site & Photo Notice</button>
-                <button class="admin-tab-btn" onclick="switchAdminTab('inquiries', this)"><i class="fas fa-envelope-open-text"></i> Inquiries</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('security', this)"><i class="fas fa-key"></i> Change Password</button>
                 <button class="admin-tab-btn" style="background:#fee2e2; color:#b91c1c; margin-left:auto;" onclick="logoutAdmin()"><i class="fas fa-power-off"></i> Logout</button>
             </div>
@@ -995,7 +609,7 @@
                 </table>
             </div>
 
-            <!-- TAB 2: COURSE & PRICE & DESCRIPTION MANAGER -->
+            <!-- TAB 2: COURSE & PRICE MANAGER -->
             <div id="adminTabCourses" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0;">
                 <h3 style="margin-bottom:0.8rem; color:var(--dark);" id="adminCourseFormHeading"><i class="fas fa-plus-circle"></i> Add / Edit Course</h3>
                 <div style="display:grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap:8px; margin-bottom:10px;">
@@ -1005,17 +619,16 @@
                     <input type="number" id="adminNewCourseOfferPrice" placeholder="Offer Price (उदा: 999)" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
                 </div>
 
-                <!-- COURSE DESCRIPTION FIELD -->
                 <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Course Description (कोर्समा के-के सिकाइन्छ र फाइदाहरू):</label>
-                    <textarea id="adminNewCourseDesc" rows="3" placeholder="उदा: यस कोर्समा आधारभूत देखि एड्भान्स लेभलसम्म सबै प्रोजेक्टसहित सिकाइनेछ..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
+                    <label style="font-weight:600; font-size:0.9rem;">Course Description:</label>
+                    <textarea id="adminNewCourseDesc" rows="3" placeholder="कोर्सको विवरण..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
                 </div>
 
                 <div style="display:flex; gap:8px; margin-bottom:1.5rem;">
-                    <button class="btn-catalog-action" style="background:#089981; flex:1; justify-content:center;" onclick="saveCourseFromAdmin()">
+                    <button class="btn-nav-action btn-courses" style="flex:1; justify-content:center; height: 38px;" onclick="saveCourseFromAdmin()">
                         <i class="fas fa-save"></i> Save / Update Course
                     </button>
-                    <button class="btn-reset" style="background:#64748b;" onclick="resetCourseForm()">
+                    <button class="btn-reset" style="background:#64748b; height: 38px; padding: 0 1rem;" onclick="resetCourseForm()">
                         <i class="fas fa-times"></i> Cancel Edit
                     </button>
                 </div>
@@ -1053,7 +666,7 @@
                     <label style="font-weight:600; font-size:0.9rem;">Lesson Description / Notes:</label>
                     <textarea id="uploadLessonDesc" rows="3" placeholder="पाठको विवरण..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
                 </div>
-                <button class="btn-catalog-action" style="width:100%; justify-content:center; padding:0.8rem;" onclick="saveLessonToFirebase()">
+                <button class="btn-nav-action btn-courses" style="width:100%; justify-content:center; height: 42px;" onclick="saveLessonToFirebase()">
                     <i class="fas fa-cloud-upload-alt"></i> Publish Lesson
                 </button>
             </div>
@@ -1065,35 +678,33 @@
                     <input type="text" id="adminCouponCode" placeholder="Code (उदा: DASHAIN50)" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; text-transform:uppercase;">
                     <input type="number" id="adminCouponPercent" placeholder="Discount % (उदा: 50)" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
                 </div>
-                <button class="btn-catalog-action" style="background:#089981; width:100%; justify-content:center; margin-bottom:1.5rem;" onclick="saveCouponCode()">
+                <button class="btn-nav-action btn-courses" style="width:100%; justify-content:center; margin-bottom:1.5rem; height: 38px;" onclick="saveCouponCode()">
                     <i class="fas fa-plus"></i> Save Coupon
                 </button>
                 <h4>Active Coupons:</h4>
                 <div id="adminCouponsList" style="margin-top:6px;"></div>
             </div>
 
-            <!-- TAB 5: NOTICE & DIRECT FILE UPLOAD POPUP MANAGER (NO STORAGE UPGRADE NEEDED) -->
+            <!-- TAB 5: NOTICE BANNER & POPUP MANAGER -->
             <div id="adminTabNotice" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0;">
                 <h3 style="margin-bottom:0.8rem;"><i class="fas fa-bullhorn"></i> Website Top Notice Banner</h3>
                 <label style="font-weight:600; font-size:0.9rem;">Notice Text:</label>
                 <input type="text" id="adminNoticeInput" placeholder="वेबसाइटमा देखाउने मुख्य सूचना यहाँ लेख्नुहोस्..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin:6px 0 10px 0;">
                 <div style="display:flex; gap:8px; margin-bottom:1.8rem;">
-                    <button class="btn-catalog-action" style="background:#089981;" onclick="updateNoticeBanner(true)"><i class="fas fa-eye"></i> Publish / Show Banner</button>
-                    <button class="btn-reset" onclick="updateNoticeBanner(false)"><i class="fas fa-eye-slash"></i> Hide Banner</button>
+                    <button class="btn-nav-action btn-courses" style="height: 38px;" onclick="updateNoticeBanner(true)"><i class="fas fa-eye"></i> Publish / Show Banner</button>
+                    <button class="btn-reset" style="height: 38px; padding: 0 1rem;" onclick="updateNoticeBanner(false)"><i class="fas fa-eye-slash"></i> Hide Banner</button>
                 </div>
 
                 <hr style="border:0; border-top:1px solid #cbd5e1; margin-bottom:1.2rem;">
 
-                <h3 style="margin-bottom:0.8rem;"><i class="fas fa-image" style="color:#d97706;"></i> Front Popup Photo Notice (१००% निःशुल्क सिधै फोटो अपलोड हुने)</h3>
-                
+                <h3 style="margin-bottom:0.8rem;"><i class="fas fa-image" style="color:#d97706;"></i> Front Popup Photo Notice</h3>
                 <div style="margin-bottom:10px;">
                     <label style="font-weight:600; font-size:0.9rem;">Popup Title (शीर्षक):</label>
                     <input type="text" id="adminPhotoNoticeTitle" placeholder="उदा: विशेष चाडपर्व अफर!" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
                 </div>
 
-                <!-- DIRECT FILE UPLOAD INPUT -->
                 <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Select Image from Computer / Phone (तस्विर फाइल छान्नुहोस्):</label>
+                    <label style="font-weight:600; font-size:0.9rem;">Select Image (तस्विर फाइल छान्नुहोस्):</label>
                     <input type="file" id="adminPhotoNoticeFile" accept="image/*" style="width:100%; padding:0.5rem; background:#ffffff; border:1px dashed #cbd5e1; border-radius:6px; margin-top:4px;">
                     <input type="hidden" id="adminPhotoNoticeExistingUrl">
                     <small id="uploadStatusNotice" style="color:#2563eb; font-weight:600; display:block; margin-top:4px;"></small>
@@ -1105,7 +716,7 @@
                 </div>
 
                 <div style="margin-bottom:12px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Action Button (बटन थिच्दा कोर्स क्याटलग खोल्ने?):</label>
+                    <label style="font-weight:600; font-size:0.9rem;">Action Button (बटन थिच्दा कोर्स पोर्टल खोल्ने?):</label>
                     <select id="adminPhotoNoticeShowBtn" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
                         <option value="yes">हो, 'अफर हेर्नुहोस्' बटन देखाउने</option>
                         <option value="no">होइन, बटन नदेखाउने</option>
@@ -1113,27 +724,12 @@
                 </div>
 
                 <div style="display:flex; gap:8px;">
-                    <button class="btn-catalog-action" style="background:#089981;" onclick="updatePhotoPopupNotice(true)"><i class="fas fa-cloud-upload-alt"></i> Upload & Show Photo Notice</button>
-                    <button class="btn-reset" onclick="updatePhotoPopupNotice(false)"><i class="fas fa-ban"></i> Disable / Hide Photo Notice</button>
+                    <button class="btn-nav-action btn-courses" style="height: 38px;" onclick="updatePhotoPopupNotice(true)"><i class="fas fa-cloud-upload-alt"></i> Upload & Show Photo Notice</button>
+                    <button class="btn-reset" style="height: 38px; padding: 0 1rem;" onclick="updatePhotoPopupNotice(false)"><i class="fas fa-ban"></i> Disable / Hide Photo Notice</button>
                 </div>
             </div>
 
-            <!-- TAB 6: INQUIRIES & CONTACT INBOX -->
-            <div id="adminTabInquiries" class="admin-tab-pane" style="display:none; overflow-x: auto;">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Message</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminInquiryTableBody"></tbody>
-                </table>
-            </div>
-
-            <!-- TAB 7: ADMIN PASSWORD & SECURITY MANAGER -->
+            <!-- TAB 6: ADMIN PASSWORD & SECURITY -->
             <div id="adminTabSecurity" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0; max-width: 500px;">
                 <h3 style="margin-bottom:0.8rem; color:var(--dark);"><i class="fas fa-key" style="color:#d97706;"></i> Change Admin Login Credentials</h3>
                 <div style="margin-bottom:10px;">
@@ -1144,7 +740,7 @@
                     <label style="font-weight:600; font-size:0.9rem;">Admin New Password (PIN):</label>
                     <input type="password" id="adminNewPasswordInput" placeholder="New Secret Password" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
                 </div>
-                <button class="btn-catalog-action" style="background:#1e3a8a; width:100%; justify-content:center; padding:0.75rem;" onclick="updateAdminCredentialsFromPanel()">
+                <button class="btn-nav-action btn-dashboard" style="width:100%; justify-content:center; height: 40px;" onclick="updateAdminCredentialsFromPanel()">
                     <i class="fas fa-lock"></i> Update & Save Password
                 </button>
             </div>
@@ -1175,7 +771,6 @@
         };
 
         firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
         const db = firebase.firestore();
 
         // DEFAULT ADMIN CREDENTIALS
@@ -1183,7 +778,6 @@
         let currentAdminPin = "Admin@12345";
         let isAdminLoggedIn = localStorage.getItem("arun_is_admin_logged") === "true";
 
-        // BASE DEFAULT 6 COURSES (NEVER LOST)
         const BASE_DEFAULT_COURSES = [
             { key: 'web_dev', title: 'Website Development', desc: 'Complete HTML, CSS, JavaScript, Responsive design, and Firebase deployment.', origPrice: 5000, offerPrice: 999 },
             { key: 'app_dev', title: 'App Development', desc: 'Flutter & Native app development masterclass.', origPrice: 20000, offerPrice: 2500 },
@@ -1194,55 +788,21 @@
         ];
 
         let dynamicCourses = [...BASE_DEFAULT_COURSES];
-        let dynamicCoupons = { 'ARUN50': 50 };
-
-        let currentUser = null;
-        let currentUserData = null;
-        let activeCourseKey = null;
-        let currentPlayingLessonId = null;
-        let currentCourseLessons = [];
-
-        let activeCheckout = { title: '', key: '', desc: '', originalPrice: 0, currentPrice: 0, appliedCoupon: null };
 
         function toggleMobileMenu() { document.getElementById("navLinks").classList.toggle("active"); }
         function closeMobileMenu() { document.getElementById("navLinks").classList.remove("active"); }
-        function toggleDropdownMenu() { document.getElementById("coursesDropdown").classList.toggle("open"); }
-
-        // DRM & SCREEN RECORDING SHIELD
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.addEventListener('keydown', (e) => {
-            if (
-                e.key === "PrintScreen" || e.keyCode === 44 ||
-                (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u' || e.key === 'P' || e.key === 'S' || e.key === 'U')) ||
-                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
-                e.key === "F12"
-            ) {
-                e.preventDefault();
-                alert("⚠️ सुरक्षा चेतावनी: सामग्री सुरक्षित छ (Screenshot / Recording Restricted)!");
-                return false;
-            }
-        });
-
-        window.addEventListener('blur', () => {
-            const shield = document.getElementById("screenShield");
-            if (shield) shield.style.display = "flex";
-        });
-        window.addEventListener('focus', () => {
-            const shield = document.getElementById("screenShield");
-            if (shield) shield.style.display = "none";
-        });
 
         // INIT LOADERS
         document.addEventListener("DOMContentLoaded", async () => {
             setTimeout(typeAllRoles, 400);
+            refreshAdminNav();
             await listenToSettings();
             await loadAdminSecuritySettings();
             await loadCoursesFromFirebase();
-            await loadPublicReviews();
             await checkAndDisplayPhotoNotice();
         });
 
-        // REALTIME NOTICE & SETTINGS
+        // REALTIME NOTICE BANNER
         async function listenToSettings() {
             db.collection("settings").doc("main").onSnapshot((doc) => {
                 if (doc.exists) {
@@ -1261,7 +821,7 @@
             });
         }
 
-        // FRONT PHOTO NOTICE POPUP ON EVERY VISIT
+        // FRONT PHOTO NOTICE POPUP
         async function checkAndDisplayPhotoNotice() {
             try {
                 const doc = await db.collection("settings").doc("photo_notice").get();
@@ -1286,12 +846,7 @@
             }
         }
 
-        function handlePhotoNoticeAction() {
-            closeModal('photoNoticeModal');
-            openCoursesCatalog();
-        }
-
-        // LOAD ADMIN PASSWORD FROM FIREBASE
+        // ADMIN SECURITY & LOGINS
         async function loadAdminSecuritySettings() {
             try {
                 const doc = await db.collection("settings").doc("admin_auth").get();
@@ -1305,126 +860,17 @@
             }
         }
 
-        // MERGE BASE DEFAULT COURSES + FIREBASE COURSES
-        async function loadCoursesFromFirebase() {
-            let courseMap = new Map();
-            BASE_DEFAULT_COURSES.forEach(c => courseMap.set(c.key, c));
-
-            try {
-                const snapshot = await db.collection("site_courses").get();
-                if (!snapshot.empty) {
-                    snapshot.forEach(doc => {
-                        courseMap.set(doc.id, { key: doc.id, ...doc.data() });
-                    });
-                }
-            } catch (err) {
-                console.log("Courses load error:", err);
-            }
-
-            dynamicCourses = Array.from(courseMap.values());
-            renderCourseDropdownsAndCatalog();
-            if (isAdminLoggedIn) {
-                renderAdminCoursesList();
-            }
-        }
-
-        function renderCourseDropdownsAndCatalog() {
-            const navDropdown = document.getElementById("navCoursesDropdownList");
-            const catalogGrid = document.getElementById("catalogModalGridArea");
-            const lessonSelect = document.getElementById("uploadCourseSelect");
-
-            navDropdown.innerHTML = "";
-            catalogGrid.innerHTML = "";
-            if (lessonSelect) lessonSelect.innerHTML = "";
-
-            dynamicCourses.forEach(c => {
-                const discount = Math.round(((c.origPrice - c.offerPrice) / c.origPrice) * 100);
-                const descSafe = (c.desc || '').replace(/'/g, "\\'");
-
-                // Nav Item
-                navDropdown.innerHTML += `
-                    <li>
-                        <a href="javascript:void(0)" onclick="handleCourseClick('${c.title.replace(/'/g, "\\'")}', '${c.key}', ${c.offerPrice}, ${c.origPrice}, '${descSafe}')">
-                            <span>${c.title}</span>
-                            <div class="nav-price-tag"><span class="nav-orig-price">रु. ${c.origPrice}</span><span class="nav-offer-price">रु. ${c.offerPrice}</span></div>
-                        </a>
-                    </li>`;
-
-                // Catalog Item
-                catalogGrid.innerHTML += `
-                    <div class="catalog-item">
-                        <div>
-                            <h4>${c.title}</h4>
-                            <p style="font-size:0.85rem; color:#64748b; margin-top:2px;">${c.desc || 'व्यावहारिक र पूर्ण ज्ञानसहितको कोर्स'}</p>
-                            <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
-                                <span style="text-decoration:line-through; color:#ef4444; font-size:0.95rem; font-weight:700;">रु. ${c.origPrice}</span>
-                                <span style="font-size:0.85rem; color:#64748b;">(${discount}% छुट)</span>
-                                <strong style="color:#089981; font-size:1.2rem;">रु. ${c.offerPrice}</strong>
-                            </div>
-                        </div>
-                        <button class="btn-catalog-action" onclick="handleCourseClick('${c.title.replace(/'/g, "\\'")}', '${c.key}', ${c.offerPrice}, ${c.origPrice}, '${descSafe}')"><i class="fas fa-shopping-cart"></i> Buy / Open</button>
-                    </div>`;
-
-                if (lessonSelect) {
-                    lessonSelect.innerHTML += `<option value="${c.key}">${c.title}</option>`;
-                }
-            });
-        }
-
-        // AUTH & DASHBOARD
-        auth.onAuthStateChanged(async (user) => {
-            currentUser = user;
-            const authBtn = document.getElementById("authBtn");
-            const myCoursesNav = document.getElementById("myCoursesNavTab");
-            const heroMyCoursesBtn = document.getElementById("heroMyCoursesBtn");
-
-            refreshAdminNav();
-
-            if (user) {
-                authBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout (${user.displayName ? user.displayName.split(' ')[0] : 'Student'})`;
-                db.collection("users").doc(user.uid).onSnapshot(async (doc) => {
-                    if (doc.exists) {
-                        currentUserData = doc.data();
-                        const enrolled = currentUserData.enrolledCourses || [];
-                        if (isAdminLoggedIn || enrolled.length > 0) {
-                            myCoursesNav.style.display = "block";
-                            heroMyCoursesBtn.style.display = "inline-block";
-                        } else {
-                            myCoursesNav.style.display = "none";
-                            heroMyCoursesBtn.style.display = "none";
-                        }
-                    }
-                });
-                await handleUserDeviceRegistration(user);
-            } else {
-                authBtn.innerHTML = `<i class="fab fa-google"></i> Student Login`;
-                if (!isAdminLoggedIn) {
-                    myCoursesNav.style.display = "none";
-                    heroMyCoursesBtn.style.display = "none";
-                }
-                currentUserData = null;
-            }
-        });
-
         function refreshAdminNav() {
             const adminNav = document.getElementById("adminNavTab");
             const adminLoginBtn = document.getElementById("adminLoginBtn");
             if (isAdminLoggedIn) {
-                adminNav.style.display = "block";
-                adminLoginBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout Admin`;
-                document.getElementById("myCoursesNavTab").style.display = "block";
+                adminNav.style.display = "inline-block";
+                adminLoginBtn.className = "btn-nav-action btn-logout";
+                adminLoginBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout`;
             } else {
                 adminNav.style.display = "none";
+                adminLoginBtn.className = "btn-nav-action btn-logout";
                 adminLoginBtn.innerHTML = `<i class="fas fa-lock"></i> Admin`;
-            }
-        }
-
-        function handleStudentAuth() {
-            if (currentUser) {
-                auth.signOut().then(() => { location.reload(); });
-            } else {
-                const provider = new firebase.auth.GoogleAuthProvider();
-                auth.signInWithPopup(provider).catch((e) => alert("Login Error: " + e.message));
             }
         }
 
@@ -1459,314 +905,34 @@
             }
         }
 
-        function getDeviceType() { return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent) ? 'mobile' : 'desktop'; }
-        function getOrCreateDeviceToken() {
-            let token = localStorage.getItem("arun_courses_device_token");
-            if (!token) {
-                token = 'dev_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
-                localStorage.setItem("arun_courses_device_token", token);
-            }
-            return token;
-        }
+        // COURSES LOADER
+        async function loadCoursesFromFirebase() {
+            let courseMap = new Map();
+            BASE_DEFAULT_COURSES.forEach(c => courseMap.set(c.key, c));
 
-        async function handleUserDeviceRegistration(user) {
-            const userRef = db.collection("users").doc(user.uid);
-            const doc = await userRef.get();
-            const currentDevType = getDeviceType();
-            const currentDevToken = getOrCreateDeviceToken();
-
-            if (!doc.exists) {
-                const initialData = {
-                    name: user.displayName || "Student",
-                    email: user.email,
-                    enrolledCourses: [],
-                    completedLessons: {},
-                    devices: { desktop: currentDevType === 'desktop' ? currentDevToken : null, mobile: currentDevType === 'mobile' ? currentDevToken : null },
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                await userRef.set(initialData);
-                currentUserData = initialData;
-            } else {
-                currentUserData = doc.data();
-                const devices = currentUserData.devices || { desktop: null, mobile: null };
-                if (currentDevType === 'desktop' && !devices.desktop) await userRef.update({ "devices.desktop": currentDevToken });
-                if (currentDevType === 'mobile' && !devices.mobile) await userRef.update({ "devices.mobile": currentDevToken });
-            }
-        }
-
-        function openCoursesCatalog() { closeMobileMenu(); document.getElementById("catalogModal").style.display = "flex"; }
-
-        function openMyCoursesDashboard() {
-            closeMobileMenu();
-            const modal = document.getElementById("myCoursesModal");
-            const area = document.getElementById("myCoursesListArea");
-
-            if (!currentUser && !isAdminLoggedIn) {
-                area.innerHTML = `<p style="text-align:center; padding:1.5rem;">कृपया पहिले लगइन गर्नुहोस्।</p>`;
-                modal.style.display = "flex";
-                return;
+            try {
+                const snapshot = await db.collection("site_courses").get();
+                if (!snapshot.empty) {
+                    snapshot.forEach(doc => {
+                        courseMap.set(doc.id, { key: doc.id, ...doc.data() });
+                    });
+                }
+            } catch (err) {
+                console.log("Courses load error:", err);
             }
 
-            const enrolled = currentUserData && currentUserData.enrolledCourses ? currentUserData.enrolledCourses : [];
-
-            if (!isAdminLoggedIn && enrolled.length === 0) {
-                area.innerHTML = `
-                    <div style="text-align:center; padding:2rem 1rem;">
-                        <i class="fas fa-clock" style="font-size:3rem; color:#d97706; margin-bottom:1rem;"></i>
-                        <h3>तपाईंको कुनै स्वीकृत कोर्स छैन</h3>
-                        <p style="color:#64748b; margin-top:6px;">भुक्तानीपछि Admin ले Approve गरेपछि यहाँ स्वतः देखिनेछ।</p>
-                    </div>`;
-            } else {
-                let html = '<div style="display:flex; flex-direction:column; gap:0.8rem;">';
-                const listToRender = isAdminLoggedIn ? dynamicCourses.map(c => c.key) : enrolled;
-
-                listToRender.forEach(key => {
-                    const cObj = dynamicCourses.find(c => c.key === key) || { title: key };
-                    html += `
-                        <div class="my-course-card">
-                            <div>
-                                <h4 style="color:var(--dark); margin-bottom:3px;">${cObj.title}</h4>
-                                <span style="font-size:0.85rem; color:#15803d; font-weight:700;">✅ Approved & Active</span>
-                            </div>
-                            <button class="btn-catalog-action" onclick="closeModal('myCoursesModal'); openCoursePlayer('${key}', '${cObj.title.replace(/'/g, "\\'")}');">
-                                <i class="fas fa-play"></i> भिडियो हेर्नुहोस्
-                            </button>
-                        </div>`;
+            dynamicCourses = Array.from(courseMap.values());
+            const lessonSelect = document.getElementById("uploadCourseSelect");
+            if (lessonSelect) {
+                lessonSelect.innerHTML = "";
+                dynamicCourses.forEach(c => {
+                    lessonSelect.innerHTML += `<option value="${c.key}">${c.title}</option>`;
                 });
-                html += '</div>';
-                area.innerHTML = html;
             }
-            modal.style.display = "flex";
+            if (isAdminLoggedIn) renderAdminCoursesList();
         }
 
-        async function handleCourseClick(title, key, offerPrice, origPrice, desc) {
-            closeMobileMenu();
-            closeModal('catalogModal');
-            if (isAdminLoggedIn) { openCoursePlayer(key, title); return; }
-            if (!currentUser) { initiatePurchase(title, key, offerPrice, origPrice, desc); return; }
-
-            const isEnrolled = currentUserData && currentUserData.enrolledCourses && currentUserData.enrolledCourses.includes(key);
-            if (isEnrolled) openCoursePlayer(key, title);
-            else initiatePurchase(title, key, offerPrice, origPrice, desc);
-        }
-
-        function initiatePurchase(title, key, offerPrice, origPrice, desc) {
-            activeCheckout = { title: title, key: key, desc: desc, originalPrice: origPrice, currentPrice: offerPrice, appliedCoupon: null };
-            document.getElementById("checkoutCourseTitle").innerText = title + " - Buy Now";
-            document.getElementById("summaryCourseName").innerText = title;
-            document.getElementById("summaryCourseDescArea").innerText = desc ? desc : "यस कोर्समा आधारभूत देखि एड्भान्स लेभलसम्म सबै प्रोजेक्टसहित सिकाइनेछ।";
-            document.getElementById("summaryOriginalPrice").innerText = "रु. " + origPrice;
-            document.getElementById("summaryPayablePrice").innerText = "रु. " + offerPrice;
-            document.getElementById("couponInput").value = "";
-            document.getElementById("couponMsg").innerHTML = "";
-            document.getElementById("checkoutModal").style.display = "flex";
-        }
-
-        async function applyCoupon() {
-            const code = document.getElementById("couponInput").value.trim().toUpperCase();
-            const msg = document.getElementById("couponMsg");
-
-            const snap = await db.collection("coupons").doc(code).get();
-            let discountPercent = snap.exists ? snap.data().percent : dynamicCoupons[code];
-
-            if (discountPercent) {
-                let finalPrice = Math.round(activeCheckout.currentPrice * (1 - (discountPercent / 100)));
-                activeCheckout.appliedCoupon = code;
-                activeCheckout.currentPrice = finalPrice;
-                document.getElementById("summaryPayablePrice").innerText = "रु. " + finalPrice;
-                msg.innerHTML = `<span style="color:#15803d;">✅ कूपन सफल! ${discountPercent}% छुट प्राप्त भयो।</span>`;
-            } else {
-                msg.innerHTML = `<span style="color:#dc2626;">❌ अमान्य कूपन कोड!</span>`;
-            }
-        }
-
-        function sendWhatsAppConfirmation() {
-            const userEmail = currentUser ? currentUser.email : "Not Logged In";
-            const text = `Namaste Arun Sir!%0Aम यो कोर्स खरिद गर्न चाहन्छु:%0A- कोर्स: *${activeCheckout.title}*%0A- भुक्तानी रकम: *रु. ${activeCheckout.currentPrice}*%0A- कूपन: *${activeCheckout.appliedCoupon || 'None'}*%0A- मेरो Email: *${userEmail}*%0A%0Aम भुक्तानीको Screenshot पठाउँदैछु।`;
-            window.open(`https://wa.me/9779857069058?text=${text}`, '_blank');
-        }
-
-        // PLAYER, LESSONS & CERTIFICATE
-        async function openCoursePlayer(courseKey, title) {
-            activeCourseKey = courseKey;
-            document.getElementById("modalCourseTitle").innerText = title;
-            const watermarkText = currentUser ? (currentUser.email || currentUser.displayName) : (isAdminLoggedIn ? "ADMIN PREVIEW" : "Confidential");
-            document.getElementById("videoWatermarkText").innerText = watermarkText + " • Arun Adhikari Hub";
-            document.getElementById("courseModal").style.display = "flex";
-
-            const snapshot = await db.collection("courses").doc(courseKey).collection("lessons").orderBy("order", "asc").get();
-            let lessons = [];
-            if (!snapshot.empty) {
-                snapshot.forEach(doc => lessons.push({ id: doc.id, ...doc.data() }));
-            } else {
-                lessons = [{ id: 'l1', title: 'Lesson 1: Foundation & Intro', vid: 'UB1O30fR-EE', desc: 'Default notes', resourceUrl: '' }];
-            }
-
-            currentCourseLessons = lessons;
-            renderLessonsPlaylist();
-            if (lessons.length > 0) playLesson(lessons[0].id);
-        }
-
-        function renderLessonsPlaylist() {
-            const container = document.getElementById("lessonsListContainer");
-            container.innerHTML = "";
-
-            const completed = (currentUserData && currentUserData.completedLessons && currentUserData.completedLessons[activeCourseKey]) || [];
-            let completedCount = 0;
-
-            currentCourseLessons.forEach((lesson) => {
-                const isCompleted = completed.includes(lesson.id);
-                if (isCompleted) completedCount++;
-
-                const isActive = lesson.id === currentPlayingLessonId;
-                const item = document.createElement("div");
-                item.className = `lesson-item ${isActive ? 'active' : ''}`;
-                item.innerHTML = `
-                    <div style="display:flex; align-items:center; gap:8px;" onclick="playLesson('${lesson.id}')">
-                        <i class="fas fa-play-circle" style="color:${isActive ? '#2563eb' : '#64748b'};"></i>
-                        <span style="font-size:0.95rem;">${lesson.title}</span>
-                    </div>
-                    <button class="lesson-check-btn ${isCompleted ? 'completed' : ''}" onclick="toggleLessonComplete(event, '${lesson.id}')" title="Mark Finished">
-                        <i class="fas fa-check-circle"></i>
-                    </button>`;
-                container.appendChild(item);
-            });
-
-            const percent = currentCourseLessons.length > 0 ? Math.round((completedCount / currentCourseLessons.length) * 100) : 0;
-            document.getElementById("courseProgressPercent").innerText = `${percent}% Completed (${completedCount}/${currentCourseLessons.length})`;
-
-            const certBtn = document.getElementById("btnGetCertificate");
-            if (percent === 100 && currentCourseLessons.length > 0) certBtn.style.display = "inline-flex";
-            else certBtn.style.display = "none";
-        }
-
-        function playLesson(lessonId) {
-            currentPlayingLessonId = lessonId;
-            const lesson = currentCourseLessons.find(l => l.id === lessonId);
-            if (!lesson) return;
-
-            document.getElementById("currentLessonName").innerText = lesson.title;
-            const descArea = document.getElementById("currentLessonDesc");
-            const downloadContainer = document.getElementById("lessonDownloadContainer");
-            const downloadBtn = document.getElementById("btnLessonDownload");
-
-            descArea.innerText = lesson.desc && lesson.desc.trim() !== "" ? lesson.desc : "कुनै थप विवरण उपलब्ध छैन।";
-
-            if (lesson.resourceUrl && lesson.resourceUrl.trim() !== "") {
-                downloadContainer.style.display = "block";
-                downloadBtn.href = lesson.resourceUrl.trim();
-            } else {
-                downloadContainer.style.display = "none";
-            }
-
-            let vidId = lesson.vid || '';
-            if (vidId.includes("watch?v=")) vidId = vidId.split("watch?v=")[1].split("&")[0];
-            else if (vidId.includes("youtu.be/")) vidId = vidId.split("youtu.be/")[1].split("?")[0];
-
-            document.getElementById("mainVideoPlayer").src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&modestbranding=1&rel=0`;
-            renderLessonsPlaylist();
-        }
-
-        async function toggleLessonComplete(e, lessonId) {
-            if (e) e.stopPropagation();
-            if (!currentUser) return;
-
-            const userRef = db.collection("users").doc(currentUser.uid);
-            let userCompleted = (currentUserData && currentUserData.completedLessons) || {};
-            let courseCompleted = userCompleted[activeCourseKey] || [];
-
-            if (courseCompleted.includes(lessonId)) courseCompleted = courseCompleted.filter(id => id !== lessonId);
-            else courseCompleted.push(lessonId);
-
-            userCompleted[activeCourseKey] = courseCompleted;
-            if (currentUserData) currentUserData.completedLessons = userCompleted;
-
-            await userRef.update({ completedLessons: userCompleted });
-            renderLessonsPlaylist();
-        }
-
-        function toggleCurrentLessonComplete() {
-            if (currentPlayingLessonId) toggleLessonComplete(null, currentPlayingLessonId);
-        }
-
-        function openCertificateModal() {
-            const courseObj = dynamicCourses.find(c => c.key === activeCourseKey) || { title: activeCourseKey };
-            document.getElementById("certStudentName").innerText = currentUser ? (currentUser.displayName || currentUser.email) : "Valued Student";
-            document.getElementById("certCourseTitle").innerText = courseObj.title;
-            document.getElementById("certIssueDate").innerText = new Date().toISOString().split('T')[0];
-            document.getElementById("certificateModal").style.display = "flex";
-        }
-
-        // REVIEWS & INQUIRIES
-        function openFeedbackModal() {
-            if (!currentUser) { alert("कृपया रिभ्यु दिन पहिले लगइन गर्नुहोस्!"); return; }
-            document.getElementById("feedbackModal").style.display = "flex";
-        }
-
-        async function submitReview() {
-            const rating = parseInt(document.getElementById("reviewRating").value);
-            const text = document.getElementById("reviewText").value.trim();
-            if (!text) { alert("कृपया आफ्नो समीक्षा लेख्नुहोस्!"); return; }
-
-            await db.collection("reviews").add({
-                name: currentUser.displayName || "Verified Student",
-                rating: rating,
-                text: text,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-
-            alert("✅ तपाईंको समीक्षा सफलतापूर्वक पोस्ट भयो!");
-            closeModal('feedbackModal');
-            loadPublicReviews();
-        }
-
-        async function loadPublicReviews() {
-            const container = document.getElementById("publicReviewsContainer");
-            const snap = await db.collection("reviews").orderBy("createdAt", "desc").limit(6).get();
-            container.innerHTML = "";
-
-            if (snap.empty) {
-                container.innerHTML = `
-                    <div class="review-card">
-                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                        <p style="font-size:0.95rem; color:#475569;">"Best practical courses for web development and share market in Nepal!"</p>
-                        <h4 style="margin-top:8px; color:var(--dark); font-size:0.95rem;">- Ramesh Sharma</h4>
-                    </div>`;
-                return;
-            }
-
-            snap.forEach(doc => {
-                const r = doc.data();
-                container.innerHTML += `
-                    <div class="review-card">
-                        <div class="review-stars">${"⭐".repeat(r.rating || 5)}</div>
-                        <p style="font-size:0.95rem; color:#475569;">"${r.text}"</p>
-                        <h4 style="margin-top:8px; color:var(--dark); font-size:0.95rem;">- ${r.name}</h4>
-                    </div>`;
-            });
-        }
-
-        async function submitInquiryMessage() {
-            const name = document.getElementById("inquiryName").value.trim();
-            const phone = document.getElementById("inquiryPhone").value.trim();
-            const msg = document.getElementById("inquiryMsg").value.trim();
-
-            if (!name || !phone || !msg) { alert("कृपया सबै विवरण भर्नुहोस्!"); return; }
-
-            await db.collection("inquiries").add({
-                name: name,
-                phone: phone,
-                msg: msg,
-                date: new Date().toLocaleString()
-            });
-
-            alert("✅ तपाईंको सन्देश प्राप्त भयो! हामी छिट्टै सम्पर्क गर्नेछौं।");
-            document.getElementById("inquiryName").value = "";
-            document.getElementById("inquiryPhone").value = "";
-            document.getElementById("inquiryMsg").value = "";
-        }
-
-        // ADVANCED ADMIN PANEL LOGIC
+        // ADMIN PANEL LOGIC
         function switchAdminTab(tabName, btn) {
             document.querySelectorAll(".admin-tab-pane").forEach(p => p.style.display = "none");
             document.querySelectorAll(".admin-tab-btn").forEach(b => b.classList.remove("active"));
@@ -1774,13 +940,12 @@
 
             if (tabName === 'students') { document.getElementById("adminTabStudents").style.display = "block"; openAdminPanel(); }
             if (tabName === 'courses') { document.getElementById("adminTabCourses").style.display = "block"; renderAdminCoursesList(); }
-            if (tabName === 'lessons') { document.getElementById("adminTabLessons").style.display = "block"; renderCourseDropdownsAndCatalog(); }
+            if (tabName === 'lessons') { document.getElementById("adminTabLessons").style.display = "block"; loadCoursesFromFirebase(); }
             if (tabName === 'coupons') { document.getElementById("adminTabCoupons").style.display = "block"; loadAdminCoupons(); }
             if (tabName === 'notice') { 
                 document.getElementById("adminTabNotice").style.display = "block"; 
                 loadCurrentPhotoNoticeSettings();
             }
-            if (tabName === 'inquiries') { document.getElementById("adminTabInquiries").style.display = "block"; loadAdminInquiries(); }
             if (tabName === 'security') { 
                 document.getElementById("adminTabSecurity").style.display = "block"; 
                 document.getElementById("adminNewUsernameInput").value = currentAdminUsername;
@@ -1857,7 +1022,6 @@
             }
         }
 
-        // COURSE SAVE & EDIT HANDLERS WITH DESCRIPTION
         async function saveCourseFromAdmin() {
             const title = document.getElementById("adminNewCourseTitle").value.trim();
             const key = document.getElementById("adminNewCourseKey").value.trim().toLowerCase();
@@ -1865,30 +1029,23 @@
             const offerPrice = parseInt(document.getElementById("adminNewCourseOfferPrice").value);
             const desc = document.getElementById("adminNewCourseDesc").value.trim();
 
-            if (!title || !key || isNaN(origPrice) || isNaN(offerPrice)) { alert("सबै फिल्ड सही तरिकाले भर्नुहोस्!"); return; }
+            if (!title || !key || isNaN(origPrice) || isNaN(offerPrice)) { alert("सबै फिल्ड भर्नुहोस्!"); return; }
 
-            await db.collection("site_courses").doc(key).set({ 
-                title: title, 
-                origPrice: origPrice, 
-                offerPrice: offerPrice,
-                desc: desc 
-            });
-            
-            alert("✅ कोर्स सफलतापूर्वक सुरक्षित / अपडेट भयो!");
+            await db.collection("site_courses").doc(key).set({ title: title, origPrice: origPrice, offerPrice: offerPrice, desc: desc });
+            alert("✅ सुरक्षित भयो!");
             resetCourseForm();
             await loadCoursesFromFirebase();
             renderAdminCoursesList();
         }
 
         function loadCourseToEdit(key, title, origPrice, offerPrice, desc) {
-            document.getElementById("adminCourseFormHeading").innerHTML = `<i class="fas fa-edit" style="color:#2563eb;"></i> Edit Course: ${title}`;
+            document.getElementById("adminCourseFormHeading").innerHTML = `<i class="fas fa-edit" style="color:#2563eb;"></i> Edit: ${title}`;
             document.getElementById("adminNewCourseTitle").value = title;
             document.getElementById("adminNewCourseKey").value = key;
             document.getElementById("adminNewCourseKey").disabled = true;
             document.getElementById("adminNewCourseOrigPrice").value = origPrice;
             document.getElementById("adminNewCourseOfferPrice").value = offerPrice;
             document.getElementById("adminNewCourseDesc").value = desc || "";
-            document.getElementById("adminNewCourseTitle").focus();
         }
 
         function resetCourseForm() {
@@ -1910,23 +1067,19 @@
                     <div style="background:#ffffff; border:1px solid #cbd5e1; padding:0.6rem 0.8rem; border-radius:6px; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                         <div>
                             <strong style="color:var(--dark);">${c.title}</strong> 
-                            <span style="color:#64748b; font-size:0.85rem;">(Key: <code>${c.key}</code>)</span> - 
+                            <span style="color:#64748b; font-size:0.85rem;">(${c.key})</span> - 
                             <strong style="color:#089981;">रु. ${c.offerPrice}</strong> / <del style="color:#ef4444;">रु. ${c.origPrice}</del>
                         </div>
                         <div style="display:flex; gap:6px;">
-                            <button class="btn-catalog-action" style="background:#2563eb; padding:0.4rem 0.7rem; font-size:0.8rem;" onclick="loadCourseToEdit('${c.key}', '${c.title.replace(/'/g, "\\'")}', ${c.origPrice}, ${c.offerPrice}, '${descSafe}')">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn-reset" onclick="deleteCourseFromAdmin('${c.key}')">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <button class="btn-nav-action btn-dashboard" style="padding:0.4rem 0.7rem; font-size:0.8rem; height: 30px;" onclick="loadCourseToEdit('${c.key}', '${c.title.replace(/'/g, "\\'")}', ${c.origPrice}, ${c.offerPrice}, '${descSafe}')">Edit</button>
+                            <button class="btn-reset" onclick="deleteCourseFromAdmin('${c.key}')">Delete</button>
                         </div>
                     </div>`;
             });
         }
 
         async function deleteCourseFromAdmin(key) {
-            if (confirm("के तपाईं यो कोर्स हटाउन चाहनुहुन्छ?")) {
+            if (confirm("के तपाईं यो हटाउन चाहनुहुन्छ?")) {
                 await db.collection("site_courses").doc(key).delete();
                 await loadCoursesFromFirebase();
                 renderAdminCoursesList();
@@ -1936,8 +1089,7 @@
         async function saveCouponCode() {
             const code = document.getElementById("adminCouponCode").value.trim().toUpperCase();
             const percent = parseInt(document.getElementById("adminCouponPercent").value);
-            if (!code || isNaN(percent)) { alert("कूपन कोड र डिस्काउन्ट % भर्नुहोस्!"); return; }
-
+            if (!code || isNaN(percent)) { alert("विवरण भर्नुहोस्!"); return; }
             await db.collection("coupons").doc(code).set({ percent: percent });
             alert("✅ कूपन सिर्जना भयो!");
             loadAdminCoupons();
@@ -1957,10 +1109,9 @@
         async function updateNoticeBanner(show) {
             const txt = document.getElementById("adminNoticeInput").value.trim();
             await db.collection("settings").doc("main").set({ showNotice: show, noticeText: txt });
-            alert("✅ नोटिस ब्यानर अपडेट भयो!");
+            alert("✅ अपडेट भयो!");
         }
 
-        // PHOTO POPUP NOTICE SETTINGS & DIRECT FILE UPLOAD (FREE / NO STORAGE PLAN NEEDED)
         async function loadCurrentPhotoNoticeSettings() {
             const doc = await db.collection("settings").doc("photo_notice").get();
             if (doc.exists) {
@@ -1969,9 +1120,6 @@
                 document.getElementById("adminPhotoNoticeExistingUrl").value = d.imageUrl || "";
                 document.getElementById("adminPhotoNoticeDesc").value = d.desc || "";
                 document.getElementById("adminPhotoNoticeShowBtn").value = d.showActionBtn ? "yes" : "no";
-                
-                const status = document.getElementById("uploadStatusNotice");
-                if (d.imageUrl) status.innerText = "हाजिरी तस्विर अनलाइनमा सुरक्षित छ ✅";
             }
         }
 
@@ -1980,67 +1128,31 @@
             const desc = document.getElementById("adminPhotoNoticeDesc").value.trim();
             const showBtn = document.getElementById("adminPhotoNoticeShowBtn").value === "yes";
             const fileInput = document.getElementById("adminPhotoNoticeFile");
-            const status = document.getElementById("uploadStatusNotice");
             let imgData = document.getElementById("adminPhotoNoticeExistingUrl").value;
 
-            if (enable) {
-                if (fileInput.files.length > 0) {
-                    const file = fileInput.files[0];
-                    if (file.size > 2 * 1024 * 1024) {
-                        alert("कृपया २ MB भन्दा सानो साइजको फोटो छान्नुहोस्!");
-                        return;
-                    }
-
-                    status.innerText = "तस्विर प्रोसेसिङ हुँदैछ... कृपया पर्खनुहोस्।";
-
-                    imgData = await new Promise((resolve, reject) => {
-                        const reader = new FileReader();
-                        reader.onload = () => resolve(reader.result);
-                        reader.onerror = error => reject(error);
-                        reader.readAsDataURL(file);
-                    });
-
-                    document.getElementById("adminPhotoNoticeExistingUrl").value = imgData;
-                } else if (!imgData) {
-                    alert("कृपया तस्विर फाइल छान्नुहोस्!");
-                    return;
-                }
+            if (enable && fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                imgData = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.readAsDataURL(file);
+                });
             }
 
             await db.collection("settings").doc("photo_notice").set({
-                enabled: enable,
-                title: title,
-                imageUrl: imgData,
-                desc: desc,
-                showActionBtn: showBtn
+                enabled: enable, title: title, imageUrl: imgData, desc: desc, showActionBtn: showBtn
             });
-
-            status.innerText = enable ? "✅ तस्विर सुरक्षित भयो र नोटिस सक्रिय गरियो!" : "";
-            alert(enable ? "✅ फोटो नोटिस पपअप सक्रिय गरियो!" : "❌ फोटो नोटिस बन्द गरियो!");
+            alert(enable ? "✅ फोटो नोटिस सक्रिय भयो!" : "❌ फोटो नोटिस बन्द गरियो!");
         }
 
-        async function loadAdminInquiries() {
-            const tbody = document.getElementById("adminInquiryTableBody");
-            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">लोड हुँदैछ...</td></tr>`;
-            const snap = await db.collection("inquiries").get();
-            tbody.innerHTML = "";
-            snap.forEach(doc => {
-                const i = doc.data();
-                tbody.innerHTML += `<tr><td>${i.date || '-'}</td><td><strong>${i.name}</strong></td><td>${i.phone}</td><td>${i.msg}</td></tr>`;
-            });
-        }
-
-        // UPDATE ADMIN USERNAME & PASSWORD TO FIREBASE
         async function updateAdminCredentialsFromPanel() {
             const u = document.getElementById("adminNewUsernameInput").value.trim();
             const p = document.getElementById("adminNewPasswordInput").value.trim();
-
-            if (!u || !p) { alert("Username र Password खाली हुन सक्दैन!"); return; }
-
+            if (!u || !p) { alert("विवरण खाली हुन सक्दैन!"); return; }
             await db.collection("settings").doc("admin_auth").set({ username: u, password: p });
             currentAdminUsername = u;
             currentAdminPin = p;
-            alert("✅ Admin लगइन विवरण सफलतापूर्वक अपडेट भयो!");
+            alert("✅ लगइन विवरण अपडेट भयो!");
         }
 
         async function saveLessonToFirebase() {
@@ -2051,14 +1163,13 @@
             const resourceUrl = document.getElementById("uploadLessonResource").value.trim();
             const desc = document.getElementById("uploadLessonDesc").value.trim();
 
-            if (!title || !url) { alert("Lesson Title र Video URL दुवै भर्नुहोस्!"); return; }
+            if (!title || !url) { alert("शीर्षक र भिडियो लिङ्क भर्नुहोस्!"); return; }
 
             await db.collection("courses").doc(courseKey).collection("lessons").add({
                 order: order, title: title, vid: url, resourceUrl: resourceUrl, desc: desc,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
-
-            alert("✅ Lesson सफलतापूर्वक प्रकाशित भयो!");
+            alert("✅ Lesson प्रकाशित भयो!");
             document.getElementById("uploadLessonTitle").value = "";
             document.getElementById("uploadLessonUrl").value = "";
             document.getElementById("uploadLessonResource").value = "";
@@ -2066,10 +1177,7 @@
             document.getElementById("uploadLessonOrder").value = order + 1;
         }
 
-        function closeModal(id) { 
-            document.getElementById(id).style.display = "none"; 
-            if (id === 'courseModal') document.getElementById("mainVideoPlayer").src = "";
-        }
+        function closeModal(id) { document.getElementById(id).style.display = "none"; }
 
         const roleItems = [
             { text: "Investor", class: "highlight-dark-blue" }, { text: " | ", class: "separator" },

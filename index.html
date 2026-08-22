@@ -637,13 +637,13 @@
                 <div id="adminCoursesList" style="display:flex; flex-direction:column; gap:6px;"></div>
             </div>
 
-            <!-- TAB 3: LESSON UPLOADER -->
+            <!-- TAB 3: LESSON UPLOADER & MANAGER -->
             <div id="adminTabLessons" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0;">
-                <h3 style="margin-bottom:0.8rem; color:var(--dark);"><i class="fas fa-plus-circle"></i> Add New Lesson</h3>
+                <h3 id="adminLessonFormHeading" style="margin-bottom:0.8rem; color:var(--dark);"><i class="fas fa-plus-circle"></i> Add New Lesson</h3>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
                     <div>
                         <label style="font-weight:600; font-size:0.9rem;">Choose Course:</label>
-                        <select id="uploadCourseSelect" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;"></select>
+                        <select id="uploadCourseSelect" onchange="loadAdminLessons()" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;"></select>
                     </div>
                     <div>
                         <label style="font-weight:600; font-size:0.9rem;">Lesson Order:</label>
@@ -666,9 +666,26 @@
                     <label style="font-weight:600; font-size:0.9rem;">Lesson Description / Notes:</label>
                     <textarea id="uploadLessonDesc" rows="3" placeholder="पाठको विवरण..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
                 </div>
-                <button class="btn-nav-action btn-courses" style="width:100%; justify-content:center; height: 42px;" onclick="saveLessonToFirebase()">
-                    <i class="fas fa-cloud-upload-alt"></i> Publish Lesson
-                </button>
+                <div style="display:flex; gap:8px;">
+                    <button id="publishLessonBtn" class="btn-nav-action btn-courses" style="flex:1; justify-content:center; height: 42px;" onclick="saveLessonToFirebase()">
+                        <i class="fas fa-cloud-upload-alt"></i> Publish Lesson
+                    </button>
+                    <button id="cancelLessonEditBtn" class="btn-reset" style="background:#64748b; height: 42px; padding: 0 1rem; display:none;" onclick="resetLessonForm()">
+                        <i class="fas fa-times"></i> Cancel Edit
+                    </button>
+                </div>
+
+                <!-- EXISTING LESSONS LIST (EDIT / DELETE) -->
+                <hr style="margin: 25px 0 15px 0; border: 0; border-top: 1px solid #cbd5e1;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h4 style="color:var(--dark);"><i class="fas fa-list"></i> Manage Existing Lessons (भिडियोहरू व्यवस्थापन):</h4>
+                    <button class="btn-nav-action btn-dashboard" style="height: 32px; padding: 0 10px; font-size: 0.8rem;" onclick="loadAdminLessons()">
+                        <i class="fas fa-sync-alt"></i> Refresh List
+                    </button>
+                </div>
+                <div id="adminLessonsList" style="display:flex; flex-direction:column; gap:6px;">
+                    <small style="color:#64748b;">कोर्स छान्नुहोस् वा Refresh थिच्नुहोस्...</small>
+                </div>
             </div>
 
             <!-- TAB 4: COUPON MANAGER -->
@@ -777,6 +794,8 @@
         let currentAdminUsername = "admin";
         let currentAdminPin = "Admin@12345";
         let isAdminLoggedIn = localStorage.getItem("arun_is_admin_logged") === "true";
+
+        let editingLessonId = null; // ट्र्याक गर्न: पाठ Edit भइरहेको छ कि छैन
 
         const BASE_DEFAULT_COURSES = [
             { key: 'web_dev', title: 'Website Development', desc: 'Complete HTML, CSS, JavaScript, Responsive design, and Firebase deployment.', origPrice: 5000, offerPrice: 999 },
@@ -940,7 +959,12 @@
 
             if (tabName === 'students') { document.getElementById("adminTabStudents").style.display = "block"; openAdminPanel(); }
             if (tabName === 'courses') { document.getElementById("adminTabCourses").style.display = "block"; renderAdminCoursesList(); }
-            if (tabName === 'lessons') { document.getElementById("adminTabLessons").style.display = "block"; loadCoursesFromFirebase(); }
+            if (tabName === 'lessons') { 
+                document.getElementById("adminTabLessons").style.display = "block"; 
+                loadCoursesFromFirebase().then(() => {
+                    loadAdminLessons(); // ट्याब खोल्दा पाठहरू लोड गर्ने
+                });
+            }
             if (tabName === 'coupons') { document.getElementById("adminTabCoupons").style.display = "block"; loadAdminCoupons(); }
             if (tabName === 'notice') { 
                 document.getElementById("adminTabNotice").style.display = "block"; 
@@ -1022,6 +1046,7 @@
             }
         }
 
+        // COURSES CRUD
         async function saveCourseFromAdmin() {
             const title = document.getElementById("adminNewCourseTitle").value.trim();
             const key = document.getElementById("adminNewCourseKey").value.trim().toLowerCase();
@@ -1086,6 +1111,137 @@
             }
         }
 
+        // ================= LESSONS CRUD (UPLOAD, EDIT, DELETE) =================
+        async function loadAdminLessons() {
+            const courseKey = document.getElementById("uploadCourseSelect").value;
+            const list = document.getElementById("adminLessonsList");
+            if (!courseKey) { list.innerHTML = "<small style='color:red;'>पहिले कोर्स छान्नुहोस्!</small>"; return; }
+
+            list.innerHTML = "<small>लोड हुँदैछ...</small>";
+            try {
+                const snap = await db.collection("courses").doc(courseKey).collection("lessons").orderBy("order").get();
+                list.innerHTML = "";
+
+                if (snap.empty) {
+                    list.innerHTML = "<small style='color:#d97706;'>यो कोर्समा कुनै भिडियो अपलोड गरिएको छैन।</small>";
+                    return;
+                }
+
+                snap.forEach(docSnap => {
+                    const l = docSnap.data();
+                    const descSafe = (l.desc || '').replace(/'/g, "\\'").replace(/\n/g, " ");
+                    const titleSafe = (l.title || '').replace(/'/g, "\\'");
+                    const vidSafe = (l.vid || '').replace(/'/g, "\\'");
+                    const resourceSafe = (l.resourceUrl || '').replace(/'/g, "\\'");
+
+                    list.innerHTML += `
+                        <div style="background:#ffffff; border:1px solid #cbd5e1; padding:0.6rem 0.8rem; border-radius:6px; display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <strong style="color:var(--dark);">${l.order || 1}. ${l.title}</strong>
+                            </div>
+                            <div style="display:flex; gap:6px;">
+                                <button class="btn-nav-action btn-dashboard" style="padding:0.4rem 0.7rem; font-size:0.8rem; height: 30px;" onclick="editAdminLesson('${docSnap.id}', ${l.order || 1}, '${titleSafe}', '${vidSafe}', '${resourceSafe}', '${descSafe}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn-reset" style="padding:0.4rem 0.7rem; font-size:0.8rem; height: 30px;" onclick="deleteAdminLesson('${docSnap.id}')">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </div>
+                        </div>`;
+                });
+            } catch (err) {
+                console.log("Lessons loading error:", err);
+                list.innerHTML = "<small style='color:red;'>भिडियो लोड गर्न समस्या भयो!</small>";
+            }
+        }
+
+        async function deleteAdminLesson(lessonId) {
+            if (confirm("के तपाईं यो भिडियो साँच्चै मेटाउन चाहनुहुन्छ?")) {
+                const courseKey = document.getElementById("uploadCourseSelect").value;
+                try {
+                    await db.collection("courses").doc(courseKey).collection("lessons").doc(lessonId).delete();
+                    alert("✅ भिडियो सफलतापूर्वक मेटाइयो!");
+                    loadAdminLessons();
+                } catch (e) {
+                    alert("Error: " + e.message);
+                }
+            }
+        }
+
+        function editAdminLesson(id, order, title, url, resourceUrl, desc) {
+            editingLessonId = id;
+            document.getElementById("adminLessonFormHeading").innerHTML = `<i class="fas fa-edit" style="color:#d97706;"></i> Edit Lesson (पाठ सच्याउनुहोस्)`;
+            document.getElementById("uploadLessonOrder").value = order;
+            document.getElementById("uploadLessonTitle").value = title;
+            document.getElementById("uploadLessonUrl").value = url;
+            document.getElementById("uploadLessonResource").value = resourceUrl || "";
+            document.getElementById("uploadLessonDesc").value = desc || "";
+
+            const btn = document.getElementById("publishLessonBtn");
+            btn.innerHTML = `<i class="fas fa-save"></i> Update Lesson`;
+            btn.style.background = "#d97706";
+
+            document.getElementById("cancelLessonEditBtn").style.display = "inline-flex";
+            document.getElementById("uploadLessonTitle").focus();
+        }
+
+        function resetLessonForm() {
+            editingLessonId = null;
+            document.getElementById("adminLessonFormHeading").innerHTML = `<i class="fas fa-plus-circle"></i> Add New Lesson`;
+            document.getElementById("uploadLessonTitle").value = "";
+            document.getElementById("uploadLessonUrl").value = "";
+            document.getElementById("uploadLessonResource").value = "";
+            document.getElementById("uploadLessonDesc").value = "";
+            
+            const btn = document.getElementById("publishLessonBtn");
+            btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> Publish Lesson`;
+            btn.style.background = "#089981";
+
+            document.getElementById("cancelLessonEditBtn").style.display = "none";
+        }
+
+        async function saveLessonToFirebase() {
+            const courseKey = document.getElementById("uploadCourseSelect").value;
+            const order = parseInt(document.getElementById("uploadLessonOrder").value) || 1;
+            const title = document.getElementById("uploadLessonTitle").value.trim();
+            const url = document.getElementById("uploadLessonUrl").value.trim();
+            const resourceUrl = document.getElementById("uploadLessonResource").value.trim();
+            const desc = document.getElementById("uploadLessonDesc").value.trim();
+
+            if (!title || !url) { alert("शीर्षक र भिडियो लिङ्क भर्नुहोस्!"); return; }
+
+            const lessonData = {
+                order: order,
+                title: title,
+                vid: url,
+                resourceUrl: resourceUrl,
+                desc: desc
+            };
+
+            try {
+                if (editingLessonId) {
+                    await db.collection("courses").doc(courseKey).collection("lessons").doc(editingLessonId).update({
+                        ...lessonData,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    alert("✅ पाठ सफलतापूर्वक अपडेट गरियो!");
+                } else {
+                    await db.collection("courses").doc(courseKey).collection("lessons").add({
+                        ...lessonData,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    alert("✅ नयाँ पाठ सफलतापूर्वक प्रकाशित गरियो!");
+                }
+
+                resetLessonForm();
+                document.getElementById("uploadLessonOrder").value = order + 1;
+                loadAdminLessons();
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        }
+
+        // COUPONS
         async function saveCouponCode() {
             const code = document.getElementById("adminCouponCode").value.trim().toUpperCase();
             const percent = parseInt(document.getElementById("adminCouponPercent").value);
@@ -1106,6 +1262,7 @@
             });
         }
 
+        // NOTICES
         async function updateNoticeBanner(show) {
             const txt = document.getElementById("adminNoticeInput").value.trim();
             await db.collection("settings").doc("main").set({ showNotice: show, noticeText: txt });
@@ -1145,6 +1302,7 @@
             alert(enable ? "✅ फोटो नोटिस सक्रिय भयो!" : "❌ फोटो नोटिस बन्द गरियो!");
         }
 
+        // SECURITY
         async function updateAdminCredentialsFromPanel() {
             const u = document.getElementById("adminNewUsernameInput").value.trim();
             const p = document.getElementById("adminNewPasswordInput").value.trim();
@@ -1155,30 +1313,9 @@
             alert("✅ लगइन विवरण अपडेट भयो!");
         }
 
-        async function saveLessonToFirebase() {
-            const courseKey = document.getElementById("uploadCourseSelect").value;
-            const order = parseInt(document.getElementById("uploadLessonOrder").value) || 1;
-            const title = document.getElementById("uploadLessonTitle").value.trim();
-            const url = document.getElementById("uploadLessonUrl").value.trim();
-            const resourceUrl = document.getElementById("uploadLessonResource").value.trim();
-            const desc = document.getElementById("uploadLessonDesc").value.trim();
-
-            if (!title || !url) { alert("शीर्षक र भिडियो लिङ्क भर्नुहोस्!"); return; }
-
-            await db.collection("courses").doc(courseKey).collection("lessons").add({
-                order: order, title: title, vid: url, resourceUrl: resourceUrl, desc: desc,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            alert("✅ Lesson प्रकाशित भयो!");
-            document.getElementById("uploadLessonTitle").value = "";
-            document.getElementById("uploadLessonUrl").value = "";
-            document.getElementById("uploadLessonResource").value = "";
-            document.getElementById("uploadLessonDesc").value = "";
-            document.getElementById("uploadLessonOrder").value = order + 1;
-        }
-
         function closeModal(id) { document.getElementById(id).style.display = "none"; }
 
+        // TYPING ANIMATION
         const roleItems = [
             { text: "Investor", class: "highlight-dark-blue" }, { text: " | ", class: "separator" },
             { text: "Trader", class: "highlight-yellow" }, { text: " | ", class: "separator" },

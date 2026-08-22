@@ -31,6 +31,11 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Arial, sans-serif;
             scroll-behavior: smooth;
+            /* Anti Copying & Selection */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         body {
@@ -172,10 +177,24 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .btn-auth:hover {
             background: var(--primary-light);
+        }
+
+        .btn-admin-login-nav {
+            background: #475569;
+            color: white !important;
+            padding: 0.45rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
         }
 
         /* HERO SECTION */
@@ -386,7 +405,7 @@
             align-items: center;
         }
 
-        /* COURSE PLAYER */
+        /* SECURE COURSE PLAYER & ANTI-SCREENSHOT STYLES */
         .player-layout {
             display: grid;
             grid-template-columns: 1.8fr 1.2fr;
@@ -410,6 +429,38 @@
             width: 100%;
             height: 100%;
             border: 0;
+        }
+
+        /* DYNAMIC WATERMARK OVERLAY */
+        .video-watermark {
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            color: rgba(255, 255, 255, 0.22);
+            font-size: 1.1rem;
+            font-weight: 800;
+            pointer-events: none;
+            z-index: 10;
+            transform: rotate(-15deg);
+            white-space: nowrap;
+        }
+
+        /* ANTI SCREEN RECORDER / FOCUS BLUR OVERLAY */
+        .screen-protect-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            color: #ef4444;
+            z-index: 50;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
         }
 
         .playlist-box {
@@ -504,7 +555,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <!-- NAVBAR -->
     <nav>
@@ -579,10 +630,17 @@
                 <a href="javascript:void(0)" onclick="closeMobileMenu(); openMyCoursesDashboard()" style="color:#2563eb;"><i class="fas fa-play-circle"></i> My Courses</a>
             </li>
 
+            <!-- ADMIN TAB -->
             <li id="adminNavTab" style="display: none;"><a href="javascript:void(0)" onclick="closeMobileMenu(); openAdminPanel()" style="color: #dc2626;"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
 
+            <!-- STUDENT AUTH BUTTON (GOOGLE LOGIN) -->
             <li>
-                <button id="authBtn" class="btn-auth" onclick="handleAuth()"><i class="fab fa-google"></i> Student Login</button>
+                <button id="authBtn" class="btn-auth" onclick="handleStudentAuth()"><i class="fab fa-google"></i> Student Login</button>
+            </li>
+
+            <!-- ADMIN AUTH BUTTON (USERNAME / PIN) -->
+            <li>
+                <button id="adminLoginBtn" class="btn-admin-login-nav" onclick="openAdminAuthModal()"><i class="fas fa-lock"></i> Admin</button>
             </li>
         </ul>
     </nav>
@@ -825,7 +883,7 @@
         </div>
     </div>
 
-    <!-- ADVANCED COURSE PLAYER -->
+    <!-- ADVANCED ANTI-SCREENSHOT / SECURE COURSE PLAYER -->
     <div id="courseModal" class="modal">
         <div class="modal-content" style="max-width: 950px;">
             <div class="modal-header">
@@ -835,7 +893,17 @@
             
             <div class="player-layout">
                 <div>
-                    <div class="video-container">
+                    <div class="video-container" id="secureVideoWrapper">
+                        <!-- Dynamic Security Watermark -->
+                        <div id="videoWatermarkText" class="video-watermark">Protected Content</div>
+                        
+                        <!-- Screen Capture / Tab Blur Shield -->
+                        <div id="screenShield" class="screen-protect-overlay">
+                            <i class="fas fa-shield-alt" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                            <h3>⚠️ Security Alert: Video Protected</h3>
+                            <p style="font-size:0.9rem; color:#cbd5e1; margin-top:5px;">Recording, Screenshot, and multi-window capture are strictly restricted.</p>
+                        </div>
+
                         <iframe id="mainVideoPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     
@@ -874,6 +942,24 @@
         </div>
     </div>
 
+    <!-- ADMIN LOGIN MODAL (USERNAME & PASSWORD) -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-shield" style="color:#dc2626;"></i> Admin Portal Login</h3>
+                <button class="btn-close-modal" onclick="closeModal('adminLoginModal')">&times;</button>
+            </div>
+            
+            <div style="margin: 1rem 0;">
+                <input type="text" id="adminUserField" placeholder="Admin Username" style="width: 100%; padding: 0.7rem; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 0.8rem; font-size: 1rem;">
+                <input type="password" id="adminPassField" placeholder="Admin Secret Password" style="width: 100%; padding: 0.7rem; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 1rem; font-size: 1rem;">
+                <button class="btn-auth" style="width: 100%; justify-content: center; background: #dc2626; padding: 0.75rem;" onclick="processAdminDirectLogin()">
+                    <i class="fas fa-sign-in-alt"></i> Login as Admin
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- ADVANCED ADMIN PANEL -->
     <div id="adminModal" class="modal">
         <div class="modal-content" style="max-width: 1050px;">
@@ -882,9 +968,12 @@
                 <button class="btn-close-modal" onclick="closeModal('adminModal')">&times;</button>
             </div>
 
-            <div style="display:flex; gap:10px; margin-bottom:1rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem; flex-wrap:wrap;">
-                <button class="btn-auth" style="background:#1e3a8a;" onclick="switchAdminTab('students')"><i class="fas fa-users"></i> Student Approvals</button>
-                <button class="btn-auth" style="background:#089981;" onclick="switchAdminTab('videos')"><i class="fas fa-video"></i> Upload / Manage Lessons</button>
+            <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem; flex-wrap:wrap; gap: 8px;">
+                <div style="display:flex; gap:10px;">
+                    <button class="btn-auth" style="background:#1e3a8a;" onclick="switchAdminTab('students')"><i class="fas fa-users"></i> Student Approvals</button>
+                    <button class="btn-auth" style="background:#089981;" onclick="switchAdminTab('videos')"><i class="fas fa-video"></i> Upload / Manage Lessons</button>
+                </div>
+                <button class="btn-reset" onclick="logoutAdmin()"><i class="fas fa-power-off"></i> Logout Admin</button>
             </div>
 
             <!-- TAB 1: STUDENT APPROVALS -->
@@ -936,13 +1025,11 @@
                     <input type="text" id="uploadLessonUrl" placeholder="उदा: https://www.youtube.com/watch?v=dQw4w9WgXcQ वा ID" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
                 </div>
 
-                <!-- NEW: RESOURCE DOWNLOAD LINK -->
                 <div style="margin-bottom:10px;">
                     <label style="font-weight:600; font-size:0.9rem;">Download / Resource Link (Google Drive, GitHub, PDF, Zip): <span style="font-weight:normal; color:#64748b;">(वैकल्पिक)</span></label>
                     <input type="url" id="uploadLessonResource" placeholder="उदा: https://drive.google.com/file/d/.../view" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
                 </div>
 
-                <!-- NEW: LESSON DESCRIPTION -->
                 <div style="margin-bottom:15px;">
                     <label style="font-weight:600; font-size:0.9rem;">Lesson Description / Notes (विवरण तथा निर्देशन):</label>
                     <textarea id="uploadLessonDesc" rows="3" placeholder="यस पाठको विवरण वा विद्यार्थीको लागि निर्देशन यहाँ लेख्नुहोस्..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
@@ -981,7 +1068,11 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
-        const ADMIN_EMAIL = "info.arunadhikari2053@gmail.com"; 
+
+        // ADMIN CREDENTIALS
+        const ADMIN_USERNAME = "admin";
+        const ADMIN_PIN = "Admin@12345"; // तपाईंले चाहेको पासवर्ड यहाँ फेर्न सक्नुहुन्छ
+        let isAdminLoggedIn = localStorage.getItem("arun_is_admin_logged") === "true";
 
         const COURSE_KEYS = [
             { key: 'web_dev', label: 'Web Dev' },
@@ -1045,25 +1136,55 @@
             document.getElementById("coursesDropdown").classList.toggle("open");
         }
 
+        // ================= ANTI-SCREENSHOT & SCREEN RECORDING PROTECTION =================
+        // Disable Right-Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Block Key Shortcuts (PrintScreen, DevTools, Save, View Source)
+        document.addEventListener('keydown', (e) => {
+            if (
+                e.key === "PrintScreen" || 
+                e.keyCode === 44 ||
+                (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u' || e.key === 'P' || e.key === 'S' || e.key === 'U')) ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+                e.key === "F12"
+            ) {
+                e.preventDefault();
+                alert("⚠️ सुरक्षा चेतावनी: स्क्रिनसट वा रेकर्डिङ लिन निषेध गरिएको छ!");
+                return false;
+            }
+        });
+
+        // Hide video content when window loses focus (Tab Switch, External Recorder Tool Activated)
+        window.addEventListener('blur', () => {
+            const shield = document.getElementById("screenShield");
+            if (shield) shield.style.display = "flex";
+        });
+
+        window.addEventListener('focus', () => {
+            const shield = document.getElementById("screenShield");
+            if (shield) shield.style.display = "none";
+        });
+        // ==================================================================================
+
+        // AUTH STATE LISTENER (FOR STUDENTS VIA GOOGLE AUTH)
         auth.onAuthStateChanged(async (user) => {
             currentUser = user;
             const authBtn = document.getElementById("authBtn");
-            const adminNav = document.getElementById("adminNavTab");
             const myCoursesNav = document.getElementById("myCoursesNavTab");
             const heroMyCoursesBtn = document.getElementById("heroMyCoursesBtn");
 
-            if (user) {
-                authBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout (${user.displayName ? user.displayName.split(' ')[0] : 'User'})`;
-                
-                const isAdmin = user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() || user.email.toLowerCase() === "arunadhikari2053@gmail.com";
-                adminNav.style.display = isAdmin ? "block" : "none";
+            refreshAdminNav();
 
+            if (user) {
+                authBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout (${user.displayName ? user.displayName.split(' ')[0] : 'Student'})`;
+                
                 db.collection("users").doc(user.uid).onSnapshot(async (doc) => {
                     if (doc.exists) {
                         currentUserData = doc.data();
                         const enrolled = currentUserData.enrolledCourses || [];
 
-                        if (isAdmin || enrolled.length > 0) {
+                        if (isAdminLoggedIn || enrolled.length > 0) {
                             myCoursesNav.style.display = "block";
                             heroMyCoursesBtn.style.display = "inline-block";
                         } else {
@@ -1076,19 +1197,69 @@
                 await handleUserDeviceRegistration(user);
             } else {
                 authBtn.innerHTML = `<i class="fab fa-google"></i> Student Login`;
-                adminNav.style.display = "none";
-                myCoursesNav.style.display = "none";
-                heroMyCoursesBtn.style.display = "none";
+                if (!isAdminLoggedIn) {
+                    myCoursesNav.style.display = "none";
+                    heroMyCoursesBtn.style.display = "none";
+                }
                 currentUserData = null;
             }
         });
 
-        function handleAuth() {
+        function refreshAdminNav() {
+            const adminNav = document.getElementById("adminNavTab");
+            const adminLoginBtn = document.getElementById("adminLoginBtn");
+            if (isAdminLoggedIn) {
+                adminNav.style.display = "block";
+                adminLoginBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout Admin`;
+                document.getElementById("myCoursesNavTab").style.display = "block";
+            } else {
+                adminNav.style.display = "none";
+                adminLoginBtn.innerHTML = `<i class="fas fa-lock"></i> Admin`;
+            }
+        }
+
+        // STUDENT LOGIN / LOGOUT VIA GOOGLE
+        function handleStudentAuth() {
             if (currentUser) {
                 auth.signOut().then(() => { location.reload(); });
             } else {
                 const provider = new firebase.auth.GoogleAuthProvider();
-                auth.signInWithPopup(provider).catch((e) => alert("Login त्रुटि: " + e.message));
+                auth.signInWithPopup(provider).catch((e) => alert("Student Login त्रुटि: " + e.message));
+            }
+        }
+
+        // ADMIN LOGIN VIA POPUP FORM
+        function openAdminAuthModal() {
+            if (isAdminLoggedIn) {
+                logoutAdmin();
+            } else {
+                document.getElementById("adminLoginModal").style.display = "flex";
+            }
+        }
+
+        function processAdminDirectLogin() {
+            const u = document.getElementById("adminUserField").value.trim();
+            const p = document.getElementById("adminPassField").value.trim();
+
+            if (u === ADMIN_USERNAME && p === ADMIN_PIN) {
+                isAdminLoggedIn = true;
+                localStorage.setItem("arun_is_admin_logged", "true");
+                closeModal('adminLoginModal');
+                refreshAdminNav();
+                alert("✅ Admin Login सफल भयो!");
+                openAdminPanel();
+            } else {
+                alert("❌ गलत Username वा Password!");
+            }
+        }
+
+        function logoutAdmin() {
+            if (confirm("के तपाईं Admin खाता लगआउट गर्न चाहनुहुन्छ?")) {
+                isAdminLoggedIn = false;
+                localStorage.removeItem("arun_is_admin_logged");
+                refreshAdminNav();
+                closeModal('adminModal');
+                location.reload();
             }
         }
 
@@ -1147,16 +1318,15 @@
             const modal = document.getElementById("myCoursesModal");
             const area = document.getElementById("myCoursesListArea");
 
-            if (!currentUser) {
-                area.innerHTML = `<p style="text-align:center; padding:1.5rem;">कृपया पहिले लगइन गर्नुहोस्।</p>`;
+            if (!currentUser && !isAdminLoggedIn) {
+                area.innerHTML = `<p style="text-align:center; padding:1.5rem;">कृपया पहिले विद्यार्थी लगइन गर्नुहोस्।</p>`;
                 modal.style.display = "flex";
                 return;
             }
 
-            const isAdmin = currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() || currentUser.email.toLowerCase() === "arunadhikari2053@gmail.com";
             const enrolled = currentUserData && currentUserData.enrolledCourses ? currentUserData.enrolledCourses : [];
 
-            if (!isAdmin && enrolled.length === 0) {
+            if (!isAdminLoggedIn && enrolled.length === 0) {
                 area.innerHTML = `
                     <div style="text-align:center; padding:2rem 1rem;">
                         <i class="fas fa-clock" style="font-size:3rem; color:#d97706; margin-bottom:1rem;"></i>
@@ -1165,7 +1335,7 @@
                     </div>`;
             } else {
                 let html = '<div style="display:flex; flex-direction:column; gap:0.8rem;">';
-                const listToRender = isAdmin ? Object.keys(COURSE_NAMES) : enrolled;
+                const listToRender = isAdminLoggedIn ? Object.keys(COURSE_NAMES) : enrolled;
 
                 listToRender.forEach(key => {
                     const cTitle = COURSE_NAMES[key] || key;
@@ -1190,15 +1360,19 @@
             closeMobileMenu();
             closeModal('catalogModal');
 
+            if (isAdminLoggedIn) {
+                openCoursePlayer(key, title);
+                return;
+            }
+
             if (!currentUser) {
                 initiatePurchase(title, key, offerPrice, origPrice);
                 return;
             }
 
-            const isAdmin = currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() || currentUser.email.toLowerCase() === "arunadhikari2053@gmail.com";
             const isEnrolled = currentUserData && currentUserData.enrolledCourses && currentUserData.enrolledCourses.includes(key);
 
-            if (isAdmin || isEnrolled) {
+            if (isEnrolled) {
                 openCoursePlayer(key, title);
             } else {
                 initiatePurchase(title, key, offerPrice, origPrice);
@@ -1257,6 +1431,11 @@
         async function openCoursePlayer(courseKey, title) {
             activeCourseKey = courseKey;
             document.getElementById("modalCourseTitle").innerText = title;
+
+            // Set dynamic user watermark for video protection
+            const watermarkText = currentUser ? (currentUser.email || currentUser.displayName) : (isAdminLoggedIn ? "ADMIN PREVIEW" : "Confidential");
+            document.getElementById("videoWatermarkText").innerText = watermarkText + " • Arun Adhikari Hub";
+
             document.getElementById("courseModal").style.display = "flex";
 
             const snapshot = await db.collection("courses").doc(courseKey).collection("lessons").orderBy("order", "asc").get();
@@ -1316,7 +1495,6 @@
 
             document.getElementById("currentLessonName").innerText = lesson.title;
 
-            // Update Description and Resource Button
             const descArea = document.getElementById("currentLessonDesc");
             const downloadContainer = document.getElementById("lessonDownloadContainer");
             const downloadBtn = document.getElementById("btnLessonDownload");
@@ -1338,7 +1516,7 @@
                 vidId = vidId.split("youtu.be/")[1].split("?")[0];
             }
 
-            document.getElementById("mainVideoPlayer").src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1`;
+            document.getElementById("mainVideoPlayer").src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&modestbranding=1&rel=0`;
             renderLessonsPlaylist();
         }
 
@@ -1347,7 +1525,7 @@
             if (!currentUser) return;
 
             const userRef = db.collection("users").doc(currentUser.uid);
-            let userCompleted = currentUserData.completedLessons || {};
+            let userCompleted = (currentUserData && currentUserData.completedLessons) || {};
             let courseCompleted = userCompleted[activeCourseKey] || [];
 
             if (courseCompleted.includes(lessonId)) {
@@ -1357,7 +1535,7 @@
             }
 
             userCompleted[activeCourseKey] = courseCompleted;
-            currentUserData.completedLessons = userCompleted;
+            if (currentUserData) currentUserData.completedLessons = userCompleted;
 
             await userRef.update({ completedLessons: userCompleted });
             renderLessonsPlaylist();
@@ -1375,6 +1553,11 @@
         }
 
         async function openAdminPanel() {
+            if (!isAdminLoggedIn) {
+                openAdminAuthModal();
+                return;
+            }
+
             closeMobileMenu();
             const modal = document.getElementById("adminModal");
             modal.style.display = "flex";
@@ -1509,4 +1692,4 @@
         document.addEventListener("DOMContentLoaded", () => setTimeout(typeAllRoles, 400));
     </script>
 </body>
-</html> 
+</html>

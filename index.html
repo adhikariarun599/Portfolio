@@ -38,6 +38,9 @@
             line-height: 1.6;
             font-size: 1.05rem;
             overflow-x: hidden;
+            /* टेक्स्ट कपी रोक्न */
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         /* LIVE NOTICE BANNER */
@@ -657,7 +660,7 @@
                 </div>
                 <div style="margin-bottom:10px;">
                     <label style="font-weight:600; font-size:0.9rem;">YouTube URL or ID:</label>
-                    <input type="text" id="uploadLessonUrl" placeholder="https://youtube.com/watch?v=..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                    <input type="text" id="uploadLessonUrl" placeholder="https://youtube.com/watch?v=... वा भिडियो ID" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
                 </div>
                 <div style="margin-bottom:10px;">
                     <label style="font-weight:600; font-size:0.9rem;">Resource Download Link (Optional):</label>
@@ -676,7 +679,7 @@
                     </button>
                 </div>
 
-                <!-- EXISTING LESSONS LIST (EDIT / DELETE) -->
+                <!-- EXISTING LESSONS LIST -->
                 <hr style="margin: 25px 0 15px 0; border: 0; border-top: 1px solid #cbd5e1;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <h4 style="color:var(--dark);"><i class="fas fa-list"></i> Manage Existing Lessons (भिडियोहरू व्यवस्थापन):</h4>
@@ -800,6 +803,14 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+        // RIGHT CLICK & SHORTCUTS DISABLED FOR SECURITY
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+
         const firebaseConfig = {
             apiKey: "AIzaSyBLIgjthPddTsuf8mR4Y6fq8ETsolelhOY",
             authDomain: "arun-courses.firebaseapp.com",
@@ -817,7 +828,7 @@
         let currentAdminPin = "Admin@12345";
         let isAdminLoggedIn = localStorage.getItem("arun_is_admin_logged") === "true";
 
-        let editingLessonId = null; // ट्र्याक गर्न: पाठ Edit भइरहेको छ कि छैन
+        let editingLessonId = null;
 
         const BASE_DEFAULT_COURSES = [
             { key: 'web_dev', title: 'Website Development', desc: 'Complete HTML, CSS, JavaScript, Responsive design, and Firebase deployment.', origPrice: 5000, offerPrice: 999 },
@@ -1138,6 +1149,19 @@
         }
 
         // ================= LESSONS CRUD (UPLOAD, EDIT, DELETE) =================
+        // YouTube URL वा ID बाट शुद्ध Embed URL बनाउने
+        function formatYouTubeUrl(input) {
+            input = input.trim();
+            let videoId = input;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = input.match(regExp);
+            if (match && match[2].length === 11) {
+                videoId = match[2];
+            }
+            // सुरक्षित प्यारामिटरहरू थप गरिएको लिङ्क
+            return `https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0&iv_load_policy=3&showinfo=0`;
+        }
+
         async function loadAdminLessons() {
             const courseKey = document.getElementById("uploadCourseSelect").value;
             const list = document.getElementById("adminLessonsList");
@@ -1230,16 +1254,19 @@
             const courseKey = document.getElementById("uploadCourseSelect").value;
             const order = parseInt(document.getElementById("uploadLessonOrder").value) || 1;
             const title = document.getElementById("uploadLessonTitle").value.trim();
-            const url = document.getElementById("uploadLessonUrl").value.trim();
+            let rawUrl = document.getElementById("uploadLessonUrl").value.trim();
             const resourceUrl = document.getElementById("uploadLessonResource").value.trim();
             const desc = document.getElementById("uploadLessonDesc").value.trim();
 
-            if (!title || !url) { alert("शीर्षक र भिडियो लिङ्क भर्नुहोस्!"); return; }
+            if (!title || !rawUrl) { alert("शीर्षक र भिडियो लिङ्क भर्नुहोस्!"); return; }
+
+            // सुरक्षित Embed Format मा परिवर्तन
+            const safeVidUrl = formatYouTubeUrl(rawUrl);
 
             const lessonData = {
                 order: order,
                 title: title,
-                vid: url,
+                vid: safeVidUrl,
                 resourceUrl: resourceUrl,
                 desc: desc
             };

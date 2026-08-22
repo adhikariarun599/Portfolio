@@ -38,7 +38,6 @@
             line-height: 1.6;
             font-size: 1.05rem;
             overflow-x: hidden;
-            /* टेक्स्ट कपी रोक्न */
             user-select: none;
             -webkit-user-select: none;
         }
@@ -803,7 +802,7 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // RIGHT CLICK & SHORTCUTS DISABLED FOR SECURITY
+        // RIGHT CLICK & SHORTCUTS DISABLED
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
             if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || (e.ctrlKey && e.key === 'U')) {
@@ -829,6 +828,7 @@
         let isAdminLoggedIn = localStorage.getItem("arun_is_admin_logged") === "true";
 
         let editingLessonId = null;
+        let unsubscribeUsersListener = null; // रियल-टाइम स्टुडेन्ट सिङ्कको लागि
 
         const BASE_DEFAULT_COURSES = [
             { key: 'web_dev', title: 'Website Development', desc: 'Complete HTML, CSS, JavaScript, Responsive design, and Firebase deployment.', origPrice: 5000, offerPrice: 999 },
@@ -949,6 +949,7 @@
 
         function logoutAdmin() {
             if (confirm("के तपाईं Admin खाता लगआउट गर्न चाहनुहुन्छ?")) {
+                if (unsubscribeUsersListener) unsubscribeUsersListener();
                 isAdminLoggedIn = false;
                 localStorage.removeItem("arun_is_admin_logged");
                 refreshAdminNav();
@@ -984,7 +985,7 @@
             if (isAdminLoggedIn) renderAdminCoursesList();
         }
 
-        // ADMIN PANEL LOGIC
+        // ADMIN PANEL LOGIC (TAB SWITCHER)
         function switchAdminTab(tabName, btn) {
             document.querySelectorAll(".admin-tab-pane").forEach(p => p.style.display = "none");
             document.querySelectorAll(".admin-tab-btn").forEach(b => b.classList.remove("active"));
@@ -1014,47 +1015,60 @@
             }
         }
 
-        async function openAdminPanel() {
+        // TAB 1: REALTIME STUDENTS LISTENER & APPROVAL
+        function openAdminPanel() {
             if (!isAdminLoggedIn) { openAdminAuthModal(); return; }
             closeMobileMenu();
             document.getElementById("adminModal").style.display = "flex";
+            
             const tbody = document.getElementById("adminUserTableBody");
             tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">लोड हुँदैछ...</td></tr>`;
 
-            const snapshot = await db.collection("users").get();
-            tbody.innerHTML = "";
+            if (unsubscribeUsersListener) unsubscribeUsersListener();
 
-            snapshot.forEach((doc) => {
-                const u = doc.data();
-                const uid = doc.id;
-                const enrolled = u.enrolledCourses || [];
-                const dev = u.devices || {};
+            unsubscribeUsersListener = db.collection("users").onSnapshot((snapshot) => {
+                tbody.innerHTML = "";
 
-                let togglesHtml = '<div style="display:flex; flex-wrap:wrap; gap:4px;">';
-                dynamicCourses.forEach(c => {
-                    const isApproved = enrolled.includes(c.key);
-                    const statusClass = isApproved ? 'status-approved' : 'status-pending';
-                    const icon = isApproved ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
-                    togglesHtml += `
-                        <button class="btn-course-toggle ${statusClass}" onclick="toggleCourseAccess('${uid}', '${c.key}')">
-                            ${icon} ${c.title.split(' ')[0]}
-                        </button>`;
+                if (snapshot.empty) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#d97706;">कुनै पनि विद्यार्थी दर्ता भएका छैनन्।</td></tr>`;
+                    return;
+                }
+
+                snapshot.forEach((doc) => {
+                    const u = doc.data();
+                    const uid = doc.id;
+                    const enrolled = u.enrolledCourses || [];
+                    const dev = u.devices || {};
+
+                    let togglesHtml = '<div style="display:flex; flex-wrap:wrap; gap:4px;">';
+                    dynamicCourses.forEach(c => {
+                        const isApproved = enrolled.includes(c.key);
+                        const statusClass = isApproved ? 'status-approved' : 'status-pending';
+                        const icon = isApproved ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
+                        togglesHtml += `
+                            <button class="btn-course-toggle ${statusClass}" onclick="toggleCourseAccess('${uid}', '${c.key}')">
+                                ${icon} ${c.title.split(' ')[0]}
+                            </button>`;
+                    });
+                    togglesHtml += '</div>';
+
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td><strong>${u.name || 'Student'}</strong></td>
+                        <td>${u.email || 'N/A'}</td>
+                        <td><small>PC: ${dev.desktop ? '✅' : '❌'}</small><br><small>Mob: ${dev.mobile ? '✅' : '❌'}</small></td>
+                        <td>${togglesHtml}</td>
+                        <td>
+                            <div style="display:flex; flex-direction:column; gap:4px;">
+                                <button class="btn-approve-all" onclick="approveAllCourses('${uid}')"><i class="fas fa-check-double"></i> All</button>
+                                <button class="btn-reset" onclick="resetUserDevices('${uid}')"><i class="fas fa-redo"></i> Reset</button>
+                            </div>
+                        </td>`;
+                    tbody.appendChild(row);
                 });
-                togglesHtml += '</div>';
-
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td><strong>${u.name}</strong></td>
-                    <td>${u.email}</td>
-                    <td><small>PC: ${dev.desktop ? '✅' : '❌'}</small><br><small>Mob: ${dev.mobile ? '✅' : '❌'}</small></td>
-                    <td>${togglesHtml}</td>
-                    <td>
-                        <div style="display:flex; flex-direction:column; gap:4px;">
-                            <button class="btn-approve-all" onclick="approveAllCourses('${uid}')"><i class="fas fa-check-double"></i> All</button>
-                            <button class="btn-reset" onclick="resetUserDevices('${uid}')"><i class="fas fa-redo"></i> Reset</button>
-                        </div>
-                    </td>`;
-                tbody.appendChild(row);
+            }, (err) => {
+                console.error("User sync error:", err);
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">विद्यार्थी डेटा लोड गर्न समस्या भयो!</td></tr>`;
             });
         }
 
@@ -1065,7 +1079,6 @@
                 let list = doc.data().enrolledCourses || [];
                 list = list.includes(courseKey) ? list.filter(k => k !== courseKey) : [...list, courseKey];
                 await ref.update({ enrolledCourses: list });
-                openAdminPanel();
             }
         }
 
@@ -1073,13 +1086,11 @@
             const ref = db.collection("users").doc(uid);
             const allKeys = dynamicCourses.map(c => c.key);
             await ref.update({ enrolledCourses: allKeys });
-            openAdminPanel();
         }
 
         async function resetUserDevices(uid) {
             if (confirm("डिभाइस रिसेट गर्ने?")) {
                 await db.collection("users").doc(uid).update({ "devices.desktop": null, "devices.mobile": null });
-                openAdminPanel();
             }
         }
 
@@ -1149,7 +1160,6 @@
         }
 
         // ================= LESSONS CRUD (UPLOAD, EDIT, DELETE) =================
-        // YouTube URL वा ID बाट शुद्ध Embed URL बनाउने
         function formatYouTubeUrl(input) {
             input = input.trim();
             let videoId = input;
@@ -1158,7 +1168,6 @@
             if (match && match[2].length === 11) {
                 videoId = match[2];
             }
-            // सुरक्षित प्यारामिटरहरू थप गरिएको लिङ्क
             return `https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0&iv_load_policy=3&showinfo=0`;
         }
 
@@ -1260,7 +1269,6 @@
 
             if (!title || !rawUrl) { alert("शीर्षक र भिडियो लिङ्क भर्नुहोस्!"); return; }
 
-            // सुरक्षित Embed Format मा परिवर्तन
             const safeVidUrl = formatYouTubeUrl(rawUrl);
 
             const lessonData = {

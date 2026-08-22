@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arun Adhikari - Official Portfolio</title>
+    <title>Arun Adhikari - Official Portfolio & Admin</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <!-- FIREBASE SDKs -->
@@ -134,22 +134,13 @@
             box-sizing: border-box;
         }
 
-        .btn-courses {
-            background: #089981;
-            color: #ffffff !important;
-        }
+        .btn-courses { background: #089981; color: #ffffff !important; }
         .btn-courses:hover { background: #057a66; }
 
-        .btn-dashboard {
-            background: #1e3a8a;
-            color: #ffffff !important;
-        }
+        .btn-dashboard { background: #1e3a8a; color: #ffffff !important; }
         .btn-dashboard:hover { background: #1d4ed8; }
 
-        .btn-logout {
-            background: #dc2626;
-            color: #ffffff !important;
-        }
+        .btn-logout { background: #dc2626; color: #ffffff !important; }
         .btn-logout:hover { background: #b91c1c; }
 
         /* HERO SECTION */
@@ -315,42 +306,6 @@
             color: #64748b;
         }
 
-        /* FRONT PHOTO NOTICE POPUP */
-        .photo-notice-dialog {
-            background: #ffffff;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 520px;
-            padding: 1.2rem;
-            position: relative;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            animation: zoomInPopup 0.3s ease-out;
-        }
-
-        @keyframes zoomInPopup {
-            from { transform: scale(0.85); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .photo-notice-img-box {
-            width: 100%;
-            max-height: 380px;
-            border-radius: 10px;
-            overflow: hidden;
-            background: #f1f5f9;
-            margin-bottom: 1rem;
-            border: 1px solid #e2e8f0;
-        }
-
-        .photo-notice-img-box img {
-            width: 100%;
-            height: auto;
-            max-height: 380px;
-            object-fit: contain;
-            display: block;
-        }
-
         /* ADMIN TABS & TABLES */
         .admin-nav-bar { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; }
         .admin-tab-btn { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; color: #334155; white-space: nowrap; }
@@ -409,26 +364,6 @@
         <span id="siteNoticeText">📢 विशेष अफर: आज मात्र सबै कोर्सहरूमा भारी छुट!</span>
     </div>
 
-    <!-- FRONT PHOTO NOTICE MODAL -->
-    <div id="photoNoticeModal" class="modal" style="z-index: 3000;">
-        <div class="photo-notice-dialog">
-            <button class="btn-close-modal" onclick="closeModal('photoNoticeModal')" style="position: absolute; top: 10px; right: 15px; font-size: 1.8rem; color: #ef4444; z-index: 10;">&times;</button>
-            <h3 id="photoNoticeTitle" style="color: var(--dark); margin-bottom: 0.5rem; font-size: 1.25rem;">📢 विशेष सूचना</h3>
-            <div class="photo-notice-img-box">
-                <img id="photoNoticeImg" src="" alt="Notice Image">
-            </div>
-            <p id="photoNoticeDesc" style="color: #475569; font-size: 0.95rem; margin-bottom: 1rem;"></p>
-            <div style="display:flex; gap:8px;">
-                <a href="https://courses.arunadhikari.com.np" id="photoNoticeActionBtn" class="btn-nav-action btn-courses" style="flex:1; justify-content:center; display:none;" target="_blank">
-                    <i class="fas fa-arrow-right"></i> अफर हेर्नुहोस्
-                </a>
-                <button class="btn-nav-action" style="flex:1; justify-content:center; background:#64748b; color:white;" onclick="closeModal('photoNoticeModal')">
-                    <i class="fas fa-times"></i> बन्द गर्नुहोस्
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- NAVBAR -->
     <nav id="mainNavbar">
         <div class="logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">
@@ -455,21 +390,18 @@
             <li><a href="#achievements" class="nav-item" onclick="closeMobileMenu()">Achievements</a></li>
             <li><a href="#services" class="nav-item" onclick="closeMobileMenu()">Services</a></li>
             
-            <!-- COURSES PORTAL BUTTON -->
             <li>
                 <a href="https://courses.arunadhikari.com.np" class="btn-nav-action btn-courses" target="_blank">
                     <i class="fas fa-graduation-cap"></i> Courses Portal
                 </a>
             </li>
 
-            <!-- ADMIN OPEN DASHBOARD BUTTON -->
             <li id="adminNavTab" style="display: none;">
                 <button onclick="closeMobileMenu(); openAdminPanel()" class="btn-nav-action btn-dashboard">
                     <i class="fas fa-user-shield"></i> Open Dashboard
                 </button>
             </li>
 
-            <!-- ADMIN LOGIN / LOGOUT BUTTON -->
             <li>
                 <button id="adminLoginBtn" class="btn-nav-action btn-logout" onclick="openAdminAuthModal()">
                     <i class="fas fa-lock"></i> Admin
@@ -586,18 +518,36 @@
 
             <!-- ADMIN TABS -->
             <div class="admin-nav-bar">
-                <button class="admin-tab-btn active" onclick="switchAdminTab('students', this)"><i class="fas fa-users"></i> Students</button>
+                <button class="admin-tab-btn active" onclick="switchAdminTab('pending', this)"><i class="fas fa-receipt" style="color:#10b981;"></i> Pending Verifications (<span id="pendingCountBadge">0</span>)</button>
+                <button class="admin-tab-btn" onclick="switchAdminTab('students', this)"><i class="fas fa-users"></i> All Students</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('courses', this)"><i class="fas fa-book"></i> Courses & Pricing</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('lessons', this)"><i class="fas fa-video"></i> Upload Lessons</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('paymentQr', this)"><i class="fas fa-qrcode"></i> Payment QR</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('coupons', this)"><i class="fas fa-tags"></i> Coupons</button>
-                <button class="admin-tab-btn" onclick="switchAdminTab('notice', this)"><i class="fas fa-bullhorn"></i> Site & Photo Notice</button>
-                <button class="admin-tab-btn" onclick="switchAdminTab('security', this)"><i class="fas fa-key"></i> Change Password</button>
+                <button class="admin-tab-btn" onclick="switchAdminTab('notice', this)"><i class="fas fa-bullhorn"></i> Site Notice</button>
+                <button class="admin-tab-btn" onclick="switchAdminTab('security', this)"><i class="fas fa-key"></i> Password</button>
                 <button class="admin-tab-btn" style="background:#fee2e2; color:#b91c1c; margin-left:auto;" onclick="logoutAdmin()"><i class="fas fa-power-off"></i> Logout</button>
             </div>
 
-            <!-- TAB 1: STUDENTS -->
-            <div id="adminTabStudents" class="admin-tab-pane" style="overflow-x: auto;">
+            <!-- TAB 0: PENDING ENROLLMENTS -->
+            <div id="adminTabPending" class="admin-tab-pane" style="overflow-x: auto;">
+                <h3 style="margin-bottom:0.6rem; color:var(--dark);"><i class="fas fa-user-clock"></i> New Student Payment Verifications</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Student Details</th>
+                            <th>Course & Amount</th>
+                            <th>Payment Screenshot</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminPendingTableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- TAB 1: ALL STUDENTS -->
+            <div id="adminTabStudents" class="admin-tab-pane" style="display:none; overflow-x: auto;">
                 <table class="admin-table">
                     <thead>
                         <tr>
@@ -612,179 +562,100 @@
                 </table>
             </div>
 
-            <!-- TAB 2: COURSE & PRICE MANAGER -->
+            <!-- TAB 2: COURSE MANAGER -->
             <div id="adminTabCourses" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0;">
                 <h3 style="margin-bottom:0.8rem; color:var(--dark);" id="adminCourseFormHeading"><i class="fas fa-plus-circle"></i> Add / Edit Course</h3>
                 <div style="display:grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap:8px; margin-bottom:10px;">
-                    <input type="text" id="adminNewCourseTitle" placeholder="Course Title (उदा: Python Masterclass)" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
-                    <input type="text" id="adminNewCourseKey" placeholder="Unique Key (उदा: python_pro)" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
-                    <input type="number" id="adminNewCourseOrigPrice" placeholder="Original Price (उदा: 5000)" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
-                    <input type="number" id="adminNewCourseOfferPrice" placeholder="Offer Price (उदा: 999)" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
+                    <input type="text" id="adminNewCourseTitle" placeholder="Course Title" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
+                    <input type="text" id="adminNewCourseKey" placeholder="Unique Key" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
+                    <input type="number" id="adminNewCourseOrigPrice" placeholder="Original Price" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
+                    <input type="number" id="adminNewCourseOfferPrice" placeholder="Offer Price" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
                 </div>
-
                 <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Course Description:</label>
-                    <textarea id="adminNewCourseDesc" rows="3" placeholder="कोर्सको विवरण..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
+                    <textarea id="adminNewCourseDesc" rows="3" placeholder="कोर्सको विवरण..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; font-family:inherit;"></textarea>
                 </div>
-
                 <div style="display:flex; gap:8px; margin-bottom:1.5rem;">
-                    <button class="btn-nav-action btn-courses" style="flex:1; justify-content:center; height: 38px;" onclick="saveCourseFromAdmin()">
-                        <i class="fas fa-save"></i> Save / Update Course
-                    </button>
-                    <button class="btn-reset" style="background:#64748b; height: 38px; padding: 0 1rem;" onclick="resetCourseForm()">
-                        <i class="fas fa-times"></i> Cancel Edit
-                    </button>
+                    <button class="btn-nav-action btn-courses" style="flex:1; justify-content:center;" onclick="saveCourseFromAdmin()"><i class="fas fa-save"></i> Save Course</button>
+                    <button class="btn-reset" onclick="resetCourseForm()"><i class="fas fa-times"></i> Cancel</button>
                 </div>
-
-                <h4 style="margin-bottom:0.5rem;">Current Active Courses:</h4>
-                <div id="adminCoursesList" style="display:flex; flex-direction:column; gap:6px;"></div>
+                <h4>Active Courses:</h4>
+                <div id="adminCoursesList" style="display:flex; flex-direction:column; gap:6px; margin-top:6px;"></div>
             </div>
 
-            <!-- TAB 3: LESSON UPLOADER & MANAGER -->
+            <!-- TAB 3: LESSONS -->
             <div id="adminTabLessons" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0;">
                 <h3 id="adminLessonFormHeading" style="margin-bottom:0.8rem; color:var(--dark);"><i class="fas fa-plus-circle"></i> Add New Lesson</h3>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
-                    <div>
-                        <label style="font-weight:600; font-size:0.9rem;">Choose Course:</label>
-                        <select id="uploadCourseSelect" onchange="loadAdminLessons()" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;"></select>
-                    </div>
-                    <div>
-                        <label style="font-weight:600; font-size:0.9rem;">Lesson Order:</label>
-                        <input type="number" id="uploadLessonOrder" placeholder="1" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
-                    </div>
+                    <select id="uploadCourseSelect" onchange="loadAdminLessons()" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;"></select>
+                    <input type="number" id="uploadLessonOrder" placeholder="Lesson Order" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
                 </div>
                 <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Lesson Title:</label>
-                    <input type="text" id="uploadLessonTitle" placeholder="Lesson 1: Introduction..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                    <input type="text" id="uploadLessonTitle" placeholder="Lesson Title" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
                 </div>
                 <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">YouTube URL or ID:</label>
-                    <input type="text" id="uploadLessonUrl" placeholder="https://youtube.com/watch?v=... वा भिडियो ID" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                    <input type="text" id="uploadLessonUrl" placeholder="YouTube URL or ID" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
                 </div>
                 <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Resource Download Link (Optional):</label>
-                    <input type="url" id="uploadLessonResource" placeholder="Google Drive / ZIP Link" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
+                    <input type="url" id="uploadLessonResource" placeholder="Google Drive / ZIP Link" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
                 </div>
                 <div style="margin-bottom:15px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Lesson Description / Notes:</label>
-                    <textarea id="uploadLessonDesc" rows="3" placeholder="पाठको विवरण..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
+                    <textarea id="uploadLessonDesc" rows="3" placeholder="Lesson Notes..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; font-family:inherit;"></textarea>
                 </div>
                 <div style="display:flex; gap:8px;">
-                    <button id="publishLessonBtn" class="btn-nav-action btn-courses" style="flex:1; justify-content:center; height: 42px;" onclick="saveLessonToFirebase()">
-                        <i class="fas fa-cloud-upload-alt"></i> Publish Lesson
-                    </button>
-                    <button id="cancelLessonEditBtn" class="btn-reset" style="background:#64748b; height: 42px; padding: 0 1rem; display:none;" onclick="resetLessonForm()">
-                        <i class="fas fa-times"></i> Cancel Edit
-                    </button>
+                    <button id="publishLessonBtn" class="btn-nav-action btn-courses" style="flex:1; justify-content:center;" onclick="saveLessonToFirebase()"><i class="fas fa-cloud-upload-alt"></i> Publish Lesson</button>
+                    <button id="cancelLessonEditBtn" class="btn-reset" style="display:none;" onclick="resetLessonForm()">Cancel</button>
                 </div>
-
-                <!-- EXISTING LESSONS LIST -->
-                <hr style="margin: 25px 0 15px 0; border: 0; border-top: 1px solid #cbd5e1;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <h4 style="color:var(--dark);"><i class="fas fa-list"></i> Manage Existing Lessons (भिडियोहरू व्यवस्थापन):</h4>
-                    <button class="btn-nav-action btn-dashboard" style="height: 32px; padding: 0 10px; font-size: 0.8rem;" onclick="loadAdminLessons()">
-                        <i class="fas fa-sync-alt"></i> Refresh List
-                    </button>
-                </div>
-                <div id="adminLessonsList" style="display:flex; flex-direction:column; gap:6px;">
-                    <small style="color:#64748b;">कोर्स छान्नुहोस् वा Refresh थिच्नुहोस्...</small>
-                </div>
+                <hr style="margin: 20px 0 10px 0; border: 0; border-top: 1px solid #cbd5e1;">
+                <div id="adminLessonsList" style="display:flex; flex-direction:column; gap:6px;"></div>
             </div>
 
-            <!-- TAB 4: PAYMENT QR MANAGER -->
+            <!-- TAB 4: PAYMENT QR -->
             <div id="adminTabPaymentQr" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0; max-width: 550px;">
                 <h3 style="margin-bottom:0.8rem; color:var(--dark);"><i class="fas fa-qrcode" style="color:#089981;"></i> Update Payment QR Code</h3>
-                <p style="font-size:0.88rem; color:#64748b; margin-bottom:12px;">यहाँबाट तपाईंको eSewa / Khalti / Mobile Banking को QR Code फोटो परिवर्तन गर्न सक्नुहुन्छ:</p>
-                
-                <div style="margin-bottom:12px;">
-                    <label style="font-weight:600; font-size:0.9rem;">नयाँ QR Code तस्विर छान्नुहोस्:</label>
-                    <input type="file" id="adminQrFileInput" accept="image/*" style="width:100%; padding:0.5rem; background:#ffffff; border:1px dashed #cbd5e1; border-radius:6px; margin-top:4px;">
-                    <input type="hidden" id="adminQrExistingUrl">
-                </div>
-
+                <input type="file" id="adminQrFileInput" accept="image/*" style="width:100%; padding:0.5rem; background:#ffffff; border:1px dashed #cbd5e1; border-radius:6px; margin-bottom:10px;">
+                <input type="hidden" id="adminQrExistingUrl">
                 <div style="text-align:center; margin-bottom:15px; background:#ffffff; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
-                    <p style="font-size:0.85rem; color:#64748b; margin-bottom:6px; font-weight:600;">हाल सक्रिय QR Code:</p>
-                    <img id="adminQrPreviewImg" src="" alt="No QR Uploaded" style="max-width:200px; max-height:200px; border:1px solid #cbd5e1; border-radius:8px; padding:4px; display:inline-block;">
+                    <img id="adminQrPreviewImg" src="" alt="No QR Uploaded" style="max-width:180px; max-height:180px; border-radius:8px; display:inline-block;">
                 </div>
-
-                <button class="btn-nav-action btn-courses" style="width:100%; justify-content:center; height: 42px;" onclick="savePaymentQrToFirebase()">
-                    <i class="fas fa-cloud-upload-alt"></i> Save & Update QR Code
-                </button>
+                <button class="btn-nav-action btn-courses" style="width:100%; justify-content:center;" onclick="savePaymentQrToFirebase()"><i class="fas fa-save"></i> Save QR Code</button>
             </div>
 
-            <!-- TAB 5: COUPON MANAGER -->
+            <!-- TAB 5: COUPONS -->
             <div id="adminTabCoupons" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0;">
-                <h3 style="margin-bottom:0.8rem;"><i class="fas fa-tags"></i> Create Promo / Coupon Code</h3>
+                <h3 style="margin-bottom:0.8rem;"><i class="fas fa-tags"></i> Create Coupon</h3>
                 <div style="display:grid; grid-template-columns: 1.5fr 1fr; gap:10px; margin-bottom:10px;">
                     <input type="text" id="adminCouponCode" placeholder="Code (उदा: DASHAIN50)" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; text-transform:uppercase;">
-                    <input type="number" id="adminCouponPercent" placeholder="Discount % (उदा: 50)" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
+                    <input type="number" id="adminCouponPercent" placeholder="Discount %" style="padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px;">
                 </div>
-                <button class="btn-nav-action btn-courses" style="width:100%; justify-content:center; margin-bottom:1.5rem; height: 38px;" onclick="saveCouponCode()">
-                    <i class="fas fa-plus"></i> Save Coupon
-                </button>
-                <h4>Active Coupons:</h4>
-                <div id="adminCouponsList" style="margin-top:6px;"></div>
+                <button class="btn-nav-action btn-courses" style="width:100%; justify-content:center; margin-bottom:1rem;" onclick="saveCouponCode()"><i class="fas fa-plus"></i> Save Coupon</button>
+                <div id="adminCouponsList"></div>
             </div>
 
-            <!-- TAB 6: NOTICE BANNER & POPUP MANAGER -->
+            <!-- TAB 6: NOTICES -->
             <div id="adminTabNotice" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0;">
-                <h3 style="margin-bottom:0.8rem;"><i class="fas fa-bullhorn"></i> Website Top Notice Banner</h3>
-                <label style="font-weight:600; font-size:0.9rem;">Notice Text:</label>
-                <input type="text" id="adminNoticeInput" placeholder="वेबसाइटमा देखाउने मुख्य सूचना यहाँ लेख्नुहोस्..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin:6px 0 10px 0;">
-                <div style="display:flex; gap:8px; margin-bottom:1.8rem;">
-                    <button class="btn-nav-action btn-courses" style="height: 38px;" onclick="updateNoticeBanner(true)"><i class="fas fa-eye"></i> Publish / Show Banner</button>
-                    <button class="btn-reset" style="height: 38px; padding: 0 1rem;" onclick="updateNoticeBanner(false)"><i class="fas fa-eye-slash"></i> Hide Banner</button>
-                </div>
-
-                <hr style="border:0; border-top:1px solid #cbd5e1; margin-bottom:1.2rem;">
-
-                <h3 style="margin-bottom:0.8rem;"><i class="fas fa-image" style="color:#d97706;"></i> Front Popup Photo Notice</h3>
-                <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Popup Title (शीर्षक):</label>
-                    <input type="text" id="adminPhotoNoticeTitle" placeholder="उदा: विशेष चाडपर्व अफर!" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
-                </div>
-
-                <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Select Image (तस्विर फाइल छान्नुहोस्):</label>
-                    <input type="file" id="adminPhotoNoticeFile" accept="image/*" style="width:100%; padding:0.5rem; background:#ffffff; border:1px dashed #cbd5e1; border-radius:6px; margin-top:4px;">
-                    <input type="hidden" id="adminPhotoNoticeExistingUrl">
-                    <small id="uploadStatusNotice" style="color:#2563eb; font-weight:600; display:block; margin-top:4px;"></small>
-                </div>
-
-                <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Short Description (छोटो विवरण):</label>
-                    <textarea id="adminPhotoNoticeDesc" rows="2" placeholder="सूचनाको छोटो विवरण लेख्नुहोस्..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px; font-family:inherit;"></textarea>
-                </div>
-
-                <div style="margin-bottom:12px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Action Button (बटन थिच्दा कोर्स पोर्टल खोल्ने?):</label>
-                    <select id="adminPhotoNoticeShowBtn" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
-                        <option value="yes">हो, 'अफर हेर्नुहोस्' बटन देखाउने</option>
-                        <option value="no">होइन, बटन नदेखाउने</option>
-                    </select>
-                </div>
-
+                <h3 style="margin-bottom:0.8rem;"><i class="fas fa-bullhorn"></i> Top Notice Banner</h3>
+                <input type="text" id="adminNoticeInput" placeholder="सूचना यहाँ लेख्नुहोस्..." style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-bottom:10px;">
                 <div style="display:flex; gap:8px;">
-                    <button class="btn-nav-action btn-courses" style="height: 38px;" onclick="updatePhotoPopupNotice(true)"><i class="fas fa-cloud-upload-alt"></i> Upload & Show Photo Notice</button>
-                    <button class="btn-reset" style="height: 38px; padding: 0 1rem;" onclick="updatePhotoPopupNotice(false)"><i class="fas fa-ban"></i> Disable / Hide Photo Notice</button>
+                    <button class="btn-nav-action btn-courses" onclick="updateNoticeBanner(true)">Publish Banner</button>
+                    <button class="btn-reset" onclick="updateNoticeBanner(false)">Hide</button>
                 </div>
             </div>
 
-            <!-- TAB 7: ADMIN PASSWORD & SECURITY -->
+            <!-- TAB 7: SECURITY -->
             <div id="adminTabSecurity" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0; max-width: 500px;">
-                <h3 style="margin-bottom:0.8rem; color:var(--dark);"><i class="fas fa-key" style="color:#d97706;"></i> Change Admin Login Credentials</h3>
-                <div style="margin-bottom:10px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Admin Username:</label>
-                    <input type="text" id="adminNewUsernameInput" placeholder="New Username" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
-                </div>
-                <div style="margin-bottom:15px;">
-                    <label style="font-weight:600; font-size:0.9rem;">Admin New Password (PIN):</label>
-                    <input type="password" id="adminNewPasswordInput" placeholder="New Secret Password" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-top:4px;">
-                </div>
-                <button class="btn-nav-action btn-dashboard" style="width:100%; justify-content:center; height: 40px;" onclick="updateAdminCredentialsFromPanel()">
-                    <i class="fas fa-lock"></i> Update & Save Password
-                </button>
+                <h3 style="margin-bottom:0.8rem; color:var(--dark);"><i class="fas fa-key"></i> Credentials</h3>
+                <input type="text" id="adminNewUsernameInput" placeholder="Username" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-bottom:10px;">
+                <input type="password" id="adminNewPasswordInput" placeholder="Password" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; margin-bottom:15px;">
+                <button class="btn-nav-action btn-dashboard" style="width:100%; justify-content:center;" onclick="updateAdminCredentialsFromPanel()"><i class="fas fa-lock"></i> Save</button>
             </div>
+        </div>
+    </div>
+
+    <!-- PROOF IMAGE PREVIEW MODAL -->
+    <div id="imagePreviewModal" class="modal" style="z-index: 3500;" onclick="closeModal('imagePreviewModal')">
+        <div style="max-width: 90%; max-height: 90%; text-align: center;">
+            <img id="fullImagePreviewSrc" src="" style="max-width: 100%; max-height: 85vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <p style="color:white; margin-top:8px;">क्लिक गरेर बन्द गर्नुहोस्</p>
         </div>
     </div>
 
@@ -800,16 +671,7 @@
         <p style="font-size:0.85rem; margin-top:1rem; color:#64748b;">&copy; 2026 Arun Adhikari. All Rights Reserved.</p>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // RIGHT CLICK & SHORTCUTS DISABLED
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || (e.ctrlKey && e.key === 'U')) {
-                e.preventDefault();
-            }
-        });
-
         const firebaseConfig = {
             apiKey: "AIzaSyBLIgjthPddTsuf8mR4Y6fq8ETsolelhOY",
             authDomain: "arun-courses.firebaseapp.com",
@@ -822,21 +684,20 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // DEFAULT ADMIN CREDENTIALS
         let currentAdminUsername = "admin";
         let currentAdminPin = "Admin@12345";
         let isAdminLoggedIn = localStorage.getItem("arun_is_admin_logged") === "true";
 
         let editingLessonId = null;
-        let unsubscribeUsersListener = null; // रियल-टाइम स्टुडेन्ट सिङ्कको लागि
+        let unsubscribeUsersListener = null;
 
         const BASE_DEFAULT_COURSES = [
-            { key: 'web_dev', title: 'Website Development', desc: 'Complete HTML, CSS, JavaScript, Responsive design, and Firebase deployment.', origPrice: 5000, offerPrice: 999 },
-            { key: 'app_dev', title: 'App Development', desc: 'Flutter & Native app development masterclass.', origPrice: 20000, offerPrice: 2500 },
-            { key: 'video_edit', title: 'Video Editing Masterclass', desc: 'DaVinci Resolve and CapCut Pro editing techniques.', origPrice: 30000, offerPrice: 1499 },
-            { key: 'graphic_design', title: 'Graphic Design Pro', desc: 'Photoshop, Illustrator branding & poster design.', origPrice: 5000, offerPrice: 999 },
-            { key: 'tech_analysis', title: 'Technical Analysis', desc: 'NEPSE share market price action, charts & indicators.', origPrice: 3000, offerPrice: 499 },
-            { key: 'fund_analysis', title: 'Fundamental Analysis', desc: 'Balance sheet, financial ratio analysis of companies.', origPrice: 5000, offerPrice: 499 }
+            { key: 'web_dev', title: 'Website Development', origPrice: 5000, offerPrice: 999 },
+            { key: 'app_dev', title: 'App Development', origPrice: 20000, offerPrice: 2500 },
+            { key: 'video_edit', title: 'Video Editing Masterclass', origPrice: 30000, offerPrice: 1499 },
+            { key: 'graphic_design', title: 'Graphic Design Pro', origPrice: 5000, offerPrice: 999 },
+            { key: 'tech_analysis', title: 'Technical Analysis', origPrice: 3000, offerPrice: 499 },
+            { key: 'fund_analysis', title: 'Fundamental Analysis', origPrice: 5000, offerPrice: 499 }
         ];
 
         let dynamicCourses = [...BASE_DEFAULT_COURSES];
@@ -844,17 +705,14 @@
         function toggleMobileMenu() { document.getElementById("navLinks").classList.toggle("active"); }
         function closeMobileMenu() { document.getElementById("navLinks").classList.remove("active"); }
 
-        // INIT LOADERS
         document.addEventListener("DOMContentLoaded", async () => {
             setTimeout(typeAllRoles, 400);
             refreshAdminNav();
             await listenToSettings();
             await loadAdminSecuritySettings();
             await loadCoursesFromFirebase();
-            await checkAndDisplayPhotoNotice();
         });
 
-        // REALTIME NOTICE BANNER
         async function listenToSettings() {
             db.collection("settings").doc("main").onSnapshot((doc) => {
                 if (doc.exists) {
@@ -873,32 +731,6 @@
             });
         }
 
-        // FRONT PHOTO NOTICE POPUP
-        async function checkAndDisplayPhotoNotice() {
-            try {
-                const doc = await db.collection("settings").doc("photo_notice").get();
-                if (doc.exists) {
-                    const data = doc.data();
-                    if (data.enabled && data.imageUrl) {
-                        document.getElementById("photoNoticeTitle").innerText = data.title || "📢 विशेष सूचना";
-                        document.getElementById("photoNoticeImg").src = data.imageUrl;
-                        document.getElementById("photoNoticeDesc").innerText = data.desc || "";
-                        
-                        const actionBtn = document.getElementById("photoNoticeActionBtn");
-                        if (data.showActionBtn) actionBtn.style.display = "inline-flex";
-                        else actionBtn.style.display = "none";
-
-                        setTimeout(() => {
-                            document.getElementById("photoNoticeModal").style.display = "flex";
-                        }, 1000);
-                    }
-                }
-            } catch(e) {
-                console.log("Photo notice load error:", e);
-            }
-        }
-
-        // ADMIN SECURITY & LOGINS
         async function loadAdminSecuritySettings() {
             try {
                 const doc = await db.collection("settings").doc("admin_auth").get();
@@ -907,9 +739,7 @@
                     if (data.username) currentAdminUsername = data.username;
                     if (data.password) currentAdminPin = data.password;
                 }
-            } catch(e) {
-                console.log("Admin config load:", e);
-            }
+            } catch(e) {}
         }
 
         function refreshAdminNav() {
@@ -919,6 +749,7 @@
                 adminNav.style.display = "inline-block";
                 adminLoginBtn.className = "btn-nav-action btn-logout";
                 adminLoginBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout`;
+                loadPendingBadge();
             } else {
                 adminNav.style.display = "none";
                 adminLoginBtn.className = "btn-nav-action btn-logout";
@@ -949,7 +780,6 @@
 
         function logoutAdmin() {
             if (confirm("के तपाईं Admin खाता लगआउट गर्न चाहनुहुन्छ?")) {
-                if (unsubscribeUsersListener) unsubscribeUsersListener();
                 isAdminLoggedIn = false;
                 localStorage.removeItem("arun_is_admin_logged");
                 refreshAdminNav();
@@ -958,69 +788,163 @@
             }
         }
 
-        // COURSES LOADER
         async function loadCoursesFromFirebase() {
             let courseMap = new Map();
             BASE_DEFAULT_COURSES.forEach(c => courseMap.set(c.key, c));
-
             try {
                 const snapshot = await db.collection("site_courses").get();
                 if (!snapshot.empty) {
-                    snapshot.forEach(doc => {
-                        courseMap.set(doc.id, { key: doc.id, ...doc.data() });
-                    });
+                    snapshot.forEach(doc => { courseMap.set(doc.id, { key: doc.id, ...doc.data() }); });
                 }
-            } catch (err) {
-                console.log("Courses load error:", err);
-            }
-
+            } catch (err) {}
             dynamicCourses = Array.from(courseMap.values());
             const lessonSelect = document.getElementById("uploadCourseSelect");
             if (lessonSelect) {
                 lessonSelect.innerHTML = "";
-                dynamicCourses.forEach(c => {
-                    lessonSelect.innerHTML += `<option value="${c.key}">${c.title}</option>`;
-                });
+                dynamicCourses.forEach(c => { lessonSelect.innerHTML += `<option value="${c.key}">${c.title}</option>`; });
             }
             if (isAdminLoggedIn) renderAdminCoursesList();
         }
 
-        // ADMIN PANEL LOGIC (TAB SWITCHER)
         function switchAdminTab(tabName, btn) {
             document.querySelectorAll(".admin-tab-pane").forEach(p => p.style.display = "none");
             document.querySelectorAll(".admin-tab-btn").forEach(b => b.classList.remove("active"));
             if (btn) btn.classList.add("active");
 
-            if (tabName === 'students') { document.getElementById("adminTabStudents").style.display = "block"; openAdminPanel(); }
+            if (tabName === 'pending') { document.getElementById("adminTabPending").style.display = "block"; loadPendingEnrollments(); }
+            if (tabName === 'students') { document.getElementById("adminTabStudents").style.display = "block"; loadStudentsRealtime(); }
             if (tabName === 'courses') { document.getElementById("adminTabCourses").style.display = "block"; renderAdminCoursesList(); }
-            if (tabName === 'lessons') { 
-                document.getElementById("adminTabLessons").style.display = "block"; 
-                loadCoursesFromFirebase().then(() => {
-                    loadAdminLessons(); 
-                });
-            }
-            if (tabName === 'paymentQr') {
-                document.getElementById("adminTabPaymentQr").style.display = "block";
-                loadPaymentQrSettings();
-            }
+            if (tabName === 'lessons') { document.getElementById("adminTabLessons").style.display = "block"; loadAdminLessons(); }
+            if (tabName === 'paymentQr') { document.getElementById("adminTabPaymentQr").style.display = "block"; loadPaymentQrSettings(); }
             if (tabName === 'coupons') { document.getElementById("adminTabCoupons").style.display = "block"; loadAdminCoupons(); }
-            if (tabName === 'notice') { 
-                document.getElementById("adminTabNotice").style.display = "block"; 
-                loadCurrentPhotoNoticeSettings();
-            }
-            if (tabName === 'security') { 
-                document.getElementById("adminTabSecurity").style.display = "block"; 
+            if (tabName === 'notice') { document.getElementById("adminTabNotice").style.display = "block"; }
+            if (tabName === 'security') {
+                document.getElementById("adminTabSecurity").style.display = "block";
                 document.getElementById("adminNewUsernameInput").value = currentAdminUsername;
                 document.getElementById("adminNewPasswordInput").value = currentAdminPin;
             }
         }
 
-        // TAB 1: REALTIME STUDENTS LISTENER & APPROVAL
         function openAdminPanel() {
             if (!isAdminLoggedIn) { openAdminAuthModal(); return; }
             closeMobileMenu();
             document.getElementById("adminModal").style.display = "flex";
-            
+            switchAdminTab('pending');
+        }
+
+        // ================= 1. PENDING VERIFICATIONS & APPROVE =================
+        async function loadPendingEnrollments() {
+            const tbody = document.getElementById("adminPendingTableBody");
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">लोड हुँदैछ...</td></tr>`;
+
+            const snapshot = await db.collection("enrollments").where("status", "==", "pending").get();
+            tbody.innerHTML = "";
+            document.getElementById("pendingCountBadge").innerText = snapshot.size;
+
+            if (snapshot.empty) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:1.5rem; color:#64748b;">कुनै पनि नयाँ भुक्तानी बाँकी छैन ✅</td></tr>`;
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const en = doc.data();
+                const eid = doc.id;
+                tbody.innerHTML += `
+                    <tr>
+                        <td><small>${en.dateText || 'Recent'}</small></td>
+                        <td>
+                            <strong>${en.studentName}</strong><br>
+                            <small>📧 ${en.studentEmail}</small><br>
+                            <small>📞 ${en.studentPhone}</small><br>
+                            <small>📍 ${en.studentAddress}</small>
+                        </td>
+                        <td>
+                            <strong>${en.courseTitle}</strong><br>
+                            <span style="color:#089981; font-weight:700;">रु. ${en.payableAmount}</span><br>
+                            <small style="color:#64748b;">Coupon: ${en.couponUsed}</small>
+                        </td>
+                        <td style="text-align:center;">
+                            ${en.proofImage ? `
+                                <img src="${en.proofImage}" style="max-width:70px; max-height:70px; border-radius:4px; border:1px solid #cbd5e1; cursor:pointer;" onclick="previewProof('${en.proofImage}')">
+                                <br><small style="color:#2563eb; cursor:pointer;" onclick="previewProof('${en.proofImage}')"><i class="fas fa-search-plus"></i> View</small>
+                            ` : '<span style="color:#ef4444;">No Image</span>'}
+                        </td>
+                        <td>
+                            <div style="display:flex; flex-direction:column; gap:4px;">
+                                <button class="btn-approve-all" onclick="approveStudentEnrollment('${eid}', '${en.studentEmail}', '${en.courseKey}', '${en.userUid || ''}', '${en.studentName}', '${en.studentPhone}', '${en.studentAddress}')">
+                                    <i class="fas fa-check-circle"></i> Approve Access
+                                </button>
+                                <button class="btn-reset" style="font-size:0.75rem; padding:0.3rem;" onclick="rejectEnrollment('${eid}')">
+                                    <i class="fas fa-trash"></i> Reject
+                                </button>
+                            </div>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        async function loadPendingBadge() {
+            try {
+                const snap = await db.collection("enrollments").where("status", "==", "pending").get();
+                document.getElementById("pendingCountBadge").innerText = snap.size;
+            } catch(e){}
+        }
+
+        function previewProof(src) {
+            document.getElementById("fullImagePreviewSrc").src = src;
+            document.getElementById("imagePreviewModal").style.display = "flex";
+        }
+
+        async function approveStudentEnrollment(enrollmentId, email, courseKey, userUid, name, phone, address) {
+            if (!confirm(`के तपाईं यो विद्यार्थीलाई '${courseKey}' कोर्सको Access दिन निश्चित हुनुहुन्छ?`)) return;
+            try {
+                await db.collection("enrollments").doc(enrollmentId).update({ status: "approved" });
+
+                let targetUid = userUid;
+                if (!targetUid) {
+                    const userSnap = await db.collection("users").where("email", "==", email.toLowerCase()).get();
+                    if (!userSnap.empty) {
+                        targetUid = userSnap.docs[0].id;
+                    } else {
+                        const newDoc = await db.collection("users").add({
+                            name: name || "Student",
+                            email: email.toLowerCase(),
+                            phone: phone || "",
+                            address: address || "",
+                            enrolledCourses: [courseKey],
+                            devices: { desktop: true, mobile: false },
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        targetUid = newDoc.id;
+                    }
+                }
+
+                if (targetUid) {
+                    const userRef = db.collection("users").doc(targetUid);
+                    const doc = await userRef.get();
+                    let list = (doc.exists && doc.data().enrolledCourses) ? doc.data().enrolledCourses : [];
+                    if (!list.includes(courseKey)) {
+                        list.push(courseKey);
+                        await userRef.set({ enrolledCourses: list }, { merge: true });
+                    }
+                }
+
+                alert("✅ कोर्स सफलतापूर्वक Approve गरियो!");
+                loadPendingEnrollments();
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        }
+
+        async function rejectEnrollment(enrollmentId) {
+            if (confirm("आवेदन खारेज गर्ने?")) {
+                await db.collection("enrollments").doc(enrollmentId).delete();
+                loadPendingEnrollments();
+            }
+        }
+
+        // ================= 2. ALL STUDENTS REALTIME =================
+        function loadStudentsRealtime() {
             const tbody = document.getElementById("adminUserTableBody");
             tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">लोड हुँदैछ...</td></tr>`;
 
@@ -1028,12 +952,10 @@
 
             unsubscribeUsersListener = db.collection("users").onSnapshot((snapshot) => {
                 tbody.innerHTML = "";
-
                 if (snapshot.empty) {
-                    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#d97706;">कुनै पनि विद्यार्थी दर्ता भएका छैनन्।</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#d97706;">कुनै पनि विद्यार्थी छैनन्।</td></tr>`;
                     return;
                 }
-
                 snapshot.forEach((doc) => {
                     const u = doc.data();
                     const uid = doc.id;
@@ -1043,32 +965,27 @@
                     let togglesHtml = '<div style="display:flex; flex-wrap:wrap; gap:4px;">';
                     dynamicCourses.forEach(c => {
                         const isApproved = enrolled.includes(c.key);
-                        const statusClass = isApproved ? 'status-approved' : 'status-pending';
-                        const icon = isApproved ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
                         togglesHtml += `
-                            <button class="btn-course-toggle ${statusClass}" onclick="toggleCourseAccess('${uid}', '${c.key}')">
-                                ${icon} ${c.title.split(' ')[0]}
+                            <button class="btn-course-toggle ${isApproved ? 'status-approved' : 'status-pending'}" onclick="toggleCourseAccess('${uid}', '${c.key}')">
+                                ${isApproved ? '✅' : '❌'} ${c.title.split(' ')[0]}
                             </button>`;
                     });
                     togglesHtml += '</div>';
 
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td><strong>${u.name || 'Student'}</strong></td>
-                        <td>${u.email || 'N/A'}</td>
-                        <td><small>PC: ${dev.desktop ? '✅' : '❌'}</small><br><small>Mob: ${dev.mobile ? '✅' : '❌'}</small></td>
-                        <td>${togglesHtml}</td>
-                        <td>
-                            <div style="display:flex; flex-direction:column; gap:4px;">
-                                <button class="btn-approve-all" onclick="approveAllCourses('${uid}')"><i class="fas fa-check-double"></i> All</button>
-                                <button class="btn-reset" onclick="resetUserDevices('${uid}')"><i class="fas fa-redo"></i> Reset</button>
-                            </div>
-                        </td>`;
-                    tbody.appendChild(row);
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><strong>${u.name || 'Student'}</strong></td>
+                            <td>${u.email || 'N/A'}<br><small>${u.phone || ''}</small></td>
+                            <td><small>PC: ${dev.desktop ? '✅' : '❌'}</small><br><small>Mob: ${dev.mobile ? '✅' : '❌'}</small></td>
+                            <td>${togglesHtml}</td>
+                            <td>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <button class="btn-approve-all" onclick="approveAllCourses('${uid}')">All</button>
+                                    <button class="btn-reset" onclick="resetUserDevices('${uid}')">Reset</button>
+                                </div>
+                            </td>
+                        </tr>`;
                 });
-            }, (err) => {
-                console.error("User sync error:", err);
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">विद्यार्थी डेटा लोड गर्न समस्या भयो!</td></tr>`;
             });
         }
 
@@ -1083,9 +1000,8 @@
         }
 
         async function approveAllCourses(uid) {
-            const ref = db.collection("users").doc(uid);
             const allKeys = dynamicCourses.map(c => c.key);
-            await ref.update({ enrolledCourses: allKeys });
+            await db.collection("users").doc(uid).update({ enrolledCourses: allKeys });
         }
 
         async function resetUserDevices(uid) {
@@ -1094,35 +1010,22 @@
             }
         }
 
-        // COURSES CRUD
+        // ================= COURSES CRUD =================
         async function saveCourseFromAdmin() {
             const title = document.getElementById("adminNewCourseTitle").value.trim();
             const key = document.getElementById("adminNewCourseKey").value.trim().toLowerCase();
             const origPrice = parseInt(document.getElementById("adminNewCourseOrigPrice").value);
             const offerPrice = parseInt(document.getElementById("adminNewCourseOfferPrice").value);
             const desc = document.getElementById("adminNewCourseDesc").value.trim();
-
             if (!title || !key || isNaN(origPrice) || isNaN(offerPrice)) { alert("सबै फिल्ड भर्नुहोस्!"); return; }
-
-            await db.collection("site_courses").doc(key).set({ title: title, origPrice: origPrice, offerPrice: offerPrice, desc: desc });
+            await db.collection("site_courses").doc(key).set({ title, origPrice, offerPrice, desc });
             alert("✅ सुरक्षित भयो!");
             resetCourseForm();
             await loadCoursesFromFirebase();
-            renderAdminCoursesList();
-        }
-
-        function loadCourseToEdit(key, title, origPrice, offerPrice, desc) {
-            document.getElementById("adminCourseFormHeading").innerHTML = `<i class="fas fa-edit" style="color:#2563eb;"></i> Edit: ${title}`;
-            document.getElementById("adminNewCourseTitle").value = title;
-            document.getElementById("adminNewCourseKey").value = key;
-            document.getElementById("adminNewCourseKey").disabled = true;
-            document.getElementById("adminNewCourseOrigPrice").value = origPrice;
-            document.getElementById("adminNewCourseOfferPrice").value = offerPrice;
-            document.getElementById("adminNewCourseDesc").value = desc || "";
         }
 
         function resetCourseForm() {
-            document.getElementById("adminCourseFormHeading").innerHTML = `<i class="fas fa-plus-circle"></i> Add / Edit Course`;
+            document.getElementById("adminCourseFormHeading").innerText = "Add / Edit Course";
             document.getElementById("adminNewCourseTitle").value = "";
             document.getElementById("adminNewCourseKey").value = "";
             document.getElementById("adminNewCourseKey").disabled = false;
@@ -1135,225 +1038,100 @@
             const list = document.getElementById("adminCoursesList");
             list.innerHTML = "";
             dynamicCourses.forEach(c => {
-                const descSafe = (c.desc || '').replace(/'/g, "\\'");
                 list.innerHTML += `
-                    <div style="background:#ffffff; border:1px solid #cbd5e1; padding:0.6rem 0.8rem; border-radius:6px; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                        <div>
-                            <strong style="color:var(--dark);">${c.title}</strong> 
-                            <span style="color:#64748b; font-size:0.85rem;">(${c.key})</span> - 
-                            <strong style="color:#089981;">रु. ${c.offerPrice}</strong> / <del style="color:#ef4444;">रु. ${c.origPrice}</del>
-                        </div>
-                        <div style="display:flex; gap:6px;">
-                            <button class="btn-nav-action btn-dashboard" style="padding:0.4rem 0.7rem; font-size:0.8rem; height: 30px;" onclick="loadCourseToEdit('${c.key}', '${c.title.replace(/'/g, "\\'")}', ${c.origPrice}, ${c.offerPrice}, '${descSafe}')">Edit</button>
-                            <button class="btn-reset" onclick="deleteCourseFromAdmin('${c.key}')">Delete</button>
-                        </div>
+                    <div style="background:#ffffff; border:1px solid #cbd5e1; padding:0.6rem; border-radius:6px; display:flex; justify-content:space-between; align-items:center;">
+                        <div><strong>${c.title}</strong> - <span style="color:#089981;">रु. ${c.offerPrice}</span> / <del style="color:#ef4444;">रु. ${c.origPrice}</del></div>
+                        <button class="btn-reset" onclick="deleteCourseFromAdmin('${c.key}')">Delete</button>
                     </div>`;
             });
         }
 
         async function deleteCourseFromAdmin(key) {
-            if (confirm("के तपाईं यो हटाउन चाहनुहुन्छ?")) {
+            if (confirm("कोर्स हटाउने?")) {
                 await db.collection("site_courses").doc(key).delete();
                 await loadCoursesFromFirebase();
-                renderAdminCoursesList();
             }
         }
 
-        // ================= LESSONS CRUD (UPLOAD, EDIT, DELETE) =================
-        function formatYouTubeUrl(input) {
-            input = input.trim();
-            let videoId = input;
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = input.match(regExp);
-            if (match && match[2].length === 11) {
-                videoId = match[2];
-            }
-            return `https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0&iv_load_policy=3&showinfo=0`;
-        }
-
+        // ================= LESSONS CRUD =================
         async function loadAdminLessons() {
             const courseKey = document.getElementById("uploadCourseSelect").value;
             const list = document.getElementById("adminLessonsList");
-            if (!courseKey) { list.innerHTML = "<small style='color:red;'>पहिले कोर्स छान्नुहोस्!</small>"; return; }
-
-            list.innerHTML = "<small>लोड हुँदैछ...</small>";
-            try {
-                const snap = await db.collection("courses").doc(courseKey).collection("lessons").orderBy("order").get();
-                list.innerHTML = "";
-
-                if (snap.empty) {
-                    list.innerHTML = "<small style='color:#d97706;'>यो कोर्समा कुनै भिडियो अपलोड गरिएको छैन।</small>";
-                    return;
-                }
-
-                snap.forEach(docSnap => {
-                    const l = docSnap.data();
-                    const descSafe = (l.desc || '').replace(/'/g, "\\'").replace(/\n/g, " ");
-                    const titleSafe = (l.title || '').replace(/'/g, "\\'");
-                    const vidSafe = (l.vid || '').replace(/'/g, "\\'");
-                    const resourceSafe = (l.resourceUrl || '').replace(/'/g, "\\'");
-
-                    list.innerHTML += `
-                        <div style="background:#ffffff; border:1px solid #cbd5e1; padding:0.6rem 0.8rem; border-radius:6px; display:flex; justify-content:space-between; align-items:center;">
-                            <div>
-                                <strong style="color:var(--dark);">${l.order || 1}. ${l.title}</strong>
-                            </div>
-                            <div style="display:flex; gap:6px;">
-                                <button class="btn-nav-action btn-dashboard" style="padding:0.4rem 0.7rem; font-size:0.8rem; height: 30px;" onclick="editAdminLesson('${docSnap.id}', ${l.order || 1}, '${titleSafe}', '${vidSafe}', '${resourceSafe}', '${descSafe}')">
-                                    <i class="fas fa-edit"></i> Edit
-                                </button>
-                                <button class="btn-reset" style="padding:0.4rem 0.7rem; font-size:0.8rem; height: 30px;" onclick="deleteAdminLesson('${docSnap.id}')">
-                                    <i class="fas fa-trash-alt"></i> Delete
-                                </button>
-                            </div>
-                        </div>`;
-                });
-            } catch (err) {
-                console.log("Lessons loading error:", err);
-                list.innerHTML = "<small style='color:red;'>भिडियो लोड गर्न समस्या भयो!</small>";
-            }
+            if (!courseKey) return;
+            const snap = await db.collection("courses").doc(courseKey).collection("lessons").orderBy("order").get();
+            list.innerHTML = "";
+            snap.forEach(docSnap => {
+                const l = docSnap.data();
+                list.innerHTML += `
+                    <div style="background:#ffffff; border:1px solid #cbd5e1; padding:0.5rem 0.8rem; border-radius:6px; display:flex; justify-content:space-between;">
+                        <div><strong>${l.order || 1}. ${l.title}</strong></div>
+                        <button class="btn-reset" style="padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="deleteLesson('${docSnap.id}')">Delete</button>
+                    </div>`;
+            });
         }
 
-        async function deleteAdminLesson(lessonId) {
-            if (confirm("के तपाईं यो भिडियो साँच्चै मेटाउन चाहनुहुन्छ?")) {
-                const courseKey = document.getElementById("uploadCourseSelect").value;
-                try {
-                    await db.collection("courses").doc(courseKey).collection("lessons").doc(lessonId).delete();
-                    alert("✅ भिडियो सफलतापूर्वक मेटाइयो!");
-                    loadAdminLessons();
-                } catch (e) {
-                    alert("Error: " + e.message);
-                }
+        async function deleteLesson(id) {
+            const courseKey = document.getElementById("uploadCourseSelect").value;
+            if (confirm("मेटाउने?")) {
+                await db.collection("courses").doc(courseKey).collection("lessons").doc(id).delete();
+                loadAdminLessons();
             }
-        }
-
-        function editAdminLesson(id, order, title, url, resourceUrl, desc) {
-            editingLessonId = id;
-            document.getElementById("adminLessonFormHeading").innerHTML = `<i class="fas fa-edit" style="color:#d97706;"></i> Edit Lesson (पाठ सच्याउनुहोस्)`;
-            document.getElementById("uploadLessonOrder").value = order;
-            document.getElementById("uploadLessonTitle").value = title;
-            document.getElementById("uploadLessonUrl").value = url;
-            document.getElementById("uploadLessonResource").value = resourceUrl || "";
-            document.getElementById("uploadLessonDesc").value = desc || "";
-
-            const btn = document.getElementById("publishLessonBtn");
-            btn.innerHTML = `<i class="fas fa-save"></i> Update Lesson`;
-            btn.style.background = "#d97706";
-
-            document.getElementById("cancelLessonEditBtn").style.display = "inline-flex";
-            document.getElementById("uploadLessonTitle").focus();
         }
 
         function resetLessonForm() {
             editingLessonId = null;
-            document.getElementById("adminLessonFormHeading").innerHTML = `<i class="fas fa-plus-circle"></i> Add New Lesson`;
             document.getElementById("uploadLessonTitle").value = "";
             document.getElementById("uploadLessonUrl").value = "";
             document.getElementById("uploadLessonResource").value = "";
             document.getElementById("uploadLessonDesc").value = "";
-            
-            const btn = document.getElementById("publishLessonBtn");
-            btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> Publish Lesson`;
-            btn.style.background = "#089981";
-
-            document.getElementById("cancelLessonEditBtn").style.display = "none";
         }
 
         async function saveLessonToFirebase() {
             const courseKey = document.getElementById("uploadCourseSelect").value;
             const order = parseInt(document.getElementById("uploadLessonOrder").value) || 1;
             const title = document.getElementById("uploadLessonTitle").value.trim();
-            let rawUrl = document.getElementById("uploadLessonUrl").value.trim();
+            const url = document.getElementById("uploadLessonUrl").value.trim();
             const resourceUrl = document.getElementById("uploadLessonResource").value.trim();
             const desc = document.getElementById("uploadLessonDesc").value.trim();
 
-            if (!title || !rawUrl) { alert("शीर्षक र भिडियो लिङ्क भर्नुहोस्!"); return; }
-
-            const safeVidUrl = formatYouTubeUrl(rawUrl);
-
-            const lessonData = {
-                order: order,
-                title: title,
-                vid: safeVidUrl,
-                resourceUrl: resourceUrl,
-                desc: desc
-            };
-
-            try {
-                if (editingLessonId) {
-                    await db.collection("courses").doc(courseKey).collection("lessons").doc(editingLessonId).update({
-                        ...lessonData,
-                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                    alert("✅ पाठ सफलतापूर्वक अपडेट गरियो!");
-                } else {
-                    await db.collection("courses").doc(courseKey).collection("lessons").add({
-                        ...lessonData,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                    alert("✅ नयाँ पाठ सफलतापूर्वक प्रकाशित गरियो!");
-                }
-
-                resetLessonForm();
-                document.getElementById("uploadLessonOrder").value = order + 1;
-                loadAdminLessons();
-            } catch (err) {
-                alert("Error: " + err.message);
-            }
+            if (!title || !url) { alert("शीर्षक र भिडियो लिङ्क भर्नुहोस्!"); return; }
+            await db.collection("courses").doc(courseKey).collection("lessons").add({
+                order, title, vid: url, resourceUrl, desc, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            alert("✅ प्रकाशित भयो!");
+            resetLessonForm();
+            loadAdminLessons();
         }
 
-        // ================= PAYMENT QR CODE MANAGEMENT =================
+        // ================= QR, COUPONS, NOTICES =================
         async function loadPaymentQrSettings() {
-            try {
-                const doc = await db.collection("settings").doc("payment_qr").get();
-                if (doc.exists && doc.data().imageUrl) {
-                    document.getElementById("adminQrPreviewImg").src = doc.data().imageUrl;
-                    document.getElementById("adminQrExistingUrl").value = doc.data().imageUrl;
-                }
-            } catch (e) {
-                console.log("QR Load error:", e);
+            const doc = await db.collection("settings").doc("payment_qr").get();
+            if (doc.exists && doc.data().imageUrl) {
+                document.getElementById("adminQrPreviewImg").src = doc.data().imageUrl;
+                document.getElementById("adminQrExistingUrl").value = doc.data().imageUrl;
             }
         }
 
         async function savePaymentQrToFirebase() {
             const fileInput = document.getElementById("adminQrFileInput");
             let imgData = document.getElementById("adminQrExistingUrl").value;
-
             if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
                 imgData = await new Promise((resolve) => {
                     const reader = new FileReader();
                     reader.onload = () => resolve(reader.result);
-                    reader.readAsDataURL(file);
+                    reader.readAsDataURL(fileInput.files[0]);
                 });
             }
-
-            if (!imgData) {
-                alert("कृपया QR Code को तस्विर छान्नुहोस्!");
-                return;
-            }
-
-            try {
-                await db.collection("settings").doc("payment_qr").set({
-                    imageUrl: imgData,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-
-                document.getElementById("adminQrPreviewImg").src = imgData;
-                document.getElementById("adminQrExistingUrl").value = imgData;
-                alert("✅ Payment QR Code सफलतापूर्वक अपडेट भयो!");
-            } catch (err) {
-                alert("Error: " + err.message);
-            }
+            await db.collection("settings").doc("payment_qr").set({ imageUrl: imgData, qrImage: imgData, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+            alert("✅ Payment QR सुरक्षित भयो!");
         }
 
-        // COUPONS
         async function saveCouponCode() {
             const code = document.getElementById("adminCouponCode").value.trim().toUpperCase();
             const percent = parseInt(document.getElementById("adminCouponPercent").value);
-            if (!code || isNaN(percent)) { alert("विवरण भर्नुहोस्!"); return; }
-            await db.collection("coupons").doc(code).set({ percent: percent });
-            alert("✅ कूपन सिर्जना भयो!");
+            if (!code || isNaN(percent)) return;
+            await db.collection("coupons").doc(code).set({ percent });
+            alert("✅ कूपन बन्यो!");
             loadAdminCoupons();
         }
 
@@ -1362,57 +1140,20 @@
             const snap = await db.collection("coupons").get();
             list.innerHTML = "";
             snap.forEach(doc => {
-                list.innerHTML += `<div style="background:white; border:1px solid #cbd5e1; padding:0.5rem; margin-bottom:4px; border-radius:4px; display:flex; justify-content:space-between;">
-                    <strong>${doc.id}</strong> <span>${doc.data().percent}% OFF</span>
-                </div>`;
+                list.innerHTML += `<div style="background:white; border:1px solid #cbd5e1; padding:0.5rem; margin-bottom:4px; border-radius:4px; display:flex; justify-content:space-between;"><strong>${doc.id}</strong> <span>${doc.data().percent}% OFF</span></div>`;
             });
         }
 
-        // NOTICES
         async function updateNoticeBanner(show) {
             const txt = document.getElementById("adminNoticeInput").value.trim();
             await db.collection("settings").doc("main").set({ showNotice: show, noticeText: txt });
             alert("✅ अपडेट भयो!");
         }
 
-        async function loadCurrentPhotoNoticeSettings() {
-            const doc = await db.collection("settings").doc("photo_notice").get();
-            if (doc.exists) {
-                const d = doc.data();
-                document.getElementById("adminPhotoNoticeTitle").value = d.title || "";
-                document.getElementById("adminPhotoNoticeExistingUrl").value = d.imageUrl || "";
-                document.getElementById("adminPhotoNoticeDesc").value = d.desc || "";
-                document.getElementById("adminPhotoNoticeShowBtn").value = d.showActionBtn ? "yes" : "no";
-            }
-        }
-
-        async function updatePhotoPopupNotice(enable) {
-            const title = document.getElementById("adminPhotoNoticeTitle").value.trim();
-            const desc = document.getElementById("adminPhotoNoticeDesc").value.trim();
-            const showBtn = document.getElementById("adminPhotoNoticeShowBtn").value === "yes";
-            const fileInput = document.getElementById("adminPhotoNoticeFile");
-            let imgData = document.getElementById("adminPhotoNoticeExistingUrl").value;
-
-            if (enable && fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                imgData = await new Promise((resolve) => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result);
-                    reader.readAsDataURL(file);
-                });
-            }
-
-            await db.collection("settings").doc("photo_notice").set({
-                enabled: enable, title: title, imageUrl: imgData, desc: desc, showActionBtn: showBtn
-            });
-            alert(enable ? "✅ फोटो नोटिस सक्रिय भयो!" : "❌ फोटो नोटिस बन्द गरियो!");
-        }
-
-        // SECURITY
         async function updateAdminCredentialsFromPanel() {
             const u = document.getElementById("adminNewUsernameInput").value.trim();
             const p = document.getElementById("adminNewPasswordInput").value.trim();
-            if (!u || !p) { alert("विवरण खाली हुन सक्दैन!"); return; }
+            if (!u || !p) return;
             await db.collection("settings").doc("admin_auth").set({ username: u, password: p });
             currentAdminUsername = u;
             currentAdminPin = p;

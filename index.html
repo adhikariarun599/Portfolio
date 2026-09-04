@@ -264,7 +264,7 @@
             color: var(--text-main);
         }
 
-        /* BLOG / ARTICLES SECTION (ADDED FOR ADSENSE APPROVAL) */
+        /* DYNAMIC ARTICLES SECTION */
         .blog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -522,26 +522,14 @@
         </div>
     </section>
 
-    <!-- ARTICLES / BLOG SECTION (ADDED FOR ADSENSE VALUE) -->
+    <!-- ARTICLES / BLOG SECTION (LOADED FROM FIREBASE) -->
     <section id="articles" style="background:#ffffff; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
         <h2 class="section-title">Financial & Tech Insights</h2>
         <p class="section-sub">Articles and guides on stock market analysis, web development, and digital skills</p>
-        
-        <div class="blog-grid">
+        <div id="publicArticlesGrid" class="blog-grid">
             <div class="blog-card">
-                <h3>NEPSE Technical Analysis Basics</h3>
-                <p>Understanding candlestick patterns, support, resistance levels, and volume analysis for smart stock trading decisions in Nepal.</p>
-                <span style="color:var(--primary); font-size:0.85rem; font-weight:650;">Read More &rarr;</span>
-            </div>
-            <div class="blog-card">
-                <h3>Modern Web Development with GitHub & Firebase</h3>
-                <p>A complete beginner guide to hosting static portfolio websites on GitHub Pages and managing backend data securely using Firebase.</p>
-                <span style="color:var(--primary); font-size:0.85rem; font-weight:650;">Read More &rarr;</span>
-            </div>
-            <div class="blog-card">
-                <h3>Microfinance and Financial Literacy</h3>
-                <p>How financial literacy, budgeting, and micro-savings empower rural communities and small business owners toward financial stability.</p>
-                <span style="color:var(--primary); font-size:0.85rem; font-weight:650;">Read More &rarr;</span>
+                <h3>Loading Articles...</h3>
+                <p>Please wait while articles load from database.</p>
             </div>
         </div>
     </section>
@@ -577,6 +565,7 @@
                 <button class="admin-tab-btn" onclick="switchAdminTab('students', this)"><i class="fas fa-users"></i> All Students</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('courses', this)"><i class="fas fa-book"></i> Courses & Pricing</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('lessons', this)"><i class="fas fa-video"></i> Upload Lessons</button>
+                <button class="admin-tab-btn" onclick="switchAdminTab('articles', this)"><i class="fas fa-newspaper" style="color:#2563eb;"></i> Manage Articles</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('paymentQr', this)"><i class="fas fa-qrcode"></i> Payment QR</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('coupons', this)"><i class="fas fa-tags"></i> Coupons</button>
                 <button class="admin-tab-btn" onclick="switchAdminTab('notice', this)"><i class="fas fa-bullhorn"></i> Site Notice</button>
@@ -662,6 +651,21 @@
                 </div>
                 <hr style="margin: 20px 0 10px 0; border: 0; border-top: 1px solid #cbd5e1;">
                 <div id="adminLessonsList" style="display:flex; flex-direction:column; gap:6px;"></div>
+            </div>
+
+            <!-- TAB NEW: MANAGE ARTICLES -->
+            <div id="adminTabArticles" class="admin-tab-pane" style="display:none; background:#f8fafc; padding:1.2rem; border-radius:8px; border:1px solid #e2e8f0;">
+                <h3 style="margin-bottom:0.8rem; color:var(--dark);"><i class="fas fa-newspaper" style="color:#2563eb;"></i> Add New Article for AdSense</h3>
+                <div style="margin-bottom:10px;">
+                    <input type="text" id="adminArticleTitle" placeholder="Article Title (शीर्षक)" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; font-size:1rem;">
+                </div>
+                <div style="margin-bottom:10px;">
+                    <textarea id="adminArticleDesc" rows="4" placeholder="Article Content / Summary (लेखको पूरा विवरण...)" style="width:100%; padding:0.6rem; border:1px solid #cbd5e1; border-radius:6px; font-family:inherit; font-size:0.95rem;"></textarea>
+                </div>
+                <button class="btn-nav-action btn-courses" style="width:100%; justify-content:center; margin-bottom:1.5rem;" onclick="saveNewArticleToFirebase()"><i class="fas fa-plus-circle"></i> Publish Article</button>
+                
+                <h4 style="margin-bottom:8px;">Existing Published Articles:</h4>
+                <div id="adminArticlesList" style="display:flex; flex-direction:column; gap:6px;"></div>
             </div>
 
             <!-- TAB 4: PAYMENT QR -->
@@ -766,6 +770,7 @@
             await listenToSettings();
             await loadAdminSecuritySettings();
             await loadCoursesFromFirebase();
+            await loadPublicArticles();
         });
 
         async function listenToSettings() {
@@ -861,6 +866,80 @@
             if (isAdminLoggedIn) renderAdminCoursesList();
         }
 
+        // ================= PUBLIC & ADMIN ARTICLES =================
+        async function loadPublicArticles() {
+            const grid = document.getElementById("publicArticlesGrid");
+            try {
+                const snap = await db.collection("site_articles").orderBy("createdAt", "desc").get();
+                if (snap.empty) {
+                    grid.innerHTML = `
+                        <div class="blog-card">
+                            <h3>NEPSE Technical Analysis Basics</h3>
+                            <p>Understanding candlestick patterns, support, resistance levels, and volume analysis for smart stock trading decisions in Nepal.</p>
+                        </div>
+                        <div class="blog-card">
+                            <h3>Modern Web Development with GitHub & Firebase</h3>
+                            <p>A complete beginner guide to hosting static portfolio websites on GitHub Pages and managing backend data securely using Firebase.</p>
+                        </div>`;
+                    return;
+                }
+                grid.innerHTML = "";
+                snap.forEach(doc => {
+                    const art = doc.data();
+                    grid.innerHTML += `
+                        <div class="blog-card">
+                            <h3>${art.title}</h3>
+                            <p>${art.desc}</p>
+                            <span style="color:var(--primary); font-size:0.85rem; font-weight:650;">Published Article</span>
+                        </div>`;
+                });
+            } catch(e) {
+                grid.innerHTML = `<p style="color:red;">Error loading articles.</p>`;
+            }
+        }
+
+        async function loadAdminArticlesList() {
+            const list = document.getElementById("adminArticlesList");
+            const snap = await db.collection("site_articles").orderBy("createdAt", "desc").get();
+            list.innerHTML = "";
+            if (snap.empty) {
+                list.innerHTML = `<p style="color:#64748b; font-size:0.9rem;">कुनै पनि आर्टिकल छैन।</p>`;
+                return;
+            }
+            snap.forEach(doc => {
+                const a = doc.data();
+                const aid = doc.id;
+                list.innerHTML += `
+                    <div style="background:white; border:1px solid #cbd5e1; padding:0.6rem; border-radius:6px; display:flex; justify-content:space-between; align-items:center;">
+                        <div><strong>${a.title}</strong><br><small style="color:#64748b;">${a.desc.substring(0, 50)}...</small></div>
+                        <button class="btn-reset" onclick="deleteArticle('${aid}')">Delete</button>
+                    </div>`;
+            });
+        }
+
+        async function saveNewArticleToFirebase() {
+            const title = document.getElementById("adminArticleTitle").value.trim();
+            const desc = document.getElementById("adminArticleDesc").value.trim();
+            if (!title || !desc) { alert("शीर्षक र विवरण दुवै भर्नुहोस्!"); return; }
+            
+            await db.collection("site_articles").add({
+                title, desc, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            alert("✅ आर्टिकल सफलतापूर्वक प्रकाशित भयो!");
+            document.getElementById("adminArticleTitle").value = "";
+            document.getElementById("adminArticleDesc").value = "";
+            loadAdminArticlesList();
+            loadPublicArticles();
+        }
+
+        async function deleteArticle(id) {
+            if (confirm("के तपाईं यो आर्टिकल मेटाउन चाहनुहुन्छ?")) {
+                await db.collection("site_articles").doc(id).delete();
+                loadAdminArticlesList();
+                loadPublicArticles();
+            }
+        }
+
         function switchAdminTab(tabName, btn) {
             document.querySelectorAll(".admin-tab-pane").forEach(p => p.style.display = "none");
             document.querySelectorAll(".admin-tab-btn").forEach(b => b.classList.remove("active"));
@@ -870,6 +949,7 @@
             if (tabName === 'students') { document.getElementById("adminTabStudents").style.display = "block"; loadStudentsRealtime(); }
             if (tabName === 'courses') { document.getElementById("adminTabCourses").style.display = "block"; renderAdminCoursesList(); }
             if (tabName === 'lessons') { document.getElementById("adminTabLessons").style.display = "block"; loadAdminLessons(); }
+            if (tabName === 'articles') { document.getElementById("adminTabArticles").style.display = "block"; loadAdminArticlesList(); }
             if (tabName === 'paymentQr') { document.getElementById("adminTabPaymentQr").style.display = "block"; loadPaymentQrSettings(); }
             if (tabName === 'coupons') { document.getElementById("adminTabCoupons").style.display = "block"; loadAdminCoupons(); }
             if (tabName === 'notice') { document.getElementById("adminTabNotice").style.display = "block"; }

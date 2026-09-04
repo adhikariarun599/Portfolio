@@ -116,7 +116,6 @@
 
         .nav-links a.nav-item:hover { color: var(--primary); }
 
-        /* UNIFORM SAME-SIZED NAVBAR BUTTONS */
         .btn-nav-action {
             display: inline-flex;
             align-items: center;
@@ -265,6 +264,35 @@
             color: var(--text-main);
         }
 
+        /* BLOG / ARTICLES SECTION (ADDED FOR ADSENSE APPROVAL) */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .blog-card {
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .blog-card h3 {
+            font-size: 1.15rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card p {
+            font-size: 0.92rem;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
         /* MODALS */
         .modal {
             display: none;
@@ -391,6 +419,7 @@
             <li><a href="#about" class="nav-item" onclick="closeMobileMenu()">About</a></li>
             <li><a href="#achievements" class="nav-item" onclick="closeMobileMenu()">Achievements</a></li>
             <li><a href="#services" class="nav-item" onclick="closeMobileMenu()">Services</a></li>
+            <li><a href="#articles" class="nav-item" onclick="closeMobileMenu()">Articles</a></li>
             
             <li>
                 <a href="https://courses.arunadhikari.com.np" class="btn-nav-action btn-courses" target="_blank">
@@ -489,6 +518,30 @@
             <div class="service-card">
                 <h3><i class="fas fa-chalkboard-teacher" style="color:var(--icon-yellow);"></i> Practical Mentorship</h3>
                 <p><span class="highlight-dark-blue">One-on-One training</span> for students in NEPSE technical analysis and modern tech skills.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARTICLES / BLOG SECTION (ADDED FOR ADSENSE VALUE) -->
+    <section id="articles" style="background:#ffffff; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
+        <h2 class="section-title">Financial & Tech Insights</h2>
+        <p class="section-sub">Articles and guides on stock market analysis, web development, and digital skills</p>
+        
+        <div class="blog-grid">
+            <div class="blog-card">
+                <h3>NEPSE Technical Analysis Basics</h3>
+                <p>Understanding candlestick patterns, support, resistance levels, and volume analysis for smart stock trading decisions in Nepal.</p>
+                <span style="color:var(--primary); font-size:0.85rem; font-weight:650;">Read More &rarr;</span>
+            </div>
+            <div class="blog-card">
+                <h3>Modern Web Development with GitHub & Firebase</h3>
+                <p>A complete beginner guide to hosting static portfolio websites on GitHub Pages and managing backend data securely using Firebase.</p>
+                <span style="color:var(--primary); font-size:0.85rem; font-weight:650;">Read More &rarr;</span>
+            </div>
+            <div class="blog-card">
+                <h3>Microfinance and Financial Literacy</h3>
+                <p>How financial literacy, budgeting, and micro-savings empower rural communities and small business owners toward financial stability.</p>
+                <span style="color:var(--primary); font-size:0.85rem; font-weight:650;">Read More &rarr;</span>
             </div>
         </div>
     </section>
@@ -834,7 +887,6 @@
             switchAdminTab('pending');
         }
 
-        // ================= 1. PENDING VERIFICATIONS & APPROVE =================
         async function loadPendingEnrollments() {
             const tbody = document.getElementById("adminPendingTableBody");
             tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">लोड हुँदैछ...</td></tr>`;
@@ -945,7 +997,6 @@
             }
         }
 
-        // ================= 2. ALL STUDENTS REALTIME =================
         function loadStudentsRealtime() {
             const tbody = document.getElementById("adminUserTableBody");
             tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">लोड हुँदैछ...</td></tr>`;
@@ -1012,7 +1063,6 @@
             }
         }
 
-        // ================= COURSES CRUD =================
         async function saveCourseFromAdmin() {
             const title = document.getElementById("adminNewCourseTitle").value.trim();
             const key = document.getElementById("adminNewCourseKey").value.trim().toLowerCase();
@@ -1055,7 +1105,6 @@
             }
         }
 
-        // ================= LESSONS CRUD =================
         async function loadAdminLessons() {
             const courseKey = document.getElementById("uploadCourseSelect").value;
             const list = document.getElementById("adminLessonsList");
@@ -1105,7 +1154,6 @@
             loadAdminLessons();
         }
 
-        // ================= QR, COUPONS, NOTICES =================
         async function loadPaymentQrSettings() {
             const doc = await db.collection("settings").doc("payment_qr").get();
             if (doc.exists && doc.data().imageUrl) {
@@ -1164,7 +1212,6 @@
 
         function closeModal(id) { document.getElementById(id).style.display = "none"; }
 
-        // TYPING ANIMATION
         const roleItems = [
             { text: "Investor", class: "highlight-dark-blue" }, { text: " | ", class: "separator" },
             { text: "Trader", class: "highlight-yellow" }, { text: " | ", class: "separator" },

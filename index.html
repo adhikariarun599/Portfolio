@@ -264,35 +264,6 @@
             color: var(--text-main);
         }
 
-        /* DYNAMIC ARTICLES SECTION */
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .blog-card {
-            background: #ffffff;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .blog-card h3 {
-            font-size: 1.15rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .blog-card p {
-            font-size: 0.92rem;
-            color: var(--text-main);
-            margin-bottom: 1rem;
-        }
-
         /* MODALS */
         .modal {
             display: none;
@@ -515,18 +486,6 @@
             <div class="service-card">
                 <h3><i class="fas fa-chalkboard-teacher" style="color:var(--icon-yellow);"></i> Practical Mentorship</h3>
                 <p><span class="highlight-dark-blue">One-on-One training</span> for students in NEPSE technical analysis and modern tech skills.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ARTICLES / BLOG SECTION (LOADED FROM FIREBASE) -->
-    <section id="articles" style="background:#ffffff; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
-        <h2 class="section-title">Financial & Tech Insights</h2>
-        <p class="section-sub">Articles and guides on stock market analysis, web development, and digital skills</p>
-        <div id="publicArticlesGrid" class="blog-grid">
-            <div class="blog-card">
-                <h3>Loading Articles...</h3>
-                <p>Please wait while articles load from database.</p>
             </div>
         </div>
     </section>
@@ -767,7 +726,6 @@
             await listenToSettings();
             await loadAdminSecuritySettings();
             await loadCoursesFromFirebase();
-            await loadPublicArticles();
         });
 
         async function listenToSettings() {
@@ -863,38 +821,7 @@
             if (isAdminLoggedIn) renderAdminCoursesList();
         }
 
-        // ================= PUBLIC & ADMIN ARTICLES =================
-        async function loadPublicArticles() {
-            const grid = document.getElementById("publicArticlesGrid");
-            try {
-                const snap = await db.collection("site_articles").orderBy("createdAt", "desc").get();
-                if (snap.empty) {
-                    grid.innerHTML = `
-                        <div class="blog-card">
-                            <h3>NEPSE Technical Analysis Basics</h3>
-                            <p>Understanding candlestick patterns, support, resistance levels, and volume analysis for smart stock trading decisions in Nepal.</p>
-                        </div>
-                        <div class="blog-card">
-                            <h3>Modern Web Development with GitHub & Firebase</h3>
-                            <p>A complete beginner guide to hosting static portfolio websites on GitHub Pages and managing backend data securely using Firebase.</p>
-                        </div>`;
-                    return;
-                }
-                grid.innerHTML = "";
-                snap.forEach(doc => {
-                    const art = doc.data();
-                    grid.innerHTML += `
-                        <div class="blog-card">
-                            <h3>${art.title}</h3>
-                            <p>${art.desc}</p>
-                            <span style="color:var(--primary); font-size:0.85rem; font-weight:650;">Published Article</span>
-                        </div>`;
-                });
-            } catch(e) {
-                grid.innerHTML = `<p style="color:red;">Error loading articles.</p>`;
-            }
-        }
-
+        // ================= ADMIN ARTICLES MANAGEMENT =================
         async function loadAdminArticlesList() {
             const list = document.getElementById("adminArticlesList");
             const snap = await db.collection("site_articles").orderBy("createdAt", "desc").get();
@@ -922,18 +849,16 @@
             await db.collection("site_articles").add({
                 title, desc, createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
-            alert("✅ आर्टिकल सफलतापूर्वक प्रकाशित भयो!");
+            alert("✅ आर्टिकल सफलतापूर्वक प्रकाशित भयो! (यो अब न्युज पोर्टलमा देखिनेछ)");
             document.getElementById("adminArticleTitle").value = "";
             document.getElementById("adminArticleDesc").value = "";
             loadAdminArticlesList();
-            loadPublicArticles();
         }
 
         async function deleteArticle(id) {
             if (confirm("के तपाईं यो आर्टिकल मेटाउन चाहनुहुन्छ?")) {
                 await db.collection("site_articles").doc(id).delete();
                 loadAdminArticlesList();
-                loadPublicArticles();
             }
         }
 

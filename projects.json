@@ -1,1 +1,16 @@
-
+[
+  {
+    "id": 1,
+    "title": "Official Municipality Logo Design",
+    "description": "Designed and created the official municipal identity logo for Shitaganga Municipality, Arghakhanchi.",
+    "tech": ["Adobe Illustrator", "Photoshop", "Branding"],
+    "link": "#"
+  },
+  {
+    "id": 2,
+    "title": "Financial Literacy & Web Platform",
+    "description": "Educational platform and tools to help rural users learn about savings, budgeting, and digital safety.",
+    "tech": ["HTML", "CSS", "JavaScript", "Firebase"],
+    "link": "https://arunadhikari.com.np"
+  }
+]

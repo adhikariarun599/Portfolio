@@ -243,7 +243,7 @@
         }
         .muni-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* SERVICES GRID */
+        /* SERVICES GRID & CARDS */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -255,14 +255,20 @@
         .service-card {
             background: #ffffff;
             padding: 1.4rem;
-            border-radius: 10px;
-            border: 1px solid var(--card-border);
-            transition: all 0.2s;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            box-shadow: 
+                0 0 0 2px var(--primary),
+                0 4px 6px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
         }
 
         .service-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            background: #f0fdf4; /* Light Green background */
+            box-shadow: 
+                0 0 0 2px var(--primary),
+                0 8px 16px rgba(0,0,0,0.05);
         }
 
         .service-card h3 {

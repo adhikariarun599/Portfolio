@@ -71,3 +71,17 @@ function typeAllRoles() {
     if (charIndex < item.text.length) setTimeout(typeAllRoles, 45);
     else { charIndex = 0; itemIndex++; setTimeout(typeAllRoles, 70); }
 }
+async function loadProjects() {
+    try {
+        const response = await fetch('projects.json');
+        const projects = await response.json();
+        
+        // यदि तपाईं वेबसाइटमा प्रोजेक्ट देखाउने कुनै विशेष section (जस्तै id="projectsGrid") बनाउन चाहनुहुन्छ भने यहाँ कोड लेख्न सकिन्छ।
+        console.log("Loaded Projects:", projects);
+    } catch (error) {
+        console.error("Error loading projects:", error);
+    }
+}
+
+// पेज लोड हुँदा प्रोजेक्ट्स लोड गर्ने
+document.addEventListener("DOMContentLoaded", loadProjects);

@@ -1,1 +1,311 @@
+:root {
+    --primary: #1e3a8a;
+    --primary-light: #1d4ed8;
+    --dark: #0f172a;
+    --gray-bg: #f8fafc;
+    --card-border: #e2e8f0;
+    --text-main: #334155;
+    --text-dark: #0f172a;
+    --icon-yellow: #d97706;
+    --green-bull: #089981;
+    --red-bear: #f23645;
+}
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--gray-bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    font-size: 1.05rem;
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* LIVE NOTICE BANNER */
+#siteNoticeBanner {
+    background: linear-gradient(90deg, #d97706, #b45309);
+    color: #ffffff;
+    padding: 0.5rem 5%;
+    font-size: 0.92rem;
+    font-weight: 600;
+    display: none;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    z-index: 1000;
+    padding: 0.7rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: top 0.3s ease;
+}
+
+.logo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.candlestick-chart-svg { display: inline-flex; align-items: center; }
+
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: var(--dark);
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+/* MENU BUTTON BOX STYLES */
+.nav-box-item {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 8px 14px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #ffffff !important;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    line-height: 1;
+}
+.nav-box-item:hover { opacity: 0.9; }
+
+/* Different Colors for Each Button Box */
+.box-about { background: #334155; }
+.box-achievements { background: #d97706; }
+.box-services { background: #4f46e5; }
+.box-news { background: #2563eb; }
+.box-courses { background: #089981; }
+
+/* HERO SECTION */
+.hero {
+    min-height: 80vh;
+    padding: 110px 5% 50px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    background: #ffffff;
+}
+
+.hero-content { flex: 1.2; }
+.greeting { color: var(--primary-light); font-weight: 600; font-size: 1.15rem; }
+.hero-content h1 { font-size: 3rem; color: var(--dark); margin-bottom: 0.2rem; }
+.location { color: #64748b; margin-bottom: 0.8rem; font-size: 1rem; }
+.roles { font-size: 1.2rem; font-weight: 600; color: var(--primary); min-height: 2.2rem; display: flex; align-items: center; flex-wrap: wrap; }
+.highlight-dark-blue { color: #1e3a8a; font-weight: 700; }
+.highlight-yellow { color: #d97706; font-weight: 700; }
+
+.hero-buttons { margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-image-container { flex: 0.8; display: flex; justify-content: center; align-items: center; }
+.profile-img-box {
+    width: 280px;
+    height: 280px;
+    background: #e2e8f0;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: morphBlob 8s ease-in-out infinite;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(30, 58, 138, 0.15);
+    border: 4px solid #1e3a8a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+@keyframes morphBlob {
+    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+section { padding: 50px 5%; }
+.section-title { text-align: center; font-size: 1.85rem; color: var(--dark); margin-bottom: 0.5rem; }
+.section-sub { text-align: center; color: #64748b; margin-bottom: 1.8rem; font-size: 0.95rem; }
+
+.about-box {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 1.8rem;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+/* ACHIEVEMENTS */
+.achievement-card {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.muni-logo-box {
+    width: 130px;
+    height: 130px;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.muni-logo-box img { width: 100%; height: 100%; object-fit: contain; }
+
+/* SERVICES GRID */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: #ffffff;
+    padding: 1.4rem;
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+    transition: all 0.2s;
+}
+
+.service-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+}
+
+.service-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--dark);
+    font-size: 1.15rem;
+}
+
+.service-card p {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+/* MODALS */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.modal-content {
+    background: #ffffff;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 650px;
+    padding: 1.5rem;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.2rem;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #64748b;
+}
+
+footer { background: var(--dark); color: #94a3b8; text-align: center; padding: 2.5rem 1rem; }
+.social-links { display: flex; justify-content: center; gap: 1rem; list-style: none; margin-top: 0.8rem; }
+.social-btn { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; color: #ffffff; text-decoration: none; font-size: 1.1rem; }
+.social-btn.facebook { background: #1877f2; }
+.social-btn.youtube { background: #ff0000; }
+.social-btn.whatsapp { background: #25d366; }
+
+@media (max-width: 850px) {
+    .menu-toggle { display: block; }
+    .nav-links {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: #ffffff;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem;
+        gap: 1.2rem;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .nav-links.active { left: 0; }
+    .hero { flex-direction: column-reverse; text-align: center; padding-top: 90px; gap: 1.5rem; }
+    .hero-content { display: flex; flex-direction: column; align-items: center; }
+    .hero-content h1 { font-size: 2.3rem; }
+    .roles { justify-content: center; font-size: 1.1rem; }
+    .hero-buttons { justify-content: center; width: 100%; }
+    .hero-buttons .btn-nav-action { width: 100%; max-width: 280px; }
+    .profile-img-box { width: 220px; height: 220px; }
+    .achievement-card { flex-direction: column; text-align: center; }
+    .muni-logo-box { margin: 0 auto; }
+}

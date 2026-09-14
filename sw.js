@@ -47,7 +47,7 @@ function closeModal(id) {
 
 const roleItems = [
     { text: "Investor", class: "highlight-dark-blue" }, { text: " | ", class: "separator" },
-    { text: "Trader", class: "highlight-yellow" }, { text: " | ", class: "separator" },
+    { text: "Ai Automation", class: "highlight-yellow" }, { text: " | ", class: "separator" },
     { text: "Graphic Designer", class: "highlight-dark-blue" }, { text: " | ", class: "separator" },
     { text: "Web Developer", class: "highlight-yellow" }
 ];
